@@ -1,24 +1,16 @@
 package tr.net.terzioglu.pfsak;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Base64;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.Cipher;
-import org.tukaani.xz.XZInputStream;
 
 public class Main {
 
@@ -31,27 +23,10 @@ public class Main {
     final private static String pass = "bt12345";
 
     private Scanner sc = new Scanner(System.in);
-
     private int x;
-    private String y = sc.nextLine();
+    private String y;// = sc.nextLine();
 
-    public static void main(String[] args) throws SQLException, IOException {
-        System.out.println("Bir adet objcontent verisi girilmesi lazım... ");
-        try {
-            Class.forName("org.postgresql.Driver");
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "posthre sql no available", ex);
-        }
-
-        Main obj = new Main();
-        byte[] data = obj.vtTest();
-        System.out.println(Base64.getMimeEncoder().encodeToString(data));
-
-        byte[] uncompressed = obj.xzTest(data);
-        System.out.println(new String(Base64.getMimeDecoder().decode(uncompressed)));
-    }
-
+//    private String y = sc.nextLine();
     private byte[] vtTest() {
         try ( Connection connection = DriverManager.getConnection(url, user, pass)) {
 
@@ -104,22 +79,83 @@ public class Main {
         return data;
     }
 
-    private byte[] xzTest(byte[] data) throws FileNotFoundException, IOException {
-        // decompress etmem lazım        
-        InputStream infile = new ByteArrayInputStream(data);
-        XZInputStream inxz = new XZInputStream(infile);
+    public static void main(String[] args) throws Exception {
 
-        ByteArrayOutputStream op = new ByteArrayOutputStream();
-        byte[] buffer = new byte[4000];
-        int n;
-        do {
-            n = inxz.read(buffer);
-            if (n >= 0) {
-                op.write(buffer, 0, n);
-            }
-        } while (n >= 0);
+        System.out.println("Bir adet veris girilmesi lazım... ");
+        try {
+            Class.forName("org.postgresql.Driver");
 
-        return op.toByteArray();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "postgre SQL not available", ex);
+        }
+
+//        Main obj = new Main();
+//        ExCompress c = new ExCompress();
+//
+//        byte[] data = obj.vtTest();
+//        System.out.println(Base64.getMimeEncoder().encodeToString(data));
+//
+//        byte[] uncompressedXZ = c.xzTestDecompressed(data);
+//        System.out.println(new String(Base64.getMimeDecoder().decode(uncompressedXZ)));
+//
+//        byte[] compressedXZ = c.xzTestCompressed(data);
+//        System.out.println(new String(Base64.getMimeDecoder().decode(compressedXZ)));
+// Samples...
+//        ExCompress c = new ExCompress();
+//        byte[] text = "berkay terzioğlu".getBytes("Utf-8");
+//        System.out.println("original: " + new String(text, "Utf-8"));
+//
+//        byte[] gzipcommpresResult = c.GzipFileCompress(text);
+//
+//        byte[] gzipdecommpresResult = c.GzipFileDecompress(gzipcommpresResult);
+//        System.out.println("gzip: " + new String(gzipdecommpresResult, "Utf-8"));
+//
+//        byte[] xzComp = c.xzTestCompressed(text);
+//
+//        byte[] xzDecomp = c.xzTestDecompressed(xzComp);
+//        System.out.println("xz: " + new String(xzDecomp, "Utf-8"));
+//        System.out.println("********************************************");
+//        byte[] zipComp = c.ZipFileCompress(text, "bbb.txt");
+//        new FileOutputStream("C:/Users/ufukt/Desktop/deneme.zip").write(zipComp);
+//        System.out.println("ZIP binary: " + new String(zipComp));
+//
+//        byte[] zipdeComp = c.ZipFileDecompress(zipComp, "bbb.txt");
+//        System.out.println("ZIP: " + new String(zipdeComp, "UTF-8"));
+// other Samples...
+        String b = "berkay terzioğlu";
+        byte[] text = b.getBytes("Utf-8");
+        System.out.println("original: " + new String(text, "Utf-8"));
+        HexBin_Converter hh = new HexBin_Converter();
+        byte[] hex = hh.binaryToHexConverter(text);
+        System.out.println("unhex : " + new String(hex, "UTF-8"));
+        byte[] unhex = hh.hexToBinaryConverter(hex);
+        System.out.println("hex : " + new String(unhex, "UTF-8"));
+        System.out.println("hex.length = " + hex.length);
+        System.out.println("unhex.length = " + unhex.length);
+        System.out.println("b.length() = " + b.length());
+
+        Compress gz = new GzipCompress();
+        byte[] gzipCom = gz.compress(text, null);
+        byte[] gzipDecomp = gz.decompress(gzipCom, null);
+        System.out.println("gzip: " + new String(gzipDecomp, "Utf-8"));
+
+        System.out.println("--------------------------------------------");
+        System.out.println();
+
+        Compress xz = new XZCompress();
+        byte[] xzComp = xz.compress(text, null);
+        byte[] xzDecomp = xz.decompress(xzComp, null);
+        System.out.println("xz: " + new String(xzDecomp, "Utf-8"));
+
+        System.out.println("********************************************");
+        System.out.println();
+        Compress z = new ZipCompress();
+        byte[] zipComp = z.compress(text, "bbb.txt");
+        new FileOutputStream("C:/Users/ufukt/Desktop/deneme.zip").write(zipComp);
+        System.out.println("ZIP binary: " + new String(zipComp));
+
+        byte[] zipdeComp = z.decompress(zipComp, "bbb.txt");
+        System.out.println("ZIP: " + new String(zipdeComp, "UTF-8"));
     }
 
 }
