@@ -105,7 +105,6 @@ public class Main {
     }
 
     private byte[] xzTest(byte[] data) throws FileNotFoundException, IOException {
-
         // decompress etmem lazım        
         InputStream infile = new ByteArrayInputStream(data);
         XZInputStream inxz = new XZInputStream(infile);
