@@ -125,10 +125,12 @@ public class Main {
         String b = "berkay terzioğlu";
         byte[] text = b.getBytes("Utf-8");
         System.out.println("original: " + new String(text, "Utf-8"));
-        HexBin_Converter hh = new HexBin_Converter();
-        byte[] hex = hh.binaryToHexConverter(text);
+        HexBin_Encode hh = new HexBin_Encode();
+        byte[] hex = hh.encode(text);
+        
         System.out.println("unhex : " + new String(hex, "UTF-8"));
-        byte[] unhex = hh.hexToBinaryConverter(hex);
+        byte[] unhex = hh.decode(hex);
+        
         System.out.println("hex : " + new String(unhex, "UTF-8"));
         System.out.println("hex.length = " + hex.length);
         System.out.println("unhex.length = " + unhex.length);
