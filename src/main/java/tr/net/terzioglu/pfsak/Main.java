@@ -1,13 +1,10 @@
 package tr.net.terzioglu.pfsak;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Base64;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,39 +122,64 @@ public class Main {
         String b = "berkay terzioğlu";
         byte[] text = b.getBytes("Utf-8");
         System.out.println("original: " + new String(text, "Utf-8"));
-        HexBin_Encode hh = new HexBin_Encode();
-        byte[] hex = hh.encode(text);
-        
-        System.out.println("unhex : " + new String(hex, "UTF-8"));
-        byte[] unhex = hh.decode(hex);
-        
-        System.out.println("hex : " + new String(unhex, "UTF-8"));
-        System.out.println("hex.length = " + hex.length);
-        System.out.println("unhex.length = " + unhex.length);
-        System.out.println("b.length() = " + b.length());
 
-        Compress gz = new GzipCompress();
-        byte[] gzipCom = gz.compress(text, null);
-        byte[] gzipDecomp = gz.decompress(gzipCom, null);
-        System.out.println("gzip: " + new String(gzipDecomp, "Utf-8"));
-
-        System.out.println("--------------------------------------------");
-        System.out.println();
-
-        Compress xz = new XZCompress();
-        byte[] xzComp = xz.compress(text, null);
-        byte[] xzDecomp = xz.decompress(xzComp, null);
-        System.out.println("xz: " + new String(xzDecomp, "Utf-8"));
-
-        System.out.println("********************************************");
-        System.out.println();
-        Compress z = new ZipCompress();
-        byte[] zipComp = z.compress(text, "bbb.txt");
-        new FileOutputStream("C:/Users/ufukt/Desktop/deneme.zip").write(zipComp);
-        System.out.println("ZIP binary: " + new String(zipComp));
-
-        byte[] zipdeComp = z.decompress(zipComp, "bbb.txt");
-        System.out.println("ZIP: " + new String(zipdeComp, "UTF-8"));
+        //ENCRYPTION TESTING
+//        Random r = new Random();
+//        byte[] keyValue = new byte[16];
+//        r.nextBytes(keyValue);
+//        Encryption ee = new AES_Encryption();
+//
+//        byte[] encripted = ee.encrypt(text, "AES", keyValue);
+//        System.out.println("AES encripted: " + new String(encripted, "UTF-8"));
+//        byte[] depcripted = ee.decrypt(encripted, "AES", keyValue);
+//        System.out.println("AES depcripted: " + new String(depcripted, "UTF-8"));
+//        System.out.println("");
+//        keyValue = new byte[8];
+//        r.nextBytes(keyValue);
+//        encripted = ee.encrypt(text, "DES", keyValue);
+//        System.out.println("DES encripted: " + new String(encripted, "UTF-8"));
+//        depcripted = ee.decrypt(encripted, "DES", keyValue);
+//        System.out.println("DES depcripted: " + new String(depcripted, "UTF-8"));
+//        System.out.println("");
+//        keyValue = new byte[24];
+//        r.nextBytes(keyValue);
+//        encripted = ee.encrypt(text, "DESede", keyValue);
+//        System.out.println("3DES encripted: " + new String(encripted, "UTF-8"));
+//        depcripted = ee.decrypt(encripted, "DESede", keyValue);
+//        System.out.println("3DES depcripted: " + new String(depcripted, "UTF-8"));
+//        HexBin_Encode hh = new HexBin_Encode();
+//        byte[] hex = hh.encode(text);
+//        
+//        System.out.println("unhex : " + new String(hex, "UTF-8"));
+//        byte[] unhex = hh.decode(hex);
+//        
+//        System.out.println("hex : " + new String(unhex, "UTF-8"));
+//        System.out.println("hex.length = " + hex.length);
+//        System.out.println("unhex.length = " + unhex.length);
+//        System.out.println("b.length() = " + b.length());
+//
+//        Compress gz = new GzipCompress();
+//        byte[] gzipCom = gz.compress(text, null);
+//        byte[] gzipDecomp = gz.decompress(gzipCom, null);
+//        System.out.println("gzip: " + new String(gzipDecomp, "Utf-8"));
+//
+//        System.out.println("--------------------------------------------");
+//        System.out.println();
+//
+//        Compress xz = new XZCompress();
+//        byte[] xzComp = xz.compress(text, null);
+//        byte[] xzDecomp = xz.decompress(xzComp, null);
+//        System.out.println("xz: " + new String(xzDecomp, "Utf-8"));
+//
+//        System.out.println("********************************************");
+//        System.out.println();
+//        Compress z = new ZipCompress();
+//        byte[] zipComp = z.compress(text, "bbb.txt");
+//        new FileOutputStream("C:/Users/ufukt/Desktop/deneme.zip").write(zipComp);
+//        System.out.println("ZIP binary: " + new String(zipComp));
+//
+//        byte[] zipdeComp = z.decompress(zipComp, "bbb.txt");
+//        System.out.println("ZIP: " + new String(zipdeComp, "UTF-8"));
     }
 
 }
