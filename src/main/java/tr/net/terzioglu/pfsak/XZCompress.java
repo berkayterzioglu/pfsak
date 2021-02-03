@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import org.tukaani.xz.LZMA2Options;
 import org.tukaani.xz.XZInputStream;
 import org.tukaani.xz.XZOutputStream;
@@ -31,20 +30,9 @@ public class XZCompress implements Compress {
         XZInputStream inxz = new XZInputStream(infile);
 
         ByteArrayOutputStream op = new ByteArrayOutputStream();
-        copyStream(inxz, op);
+        Utility.copyStream(inxz, op);
 
         return op.toByteArray();
-    }
-
-    private void copyStream(InputStream inxz, OutputStream op) throws IOException {
-        byte[] buffer = new byte[4000];
-        int n;
-        do {
-            n = inxz.read(buffer);
-            if (n >= 0) {
-                op.write(buffer, 0, n);
-            }
-        } while (n >= 0);
     }
 
 }

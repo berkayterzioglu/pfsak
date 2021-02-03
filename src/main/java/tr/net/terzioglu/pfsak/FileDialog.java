@@ -31,6 +31,13 @@ public class FileDialog extends javax.swing.JDialog {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jMenu2 = new javax.swing.JMenu();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        buttonGroup5 = new javax.swing.ButtonGroup();
+        buttonGroup6 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         fileName = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -40,7 +47,10 @@ public class FileDialog extends javax.swing.JDialog {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jMenu2.setText("jMenu2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(600, 400));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel1.setText("File name:");
@@ -87,7 +97,7 @@ public class FileDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jButton1)))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(445, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,7 +108,7 @@ public class FileDialog extends javax.swing.JDialog {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,13 +174,20 @@ public class FileDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.ButtonGroup buttonGroup6;
     private javax.swing.JTextField fileName;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     // End of variables declaration//GEN-END:variables
 
     private void convert() {

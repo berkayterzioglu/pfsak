@@ -18,7 +18,7 @@ public class Aes {
         String encryptedValue = new BASE64Encoder().encode(encVal);
         return encryptedValue;
     }
-
+   
     public static String decrypt(String encryptedData) throws Exception {
         Key key = generateKey();
         Cipher c = Cipher.getInstance(ALGO);
