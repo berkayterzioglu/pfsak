@@ -61,6 +61,11 @@ public class CompressConfigDialog extends javax.swing.JDialog {
         });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "XZ", "GZip", "Zip" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setSelected(true);
@@ -150,8 +155,8 @@ public class CompressConfigDialog extends javax.swing.JDialog {
 
                 break;
             case 2:
-                cc.setCompressionType(CompressConfig.Type.ZIP);
 
+                cc.setCompressionType(CompressConfig.Type.ZIP);
                 break;
         }
         if (jRadioButton1.isSelected()) {
@@ -164,6 +169,16 @@ public class CompressConfigDialog extends javax.swing.JDialog {
         setVisible(false);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        if (jComboBox1.getSelectedIndex() == 2) {
+            jTextField1.setEnabled(false);
+        } else {
+            jTextField1.setEnabled(true);
+
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,6 +239,7 @@ public class CompressConfigDialog extends javax.swing.JDialog {
     void setCompressConfig(CompressConfig aThis) {
         cc = aThis;
         jComboBox1.setSelectedIndex(cc.getCompressionType().ordinal());
+
         if (cc.isCompress()) {
             jRadioButton1.setSelected(true);
             jRadioButton2.setSelected(false);

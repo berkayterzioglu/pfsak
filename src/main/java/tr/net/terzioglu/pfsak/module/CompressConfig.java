@@ -1,12 +1,15 @@
 package tr.net.terzioglu.pfsak.module;
 
+import javax.swing.JFrame;
+
 public class CompressConfig implements UIConfig {
 
     @Override
-    public void showConfigDialog() {
-        CompressConfigDialog ccd = new CompressConfigDialog(null, true);
+    public void showConfigDialog(JFrame frame) {
+        CompressConfigDialog ccd = new CompressConfigDialog(frame, true);
 
         ccd.setCompressConfig(this);
+        ccd.setLocationRelativeTo(frame);
         ccd.setVisible(true);
 
     }
