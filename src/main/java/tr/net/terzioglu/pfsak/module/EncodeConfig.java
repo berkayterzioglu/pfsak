@@ -17,9 +17,9 @@ public class EncodeConfig implements UIConfig {
         BASE64, HEXBIN, UU
     }
 
-    private String fileName;
-    private Type encodeType;
-    private boolean encode; // false = deEncode
+    private String fileName = null;
+    private Type encodeType = Type.BASE64;
+    private boolean encode = true; // false = deEncode
 
     public String getFileName() {
         return fileName;
