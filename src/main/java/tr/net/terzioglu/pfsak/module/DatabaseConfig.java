@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 public class DatabaseConfig implements UIConfig {
 
     private String url = null;
+    private String driverName = null;
     private String user = null;
     private String password = null;
     private String table = null;
@@ -18,6 +19,14 @@ public class DatabaseConfig implements UIConfig {
         dcd.setDatabaseConfig(this);
         dcd.setLocationRelativeTo(frame);
         dcd.setVisible(true);
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
     }
 
     public String getTable() {
@@ -70,7 +79,7 @@ public class DatabaseConfig implements UIConfig {
 
     @Override
     public String toString() {
-        return "DatabaseConfig{" + "url=" + url + ", user=" + user + ", password=" + password + ", table=" + table + ", column=" + column + ", where=" + where + '}';
+        return "DatabaseConfig{" + "url=" + url + ", driverName=" + driverName + ", user=" + user + ", password=" + password + ", table=" + table + ", column=" + column + ", where=" + where + '}';
     }
 
 }
