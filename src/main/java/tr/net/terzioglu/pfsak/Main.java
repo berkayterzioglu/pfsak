@@ -76,7 +76,7 @@ public class Main {
         return data;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void nomain(String[] args) throws Exception {
 
         System.out.println("Bir adet veris girilmesi lazım... ");
         try {

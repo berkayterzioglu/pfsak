@@ -1,5 +1,13 @@
 package tr.net.terzioglu.pfsak;
 
+import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import tr.net.terzioglu.pfsak.module.CompressConfig;
+import tr.net.terzioglu.pfsak.module.DatabaseConfig;
+import tr.net.terzioglu.pfsak.module.UIConfig;
+
 public class MainPage extends javax.swing.JFrame {
 
     public MainPage() {
@@ -13,11 +21,12 @@ public class MainPage extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         pulse = new javax.swing.JButton();
         minus = new javax.swing.JButton();
-        createNew = new javax.swing.JButton();
+        runPipeline = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Main Page");
 
         jToolBar1.setRollover(true);
 
@@ -45,32 +54,29 @@ public class MainPage extends javax.swing.JFrame {
         });
         jToolBar1.add(minus);
 
-        createNew.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        createNew.setText("Create ");
-        createNew.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        createNew.setFocusable(false);
-        createNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        createNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        createNew.addActionListener(new java.awt.event.ActionListener() {
+        runPipeline.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        runPipeline.setText("Run >> ");
+        runPipeline.setActionCommand("");
+        runPipeline.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        runPipeline.setFocusable(false);
+        runPipeline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        runPipeline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        runPipeline.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                runPipelineMouseClicked(evt);
+            }
+        });
+        runPipeline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createNewActionPerformed(evt);
+                runPipelineActionPerformed(evt);
             }
         });
-        jToolBar1.add(createNew);
+        jToolBar1.add(runPipeline);
 
-        list.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "New events", "asdads" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        list.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                listAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-                listAncestorRemoved(evt);
+        list.setModel(new javax.swing.DefaultListModel());
+        list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(list);
@@ -86,8 +92,8 @@ public class MainPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
         );
 
         pack();
@@ -96,27 +102,71 @@ public class MainPage extends javax.swing.JFrame {
     private void pulseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulseActionPerformed
 
         Options dialog = new Options(this, true);
+        dialog.setModel((DefaultListModel) list.getModel());
         dialog.setVisible(true);
+        dialog.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_pulseActionPerformed
 
-    private void listAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_listAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listAncestorAdded
-
-    private void listAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_listAncestorRemoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listAncestorRemoved
-
-    private void createNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewActionPerformed
-
-
-    }//GEN-LAST:event_createNewActionPerformed
-
     private void minusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusActionPerformed
+        int index = list.getSelectedIndex();
+        ((DefaultListModel) list.getModel()).remove(index);
+        int size = list.getModel().getSize();
 
+        if (size == 0) {
+            minus.setEnabled(false);
+
+        }
 
     }//GEN-LAST:event_minusActionPerformed
+
+    private void runPipelineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runPipelineMouseClicked
+
+
+    }//GEN-LAST:event_runPipelineMouseClicked
+
+    private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+
+            // Double-click detected
+            int index = list.locationToIndex(evt.getPoint());
+            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            UIConfig config = (UIConfig) defaultListModel.get(index);
+            config.showConfigDialog(this);
+
+        }
+    }//GEN-LAST:event_listMouseClicked
+
+    private void runPipelineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runPipelineActionPerformed
+        // TODO add your handling code here:
+        int index = list.getSelectedIndex();
+        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+
+        if (defaultListModel.get(index) instanceof DatabaseConfig) {
+            DatabaseConfig config = (DatabaseConfig) defaultListModel.get(index);
+            DatabaseExecutor databaseExecutor = new DatabaseExecutor();
+            try {
+                byte[] sonuc = databaseExecutor.execute(config, new byte[0]);
+                System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+            } catch (Exception ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (defaultListModel.get(index) instanceof CompressConfig) {
+            CompressConfig config = (CompressConfig) defaultListModel.get(index);
+            CompressExecutor compressExecutor = new CompressExecutor();
+            try {
+                byte[] sonuc = compressExecutor.execute(config, "berkayterzioglu".getBytes());
+                System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+            } catch (Exception ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+
+    }//GEN-LAST:event_runPipelineActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,12 +205,12 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createNew;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList<String> list;
     private javax.swing.JButton minus;
     private javax.swing.JButton pulse;
+    private javax.swing.JButton runPipeline;
     // End of variables declaration//GEN-END:variables
 
     public String selection(String s) {
@@ -188,6 +238,26 @@ public class MainPage extends javax.swing.JFrame {
                 break;
         }
 
+        return null;
+
+    }
+
+    public Compress compressSelect(String s) {
+
+        if (s.equalsIgnoreCase("xz")) {
+            Compress c = new XZCompress();
+            return c;
+
+        } else if (s.equalsIgnoreCase("gzip")) {
+            Compress c = new GzipCompress();
+            return c;
+
+        } else if (s.equalsIgnoreCase("zip")) {
+            Compress c = new ZipCompress();
+            return c;
+
+        }
+        System.out.println("Errror!!!");
         return null;
 
     }
