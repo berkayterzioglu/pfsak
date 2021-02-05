@@ -41,7 +41,7 @@ public class DatabaseExecutor {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NoMain.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -49,7 +49,7 @@ public class DatabaseExecutor {
                 try {
                     statement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NoMain.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

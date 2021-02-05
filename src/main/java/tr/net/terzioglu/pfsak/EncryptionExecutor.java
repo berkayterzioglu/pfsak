@@ -1,5 +1,6 @@
 package tr.net.terzioglu.pfsak;
 
+import java.util.Base64;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
 
 public class EncryptionExecutor {
@@ -8,6 +9,7 @@ public class EncryptionExecutor {
 
         Encryption e = new All_Encryption();
         String algo = null;
+        String keyValue = config.getKeyValue();
 
         switch (config.getEncryptionType()) {
             case AES:
@@ -22,9 +24,9 @@ public class EncryptionExecutor {
         }
 
         if (config.isEncrypt()) {
-            return e.encrypt(data, algo, keyValue);
+            return e.encrypt(data, algo, Base64.getMimeDecoder().decode(keyValue));
         } else {
-            return e.decrypt(data, algo, keyValue);
+            return e.decrypt(data, algo, Base64.getMimeDecoder().decode(keyValue));
 
         }
 
