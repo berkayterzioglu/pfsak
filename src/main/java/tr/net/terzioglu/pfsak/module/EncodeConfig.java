@@ -17,17 +17,8 @@ public class EncodeConfig implements UIConfig {
         BASE64, HEXBIN, UU
     }
 
-    private String fileName = null;
     private Type encodeType = Type.BASE64;
     private boolean encode = true; // false = deEncode
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
 
     public Type getEncodeType() {
         return encodeType;
@@ -47,7 +38,7 @@ public class EncodeConfig implements UIConfig {
 
     @Override
     public String toString() {
-        return "EncodeConfig{" + "fileName=" + fileName + ", encodeType=" + encodeType + ", encode=" + encode + '}';
+        return "EncodeConfig{" + "encodeType=" + encodeType + ", encode=" + encode + '}';
     }
 
 }
