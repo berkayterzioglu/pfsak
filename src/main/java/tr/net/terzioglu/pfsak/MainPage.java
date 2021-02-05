@@ -1,5 +1,8 @@
 package tr.net.terzioglu.pfsak;
 
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +30,19 @@ public class MainPage extends javax.swing.JFrame {
         runPipeline = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        fileMenu = new javax.swing.JMenu();
+        saveMenuItem = new javax.swing.JMenuItem();
+        exitMenuItem = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jToolBar1.setRollover(true);
 
@@ -79,6 +92,31 @@ public class MainPage extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(list);
 
+        fileMenu.setText("File");
+
+        saveMenuItem.setText("Save");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(saveMenuItem);
+
+        exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(exitMenuItem);
+
+        jMenuBar1.add(fileMenu);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,7 +129,7 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(646, 432));
@@ -104,6 +142,7 @@ public class MainPage extends javax.swing.JFrame {
         dialog.setModel((DefaultListModel) list.getModel());
         dialog.setVisible(true);
         dialog.setLocationRelativeTo(null);
+        minus.setEnabled(true);
 
     }//GEN-LAST:event_pulseActionPerformed
 
@@ -197,9 +236,48 @@ public class MainPage extends javax.swing.JFrame {
                 }
 
             }
+
         }
 
     }//GEN-LAST:event_runPipelineActionPerformed
+
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+
+        try {
+            // serialization
+            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            Object[] configs = new Object[defaultListModel.size()];
+            for (int index = 0; index < defaultListModel.size(); index++) {
+                configs[index] = defaultListModel.get(index);
+            }
+            XStream xstream = new XStream();
+
+            String result = xstream.toXML(configs);
+            FileProcessor fileProcessor = new FileProcessor();
+            fileProcessor.write(System.getProperty("user.home") + "/pfsak.configs", result.getBytes("UTF-8"));
+            System.out.println(result);
+        } catch (IOException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_saveMenuItemActionPerformed
+
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        System.exit(0);
+
+    }//GEN-LAST:event_exitMenuItemActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        XStream xstream = new XStream();
+        File f = new File(System.getProperty("user.home") + "/pfsak.configs");
+        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+
+        Object[] configs = (Object[]) xstream.fromXML(f);
+        for (int index = 0; index < configs.length; index++) {
+            defaultListModel.addElement(configs[index]);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -238,12 +316,17 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList<String> list;
     private javax.swing.JButton minus;
     private javax.swing.JButton pulse;
     private javax.swing.JButton runPipeline;
+    private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }
