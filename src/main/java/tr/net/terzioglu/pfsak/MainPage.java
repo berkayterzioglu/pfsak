@@ -6,6 +6,9 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import tr.net.terzioglu.pfsak.module.CompressConfig;
 import tr.net.terzioglu.pfsak.module.DatabaseConfig;
+import tr.net.terzioglu.pfsak.module.EncodeConfig;
+import tr.net.terzioglu.pfsak.module.EncryptConfig;
+import tr.net.terzioglu.pfsak.module.FileConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
 
 public class MainPage extends javax.swing.JFrame {
@@ -61,11 +64,6 @@ public class MainPage extends javax.swing.JFrame {
         runPipeline.setFocusable(false);
         runPipeline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         runPipeline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        runPipeline.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                runPipelineMouseClicked(evt);
-            }
-        });
         runPipeline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 runPipelineActionPerformed(evt);
@@ -85,7 +83,7 @@ public class MainPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
@@ -93,10 +91,11 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(646, 432));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void pulseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulseActionPerformed
@@ -120,11 +119,6 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_minusActionPerformed
 
-    private void runPipelineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runPipelineMouseClicked
-
-
-    }//GEN-LAST:event_runPipelineMouseClicked
-
     private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
@@ -140,31 +134,70 @@ public class MainPage extends javax.swing.JFrame {
 
     private void runPipelineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runPipelineActionPerformed
         // TODO add your handling code here:
-        int index = list.getSelectedIndex();
+
         DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+        byte[] sonuc = new byte[0];
 
-        if (defaultListModel.get(index) instanceof DatabaseConfig) {
-            DatabaseConfig config = (DatabaseConfig) defaultListModel.get(index);
-            DatabaseExecutor databaseExecutor = new DatabaseExecutor();
-            try {
-                byte[] sonuc = databaseExecutor.execute(config, new byte[0]);
-                System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
-            } catch (Exception ex) {
-                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        int size = list.getModel().getSize();
+
+        for (int index = 0; index < size; index++) {
+
+            if (defaultListModel.get(index) instanceof DatabaseConfig) {
+                DatabaseConfig config = (DatabaseConfig) defaultListModel.get(index);
+                DatabaseExecutor databaseExecutor = new DatabaseExecutor();
+
+                try {
+                    sonuc = databaseExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (defaultListModel.get(index) instanceof CompressConfig) {
+                CompressConfig config = (CompressConfig) defaultListModel.get(index);
+                CompressExecutor compressExecutor = new CompressExecutor();
+
+                try {
+                    sonuc = compressExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (defaultListModel.get(index) instanceof EncodeConfig) {
+                EncodeConfig config = (EncodeConfig) defaultListModel.get(index);
+                EncodeExecutor encodeExecutor = new EncodeExecutor();
+
+                try {
+                    sonuc = encodeExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (defaultListModel.get(index) instanceof EncryptConfig) {
+                EncryptConfig config = (EncryptConfig) defaultListModel.get(index);
+                EncryptionExecutor encryptionExecutor = new EncryptionExecutor();
+
+                try {
+                    sonuc = encryptionExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (defaultListModel.get(index) instanceof FileConfig) {
+                FileConfig config = (FileConfig) defaultListModel.get(index);
+                FileExecutor fileExecutor = new FileExecutor();
+
+                try {
+                    sonuc = fileExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-
-        } else if (defaultListModel.get(index) instanceof CompressConfig) {
-            CompressConfig config = (CompressConfig) defaultListModel.get(index);
-            CompressExecutor compressExecutor = new CompressExecutor();
-            try {
-                byte[] sonuc = compressExecutor.execute(config, "berkayterzioglu".getBytes());
-                System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
-            } catch (Exception ex) {
-                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
         }
-
 
     }//GEN-LAST:event_runPipelineActionPerformed
 
@@ -212,54 +245,5 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton pulse;
     private javax.swing.JButton runPipeline;
     // End of variables declaration//GEN-END:variables
-
-    public String selection(String s) {
-
-        switch (s) {
-
-            case "databse":
-
-                break;
-
-            case "vt":
-
-                break;
-
-            case "compress":
-
-                break;
-
-            case "encode":
-
-                break;
-
-            case "encrypt":
-
-                break;
-        }
-
-        return null;
-
-    }
-
-    public Compress compressSelect(String s) {
-
-        if (s.equalsIgnoreCase("xz")) {
-            Compress c = new XZCompress();
-            return c;
-
-        } else if (s.equalsIgnoreCase("gzip")) {
-            Compress c = new GzipCompress();
-            return c;
-
-        } else if (s.equalsIgnoreCase("zip")) {
-            Compress c = new ZipCompress();
-            return c;
-
-        }
-        System.out.println("Errror!!!");
-        return null;
-
-    }
 
 }

@@ -120,7 +120,8 @@ public class Options extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(196, 215));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ok_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ok_buttonMouseEntered
