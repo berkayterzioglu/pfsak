@@ -70,7 +70,7 @@ public class FileConfig implements UIConfig {
 
     @Override
     public String toString() {
-        return "FileConfig{" + "fileName=" + fileName + ", fileType=" + fileType + '}';
+        return "FileConfig{" + "File Name=" + fileName + ", fileType=" + fileType + '}';
     }
 
 }

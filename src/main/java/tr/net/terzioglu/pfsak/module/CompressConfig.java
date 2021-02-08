@@ -22,7 +22,7 @@ public class CompressConfig implements UIConfig {
             inverse = new CompressConfig();
 
             inverse.compress = !compress;
-            inverse.filName = filName;
+            inverse.fileName = fileName;
             inverse.compressionType = compressionType;
         }
         return inverse;
@@ -31,14 +31,14 @@ public class CompressConfig implements UIConfig {
     @Override
     public void updateInverse() {
         inverse.compress = !compress;
-        inverse.filName = filName;
+        inverse.fileName = fileName;
         inverse.compressionType = compressionType;
     }
 
     public enum Type {
         XZ, GZIP, ZIP
     };
-    private String filName = null;
+    private String fileName = null;
     private Type compressionType = Type.XZ;
     private boolean compress = true; // false = decompress
 
@@ -59,16 +59,16 @@ public class CompressConfig implements UIConfig {
     }
 
     public String getFilName() {
-        return filName;
+        return fileName;
     }
 
     public void setFilName(String filName) {
-        this.filName = filName;
+        this.fileName = filName;
     }
 
     @Override
     public String toString() {
-        return "CompressConfig{" + "Fiel Name=" + filName + ", compressionType=" + compressionType + ", compress=" + compress + '}';
+        return "CompressConfig{" + "File Name=" + fileName + ", compressionType=" + compressionType + ", compress=" + compress + '}';
     }
 
 }
