@@ -307,27 +307,28 @@ public class MainPage extends javax.swing.JFrame {
         XStream xstream = new XStream();
         File f = new File(System.getProperty("user.home") + "/pfsak.configs");
         DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+        DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
 
         Object[][] configs = (Object[][]) xstream.fromXML(f);
         for (int index = 0; index < configs[0].length; index++) {
             defaultListModel.addElement(configs[0][index]);
         }
         for (int index = 0; index < configs[1].length; index++) {
-            defaultListModel.addElement(configs[1][index]);
+            inverListModel.addElement(configs[1][index]);
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void Inverse_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Inverse_ButtonActionPerformed
         // TODO add your handling code here:
-        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+        DefaultListModel inverseListModel = (DefaultListModel) inverseList.getModel();
         byte[] sonuc = new byte[0];
 
-        int size = list.getModel().getSize();
+        int size = inverseList.getModel().getSize();
 
         for (int index = 0; index < size; index++) {
 
-            if (defaultListModel.get(index) instanceof DatabaseConfig) {
-                DatabaseConfig config = (DatabaseConfig) defaultListModel.get(index);
+            if (inverseListModel.get(index) instanceof DatabaseConfig) {
+                DatabaseConfig config = (DatabaseConfig) inverseListModel.get(index);
                 DatabaseExecutor databaseExecutor = new DatabaseExecutor();
 
                 try {
@@ -337,8 +338,8 @@ public class MainPage extends javax.swing.JFrame {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            } else if (defaultListModel.get(index) instanceof CompressConfig) {
-                CompressConfig config = (CompressConfig) defaultListModel.get(index);
+            } else if (inverseListModel.get(index) instanceof CompressConfig) {
+                CompressConfig config = (CompressConfig) inverseListModel.get(index);
                 CompressExecutor compressExecutor = new CompressExecutor();
 
                 try {
@@ -348,8 +349,8 @@ public class MainPage extends javax.swing.JFrame {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            } else if (defaultListModel.get(index) instanceof EncodeConfig) {
-                EncodeConfig config = (EncodeConfig) defaultListModel.get(index);
+            } else if (inverseListModel.get(index) instanceof EncodeConfig) {
+                EncodeConfig config = (EncodeConfig) inverseListModel.get(index);
                 EncodeExecutor encodeExecutor = new EncodeExecutor();
 
                 try {
@@ -358,8 +359,8 @@ public class MainPage extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else if (defaultListModel.get(index) instanceof EncryptConfig) {
-                EncryptConfig config = (EncryptConfig) defaultListModel.get(index);
+            } else if (inverseListModel.get(index) instanceof EncryptConfig) {
+                EncryptConfig config = (EncryptConfig) inverseListModel.get(index);
                 EncryptionExecutor encryptionExecutor = new EncryptionExecutor();
 
                 try {
@@ -369,8 +370,8 @@ public class MainPage extends javax.swing.JFrame {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-            } else if (defaultListModel.get(index) instanceof FileConfig) {
-                FileConfig config = (FileConfig) defaultListModel.get(index);
+            } else if (inverseListModel.get(index) instanceof FileConfig) {
+                FileConfig config = (FileConfig) inverseListModel.get(index);
                 FileExecutor fileExecutor = new FileExecutor();
 
                 try {

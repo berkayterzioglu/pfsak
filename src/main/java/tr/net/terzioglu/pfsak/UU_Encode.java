@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeUtility;
 
 public class UU_Encode implements Encode {
@@ -25,8 +24,10 @@ public class UU_Encode implements Encode {
     public byte[] encode(byte[] data) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        OutputStream outputStream = MimeUtility.encode(baos, "uudecode");
+        OutputStream outputStream = MimeUtility.encode(baos, "uuencode");
         outputStream.write(data);
+        outputStream.flush();
+        outputStream.close();
         return baos.toByteArray();
 
     }
