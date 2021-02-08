@@ -8,13 +8,16 @@ import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
 import tr.net.terzioglu.pfsak.module.FileConfig;
+import tr.net.terzioglu.pfsak.module.UIConfig;
 
 public class Options extends javax.swing.JDialog {
 
-    DefaultListModel model;
+    DefaultListModel model, imodel;
+    DefaultListModel modelInverse;
 
-    public void setModel(DefaultListModel model) {
+    public void setModel(DefaultListModel model, DefaultListModel imodel) {
         this.model = model;
+        this.imodel = imodel;
     }
 
     public Options(java.awt.Frame parent, boolean modal) {
@@ -55,11 +58,6 @@ public class Options extends javax.swing.JDialog {
         encrypt_button.setText("Encrypt");
 
         ok_button.setText("OK");
-        ok_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ok_buttonMouseEntered(evt);
-            }
-        });
         ok_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ok_buttonActionPerformed(evt);
@@ -68,11 +66,6 @@ public class Options extends javax.swing.JDialog {
 
         cancel_button.setText("Cancel");
         cancel_button.setName(""); // NOI18N
-        cancel_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancel_buttonMouseClicked(evt);
-            }
-        });
         cancel_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancel_buttonActionPerformed(evt);
@@ -124,12 +117,8 @@ public class Options extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ok_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ok_buttonMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ok_buttonMouseEntered
-
     private void ok_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_buttonActionPerformed
-        Object s = null;
+        UIConfig s = null;
         if (database_button.isSelected()) {
             s = new DatabaseConfig();
 
@@ -147,63 +136,18 @@ public class Options extends javax.swing.JDialog {
 
         }
         model.addElement(s);
+        imodel.add(0, s.inverse());
         setVisible(false);
         dispose();
 
 }//GEN-LAST:event_ok_buttonActionPerformed
 
-    private void cancel_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancel_buttonMouseClicked
-        setVisible(false);
-        dispose();
-
-    }//GEN-LAST:event_cancel_buttonMouseClicked
-
     private void cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_buttonActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_cancel_buttonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Options.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Options.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Options.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Options.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the dialog */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                Options dialog = new Options(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel_button;
@@ -215,4 +159,5 @@ public class Options extends javax.swing.JDialog {
     private javax.swing.JButton ok_button;
     private javax.swing.ButtonGroup options_button;
     // End of variables declaration//GEN-END:variables
+
 }

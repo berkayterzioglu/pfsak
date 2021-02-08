@@ -28,8 +28,11 @@ public class MainPage extends javax.swing.JFrame {
         pulse = new javax.swing.JButton();
         minus = new javax.swing.JButton();
         runPipeline = new javax.swing.JButton();
+        Inverse_Button = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        inverseList = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveMenuItem = new javax.swing.JMenuItem();
@@ -84,6 +87,18 @@ public class MainPage extends javax.swing.JFrame {
         });
         jToolBar1.add(runPipeline);
 
+        Inverse_Button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Inverse_Button.setText("Inverse Run<<");
+        Inverse_Button.setFocusable(false);
+        Inverse_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Inverse_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Inverse_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Inverse_ButtonActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(Inverse_Button);
+
         list.setModel(new javax.swing.DefaultListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,6 +106,9 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(list);
+
+        inverseList.setModel(new javax.swing.DefaultListModel());
+        jScrollPane3.setViewportView(inverseList);
 
         fileMenu.setText("File");
 
@@ -121,27 +139,36 @@ public class MainPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)))
         );
 
-        setSize(new java.awt.Dimension(646, 432));
+        setSize(new java.awt.Dimension(792, 575));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void pulseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulseActionPerformed
 
         Options dialog = new Options(this, true);
-        dialog.setModel((DefaultListModel) list.getModel());
+        Options inverseDialog = new Options(this, true);
+
+        dialog.setModel((DefaultListModel) list.getModel(), (DefaultListModel) inverseList.getModel());
+
         dialog.setVisible(true);
-        dialog.setLocationRelativeTo(null);
         minus.setEnabled(true);
 
     }//GEN-LAST:event_pulseActionPerformed
@@ -149,6 +176,8 @@ public class MainPage extends javax.swing.JFrame {
     private void minusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusActionPerformed
         int index = list.getSelectedIndex();
         ((DefaultListModel) list.getModel()).remove(index);
+        ((DefaultListModel) inverseList.getModel()).remove(inverseList.getModel().getSize() - index - 1);
+
         int size = list.getModel().getSize();
 
         if (size == 0) {
@@ -167,7 +196,7 @@ public class MainPage extends javax.swing.JFrame {
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
             UIConfig config = (UIConfig) defaultListModel.get(index);
             config.showConfigDialog(this);
-
+            inverseList.repaint();
         }
     }//GEN-LAST:event_listMouseClicked
 
@@ -246,9 +275,15 @@ public class MainPage extends javax.swing.JFrame {
         try {
             // serialization
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
-            Object[] configs = new Object[defaultListModel.size()];
+            DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
+
+            Object[][] configs = new Object[2][defaultListModel.size()];
+
             for (int index = 0; index < defaultListModel.size(); index++) {
-                configs[index] = defaultListModel.get(index);
+                configs[0][index] = defaultListModel.get(index);
+            }
+            for (int index = 0; index < invereList.size(); index++) {
+                configs[1][index] = invereList.get(index);
             }
             XStream xstream = new XStream();
 
@@ -273,11 +308,82 @@ public class MainPage extends javax.swing.JFrame {
         File f = new File(System.getProperty("user.home") + "/pfsak.configs");
         DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
 
-        Object[] configs = (Object[]) xstream.fromXML(f);
-        for (int index = 0; index < configs.length; index++) {
-            defaultListModel.addElement(configs[index]);
+        Object[][] configs = (Object[][]) xstream.fromXML(f);
+        for (int index = 0; index < configs[0].length; index++) {
+            defaultListModel.addElement(configs[0][index]);
+        }
+        for (int index = 0; index < configs[1].length; index++) {
+            defaultListModel.addElement(configs[1][index]);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void Inverse_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Inverse_ButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+        byte[] sonuc = new byte[0];
+
+        int size = list.getModel().getSize();
+
+        for (int index = 0; index < size; index++) {
+
+            if (defaultListModel.get(index) instanceof DatabaseConfig) {
+                DatabaseConfig config = (DatabaseConfig) defaultListModel.get(index);
+                DatabaseExecutor databaseExecutor = new DatabaseExecutor();
+
+                try {
+                    sonuc = databaseExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (defaultListModel.get(index) instanceof CompressConfig) {
+                CompressConfig config = (CompressConfig) defaultListModel.get(index);
+                CompressExecutor compressExecutor = new CompressExecutor();
+
+                try {
+                    sonuc = compressExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (defaultListModel.get(index) instanceof EncodeConfig) {
+                EncodeConfig config = (EncodeConfig) defaultListModel.get(index);
+                EncodeExecutor encodeExecutor = new EncodeExecutor();
+
+                try {
+                    sonuc = encodeExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (defaultListModel.get(index) instanceof EncryptConfig) {
+                EncryptConfig config = (EncryptConfig) defaultListModel.get(index);
+                EncryptionExecutor encryptionExecutor = new EncryptionExecutor();
+
+                try {
+                    sonuc = encryptionExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else if (defaultListModel.get(index) instanceof FileConfig) {
+                FileConfig config = (FileConfig) defaultListModel.get(index);
+                FileExecutor fileExecutor = new FileExecutor();
+
+                try {
+                    sonuc = fileExecutor.execute(config, sonuc);
+                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+        }
+    }//GEN-LAST:event_Inverse_ButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,11 +422,14 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Inverse_Button;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JList<String> inverseList;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList<String> list;
     private javax.swing.JButton minus;
