@@ -1,8 +1,19 @@
 package tr.net.terzioglu.pfsak;
 
+import java.util.Base64;
+import javax.swing.DefaultListModel;
 import tr.net.terzioglu.pfsak.module.FileConfig;
 
 public class FileExecutor {
+
+    private DefaultListModel defaultListModel;
+
+    public FileExecutor() {
+    }
+
+    public FileExecutor(DefaultListModel defaultListModel) {
+        this.defaultListModel = defaultListModel;
+    }
 
     public byte[] execute(FileConfig config, byte[] data) throws Exception {
 
@@ -11,10 +22,17 @@ public class FileExecutor {
         switch (config.getFileType()) {
 
             case READ:
-                return fp.read(config.getFileName());
+                byte[] rs;
+                defaultListModel.addElement("FILE Reading...");
+                rs = fp.read(config.getFileName());
+                defaultListModel.addElement(Base64.getMimeEncoder().encodeToString(rs));
+                return rs;
 
             case WRITE:
-                return fp.write(config.getFileName(), data);
+                defaultListModel.addElement("FILE Writing...");
+                rs = fp.write(config.getFileName(), data);
+                defaultListModel.addElement(Base64.getMimeEncoder().encodeToString(rs));
+                return rs;
         }
 
         return null;

@@ -27,12 +27,15 @@ public class MainPage extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         pulse = new javax.swing.JButton();
         minus = new javax.swing.JButton();
+        run_jScrollPane = new javax.swing.JScrollPane();
+        list = new javax.swing.JList<>();
+        inverseRun_jScrollPane = new javax.swing.JScrollPane();
+        inverseList = new javax.swing.JList<>();
+        printScreen_jScrollPane = new javax.swing.JScrollPane();
+        printScreen = new javax.swing.JList<>();
         runPipeline = new javax.swing.JButton();
         Inverse_Button = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        list = new javax.swing.JList<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        inverseList = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveMenuItem = new javax.swing.JMenuItem();
@@ -73,11 +76,24 @@ public class MainPage extends javax.swing.JFrame {
         });
         jToolBar1.add(minus);
 
-        runPipeline.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        list.setModel(new javax.swing.DefaultListModel());
+        list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listMouseClicked(evt);
+            }
+        });
+        run_jScrollPane.setViewportView(list);
+
+        inverseList.setModel(new javax.swing.DefaultListModel());
+        inverseRun_jScrollPane.setViewportView(inverseList);
+
+        printScreen.setModel(new javax.swing.DefaultListModel());
+        printScreen_jScrollPane.setViewportView(printScreen);
+
+        runPipeline.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         runPipeline.setText("Run >> ");
         runPipeline.setActionCommand("");
         runPipeline.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        runPipeline.setFocusable(false);
         runPipeline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         runPipeline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         runPipeline.addActionListener(new java.awt.event.ActionListener() {
@@ -85,11 +101,9 @@ public class MainPage extends javax.swing.JFrame {
                 runPipelineActionPerformed(evt);
             }
         });
-        jToolBar1.add(runPipeline);
 
-        Inverse_Button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Inverse_Button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         Inverse_Button.setText("Inverse Run<<");
-        Inverse_Button.setFocusable(false);
         Inverse_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Inverse_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         Inverse_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -97,18 +111,9 @@ public class MainPage extends javax.swing.JFrame {
                 Inverse_ButtonActionPerformed(evt);
             }
         });
-        jToolBar1.add(Inverse_Button);
 
-        list.setModel(new javax.swing.DefaultListModel());
-        list.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(list);
-
-        inverseList.setModel(new javax.swing.DefaultListModel());
-        jScrollPane3.setViewportView(inverseList);
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Prints -->");
 
         fileMenu.setText("File");
 
@@ -142,22 +147,43 @@ public class MainPage extends javax.swing.JFrame {
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(printScreen_jScrollPane)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(runPipeline)
+                            .addComponent(run_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Inverse_Button)
+                            .addComponent(inverseRun_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
+                        .addGap(8, 8, 8))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Inverse_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(runPipeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(inverseRun_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                    .addComponent(run_jScrollPane))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(printScreen_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(792, 575));
+        setSize(new java.awt.Dimension(1014, 647));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -204,6 +230,9 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+        DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
+
+        printListModel.addElement("---------------- R U N ----------------");
         byte[] sonuc = new byte[0];
 
         int size = list.getModel().getSize();
@@ -212,54 +241,53 @@ public class MainPage extends javax.swing.JFrame {
 
             if (defaultListModel.get(index) instanceof DatabaseConfig) {
                 DatabaseConfig config = (DatabaseConfig) defaultListModel.get(index);
-                DatabaseExecutor databaseExecutor = new DatabaseExecutor();
-
+                DatabaseExecutor databaseExecutor = new DatabaseExecutor(printListModel);
                 try {
                     sonuc = databaseExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else if (defaultListModel.get(index) instanceof CompressConfig) {
                 CompressConfig config = (CompressConfig) defaultListModel.get(index);
-                CompressExecutor compressExecutor = new CompressExecutor();
+                CompressExecutor compressExecutor = new CompressExecutor(printListModel);
 
                 try {
                     sonuc = compressExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else if (defaultListModel.get(index) instanceof EncodeConfig) {
                 EncodeConfig config = (EncodeConfig) defaultListModel.get(index);
-                EncodeExecutor encodeExecutor = new EncodeExecutor();
+                EncodeExecutor encodeExecutor = new EncodeExecutor(printListModel);
 
                 try {
                     sonuc = encodeExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (defaultListModel.get(index) instanceof EncryptConfig) {
                 EncryptConfig config = (EncryptConfig) defaultListModel.get(index);
-                EncryptionExecutor encryptionExecutor = new EncryptionExecutor();
+                EncryptionExecutor encryptionExecutor = new EncryptionExecutor(printListModel);
 
                 try {
                     sonuc = encryptionExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else if (defaultListModel.get(index) instanceof FileConfig) {
                 FileConfig config = (FileConfig) defaultListModel.get(index);
-                FileExecutor fileExecutor = new FileExecutor();
+                FileExecutor fileExecutor = new FileExecutor(printListModel);
 
                 try {
                     sonuc = fileExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
+
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -319,8 +347,11 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void Inverse_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Inverse_ButtonActionPerformed
-        // TODO add your handling code here:
+
         DefaultListModel inverseListModel = (DefaultListModel) inverseList.getModel();
+        DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
+        printListModel.addElement("---------------- I N V E R S E   R U N ----------------");
+
         byte[] sonuc = new byte[0];
 
         int size = inverseList.getModel().getSize();
@@ -329,54 +360,49 @@ public class MainPage extends javax.swing.JFrame {
 
             if (inverseListModel.get(index) instanceof DatabaseConfig) {
                 DatabaseConfig config = (DatabaseConfig) inverseListModel.get(index);
-                DatabaseExecutor databaseExecutor = new DatabaseExecutor();
+                DatabaseExecutor databaseExecutor = new DatabaseExecutor(printListModel);
 
                 try {
                     sonuc = databaseExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else if (inverseListModel.get(index) instanceof CompressConfig) {
                 CompressConfig config = (CompressConfig) inverseListModel.get(index);
-                CompressExecutor compressExecutor = new CompressExecutor();
+                CompressExecutor compressExecutor = new CompressExecutor(printListModel);
 
                 try {
                     sonuc = compressExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else if (inverseListModel.get(index) instanceof EncodeConfig) {
                 EncodeConfig config = (EncodeConfig) inverseListModel.get(index);
-                EncodeExecutor encodeExecutor = new EncodeExecutor();
+                EncodeExecutor encodeExecutor = new EncodeExecutor(printListModel);
 
                 try {
                     sonuc = encodeExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (inverseListModel.get(index) instanceof EncryptConfig) {
                 EncryptConfig config = (EncryptConfig) inverseListModel.get(index);
-                EncryptionExecutor encryptionExecutor = new EncryptionExecutor();
+                EncryptionExecutor encryptionExecutor = new EncryptionExecutor(printListModel);
 
                 try {
                     sonuc = encryptionExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             } else if (inverseListModel.get(index) instanceof FileConfig) {
                 FileConfig config = (FileConfig) inverseListModel.get(index);
-                FileExecutor fileExecutor = new FileExecutor();
+                FileExecutor fileExecutor = new FileExecutor(printListModel);
 
                 try {
                     sonuc = fileExecutor.execute(config, sonuc);
-                    System.out.println(Base64.getMimeEncoder().encodeToString(sonuc));
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -427,15 +453,18 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JList<String> inverseList;
+    private javax.swing.JScrollPane inverseRun_jScrollPane;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList<String> list;
     private javax.swing.JButton minus;
+    private javax.swing.JList<String> printScreen;
+    private javax.swing.JScrollPane printScreen_jScrollPane;
     private javax.swing.JButton pulse;
     private javax.swing.JButton runPipeline;
+    private javax.swing.JScrollPane run_jScrollPane;
     private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
