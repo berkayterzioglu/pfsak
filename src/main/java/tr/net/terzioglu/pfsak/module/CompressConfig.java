@@ -14,6 +14,27 @@ public class CompressConfig implements UIConfig {
 
     }
 
+    private CompressConfig inverse = null;
+
+    @Override
+    public Object inverse() {
+        if (inverse == null) {
+            inverse = new CompressConfig();
+
+            inverse.compress = !compress;
+            inverse.filName = filName;
+            inverse.compressionType = compressionType;
+        }
+        return inverse;
+    }
+
+    @Override
+    public void updateInverse() {
+        inverse.compress = !compress;
+        inverse.filName = filName;
+        inverse.compressionType = compressionType;
+    }
+
     public enum Type {
         XZ, GZIP, ZIP
     };
@@ -47,7 +68,7 @@ public class CompressConfig implements UIConfig {
 
     @Override
     public String toString() {
-        return "CompressConfig{" + "filName=" + filName + ", compressionType=" + compressionType + ", compress=" + compress + '}';
+        return "CompressConfig{" + "Fiel Name=" + filName + ", compressionType=" + compressionType + ", compress=" + compress + '}';
     }
 
 }

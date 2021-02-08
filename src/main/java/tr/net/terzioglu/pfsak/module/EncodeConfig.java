@@ -13,6 +13,29 @@ public class EncodeConfig implements UIConfig {
         ecd.setVisible(true);
     }
 
+    private EncodeConfig inverse = null;
+
+    @Override
+    public Object inverse() {
+
+        if (inverse == null) {
+            inverse = new EncodeConfig();
+
+            inverse.encodeType = encodeType;
+            inverse.encode = !encode;
+
+        }
+        return inverse;
+    }
+
+    @Override
+    public void updateInverse() {
+
+        inverse.encodeType = encodeType;
+        inverse.encode = !encode;
+
+    }
+
     public enum Type {
         BASE64, HEXBIN, UU
     }

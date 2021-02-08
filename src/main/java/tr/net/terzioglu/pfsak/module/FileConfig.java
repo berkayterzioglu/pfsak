@@ -13,6 +13,38 @@ public class FileConfig implements UIConfig {
         fcd.setVisible(true);
     }
 
+    private FileConfig inverse = null;
+
+    @Override
+    public Object inverse() {
+        if (inverse == null) {
+            inverse = new FileConfig();
+
+            inverse.fileName = fileName;
+
+            if (fileType == Type.READ) {
+                inverse.fileType = Type.WRITE;
+
+            } else if (fileType == Type.WRITE) {
+                inverse.fileType = Type.READ;
+            }
+        }
+
+        return inverse;
+
+    }
+
+    @Override
+    public void updateInverse() {
+        inverse.fileName = fileName;
+        if (fileType == Type.READ) {
+            inverse.fileType = Type.WRITE;
+
+        } else if (fileType == Type.WRITE) {
+            inverse.fileType = Type.READ;
+        }
+    }
+
     public enum Type {
         READ, WRITE
     }

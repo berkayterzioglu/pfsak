@@ -21,6 +21,12 @@ public class DatabaseConfig implements UIConfig {
         dcd.setVisible(true);
     }
 
+    @Override
+    public Object inverse() {
+//  I do not insert  database;
+        return this;
+    }
+
     public String getDriverName() {
         return driverName;
     }
@@ -80,6 +86,11 @@ public class DatabaseConfig implements UIConfig {
     @Override
     public String toString() {
         return "DatabaseConfig{" + "url=" + url + ", driverName=" + driverName + ", user=" + user + ", password=" + password + ", table=" + table + ", column=" + column + ", where=" + where + '}';
+    }
+
+    @Override
+    public void updateInverse() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

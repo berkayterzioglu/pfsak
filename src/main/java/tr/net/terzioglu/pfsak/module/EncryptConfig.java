@@ -12,6 +12,29 @@ public class EncryptConfig implements UIConfig {
         ecd.setLocationRelativeTo(frame);
         ecd.setVisible(true);
     }
+    private EncryptConfig inverse = null;
+
+    @Override
+    public Object inverse() {
+        if (inverse == null) {
+            inverse = new EncryptConfig();
+
+            inverse.encrypt = !encrypt;
+            inverse.encryptionType = encryptionType;
+            inverse.keyValue = keyValue;
+        }
+
+        return inverse;
+    }
+
+    @Override
+    public void updateInverse() {
+
+        inverse.encrypt = !encrypt;
+        inverse.encryptionType = encryptionType;
+        inverse.keyValue = keyValue;
+        
+    }
 
     public enum Type {
         AES, DES, TRIPLE_DES
@@ -47,7 +70,7 @@ public class EncryptConfig implements UIConfig {
 
     @Override
     public String toString() {
-        return "EncryptConfig{" + "fileName=" + keyValue + ", encryptionType=" + encryptionType + ", encrypt=" + encrypt + '}';
+        return "EncryptConfig{" + "File Name=" + keyValue + ", encryptionType=" + encryptionType + ", encrypt=" + encrypt + '}';
     }
 
 }
