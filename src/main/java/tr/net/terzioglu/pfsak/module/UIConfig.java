@@ -6,4 +6,5 @@ public interface UIConfig {
 
     void showConfigDialog(JFrame frame);
 
+    Object inverse();
 }
