@@ -11,6 +11,11 @@ public class DatabaseConfig implements UIConfig {
     private String table = null;
     private String column = null;
     private String where = null;
+    private Type databaseType = Type.SELECT;
+
+    public enum Type {
+        SELECT, UPDATE
+    };
 
     @Override
     public void showConfigDialog(JFrame frame) {
@@ -21,34 +26,48 @@ public class DatabaseConfig implements UIConfig {
         dcd.setVisible(true);
     }
 
+    private DatabaseConfig inverse = null;
+
     @Override
     public Object inverse() {
-//  I do not insert  database;
-        return this;
+        if (inverse == null) {
+            inverse = new DatabaseConfig();
+
+            inverse.driverName = driverName;
+            inverse.url = url;
+            inverse.user = user;
+            inverse.password = password;
+            inverse.table = table;
+            inverse.column = column;
+            inverse.where = where;
+
+            if (databaseType == Type.SELECT) {
+                inverse.databaseType = Type.UPDATE;
+
+            } else if (databaseType == Type.UPDATE) {
+                inverse.databaseType = Type.SELECT;
+            }
+
+        }
+        return inverse;
     }
 
-    public String getDriverName() {
-        return driverName;
-    }
+    @Override
+    public void updateInverse() {
+        inverse.driverName = driverName;
+        inverse.url = url;
+        inverse.user = user;
+        inverse.password = password;
+        inverse.table = table;
+        inverse.column = column;
+        inverse.where = where;
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
+        if (databaseType == Type.SELECT) {
+            inverse.databaseType = Type.UPDATE;
 
-    public String getTable() {
-        return table;
-    }
-
-    public void setTable(String table) {
-        this.table = table;
-    }
-
-    public String getColumn() {
-        return column;
-    }
-
-    public void setColumn(String column) {
-        this.column = column;
+        } else if (databaseType == Type.UPDATE) {
+            inverse.databaseType = Type.SELECT;
+        }
     }
 
     public String getUrl() {
@@ -57,6 +76,14 @@ public class DatabaseConfig implements UIConfig {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getDriverName() {
+        return driverName;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
     }
 
     public String getUser() {
@@ -75,6 +102,22 @@ public class DatabaseConfig implements UIConfig {
         this.password = password;
     }
 
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
+
+    public String getColumn() {
+        return column;
+    }
+
+    public void setColumn(String column) {
+        this.column = column;
+    }
+
     public String getWhere() {
         return where;
     }
@@ -83,14 +126,25 @@ public class DatabaseConfig implements UIConfig {
         this.where = where;
     }
 
-    @Override
-    public String toString() {
-        return "DatabaseConfig{" + "url=" + url + ", driverName=" + driverName + ", user=" + user + ", password=" + password + ", table=" + table + ", column=" + column + ", where=" + where + '}';
+    public Type getDatabaseType() {
+        return databaseType;
+    }
+
+    public void setDatabaseType(Type databaseType) {
+        this.databaseType = databaseType;
+    }
+
+    public DatabaseConfig getInverse() {
+        return inverse;
+    }
+
+    public void setInverse(DatabaseConfig inverse) {
+        this.inverse = inverse;
     }
 
     @Override
-    public void updateInverse() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String toString() {
+        return "DatabaseConfig{" + "url=" + url + ", driverName=" + driverName + ", user=" + user + ", password=" + password + ", table=" + table + ", column=" + column + ", where=" + where + ", databaseType=" + databaseType + ", inverse=" + inverse + '}';
     }
 
 }

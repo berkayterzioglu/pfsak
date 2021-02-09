@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -23,7 +23,29 @@ public class DatabaseExecutor {
         this.defaultListModel = defaultListModel;
     }
 
-    public void writeDatabase(DatabaseConfig config, byte[] data) throws Exception {
+    public byte[] execute(DatabaseConfig config, byte[] data) throws Exception {
+        byte[] rs;
+        switch (config.getDatabaseType()) {
+
+            case SELECT:
+
+                defaultListModel.addElement("DATABASE Selecting...");
+                rs = selectDatabase(config);
+                defaultListModel.addElement("DATABASE: " + Base64.getMimeEncoder().encodeToString(rs));
+                return rs;
+
+            case UPDATE:
+
+                defaultListModel.addElement("DATABASE Updating...");
+                updateDatabase(config, data);
+                defaultListModel.addElement("DATABASE: " + Base64.getMimeEncoder().encodeToString(data));
+                return data;
+        }
+
+        return data;
+    }
+
+    public void updateDatabase(DatabaseConfig config, byte[] data) throws Exception {
         Class.forName(config.getDriverName());
         PreparedStatement statement = null;
 
@@ -51,7 +73,7 @@ public class DatabaseExecutor {
         }
     }
 
-    public byte[] execute(DatabaseConfig config, byte[] data) throws Exception {
+    private byte[] selectDatabase(DatabaseConfig config) throws ClassNotFoundException {
         Class.forName(config.getDriverName());
         PreparedStatement statement = null;
         ResultSet rs = null;
