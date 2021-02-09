@@ -13,6 +13,7 @@ import tr.net.terzioglu.pfsak.module.EncryptConfig;
 import tr.net.terzioglu.pfsak.module.FileConfig;
 import tr.net.terzioglu.pfsak.module.RegExConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
+import tr.net.terzioglu.pfsak.module.URLConfig;
 
 public class MainPage extends javax.swing.JFrame {
 
@@ -236,7 +237,7 @@ public class MainPage extends javax.swing.JFrame {
 
         DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
         DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
-
+        printListModel.clear();
         printListModel.addElement("---------------- R U N ----------------");
         byte[] sonuc = new byte[0];
 
@@ -307,6 +308,15 @@ public class MainPage extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else if (defaultListModel.get(index) instanceof URLConfig) {
+                URLConfig config = (URLConfig) defaultListModel.get(index);
+                URLExecutor uRLExecutor = new URLExecutor(printListModel);
+
+                try {
+                    sonuc = uRLExecutor.execute(config, sonuc);
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         }
@@ -365,6 +375,7 @@ public class MainPage extends javax.swing.JFrame {
 
         DefaultListModel inverseListModel = (DefaultListModel) inverseList.getModel();
         DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
+        printListModel.clear();
         printListModel.addElement("---------------- I N V E R S E   R U N ----------------");
 
         byte[] sonuc = new byte[0];
@@ -448,7 +459,7 @@ public class MainPage extends javax.swing.JFrame {
             DefaultListModel defaultListModel = (DefaultListModel) inverseList.getModel();
             UIConfig config = (UIConfig) defaultListModel.get(index);
 
-            if (config instanceof RegExConfig) {
+            if (config instanceof RegExConfig || config instanceof URLConfig) {
                 config.showConfigDialog(this);
                 inverseList.repaint();
             }

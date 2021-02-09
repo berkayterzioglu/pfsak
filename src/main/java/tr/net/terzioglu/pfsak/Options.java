@@ -8,6 +8,7 @@ import tr.net.terzioglu.pfsak.module.EncryptConfig;
 import tr.net.terzioglu.pfsak.module.FileConfig;
 import tr.net.terzioglu.pfsak.module.RegExConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
+import tr.net.terzioglu.pfsak.module.URLConfig;
 
 public class Options extends javax.swing.JDialog {
 
@@ -149,8 +150,10 @@ public class Options extends javax.swing.JDialog {
 
         } else if (regex_button.isSelected()) {
             s = new RegExConfig();
-        }// FOR URL RADIO BUTTON WILL WRITTEN IN FUTURE 
-        
+
+        } else if (url_button.isSelected()) {
+            s = new URLConfig();
+        }
         model.addElement(s);
         imodel.add(0, s.inverse());
         setVisible(false);
