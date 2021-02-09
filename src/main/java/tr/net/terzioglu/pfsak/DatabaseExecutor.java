@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 
@@ -63,17 +61,15 @@ public class DatabaseExecutor {
             e.printStackTrace();
 
         } finally {
+            
             if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(NoMain.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                statement.close();
+
             }
         }
     }
 
-    private byte[] selectDatabase(DatabaseConfig config) throws ClassNotFoundException {
+    private byte[] selectDatabase(DatabaseConfig config) throws Exception {
         Class.forName(config.getDriverName());
         PreparedStatement statement = null;
         ResultSet rs = null;
@@ -85,9 +81,7 @@ public class DatabaseExecutor {
             rs = statement.executeQuery();
 
             if (rs.next()) {
-
                 return rs.getBytes(1);
-
             }
 
         } catch (SQLException e) {
@@ -95,21 +89,14 @@ public class DatabaseExecutor {
             e.printStackTrace();
 
         } finally {
-
+            
             if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(NoMain.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                rs.close();
+                
             }
-
             if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(NoMain.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                statement.close();
+                
             }
         }
         return null;
