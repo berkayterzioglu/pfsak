@@ -445,9 +445,10 @@ public class MainPage extends javax.swing.JFrame {
             // Double-click detected
             int index = inverseList.locationToIndex(evt.getPoint());
 
-            if (inverseList.getModel() instanceof RegEx) {
-                DefaultListModel defaultListModel = (DefaultListModel) inverseList.getModel();
-                UIConfig config = (UIConfig) defaultListModel.get(index);
+            DefaultListModel defaultListModel = (DefaultListModel) inverseList.getModel();
+            UIConfig config = (UIConfig) defaultListModel.get(index);
+
+            if (config instanceof RegExConfig) {
                 config.showConfigDialog(this);
                 inverseList.repaint();
             }
