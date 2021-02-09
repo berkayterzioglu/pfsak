@@ -3,7 +3,6 @@ package tr.net.terzioglu.pfsak;
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -12,6 +11,7 @@ import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
 import tr.net.terzioglu.pfsak.module.FileConfig;
+import tr.net.terzioglu.pfsak.module.RegExConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
 
 public class MainPage extends javax.swing.JFrame {
@@ -85,6 +85,11 @@ public class MainPage extends javax.swing.JFrame {
         run_jScrollPane.setViewportView(list);
 
         inverseList.setModel(new javax.swing.DefaultListModel());
+        inverseList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inverseListMouseClicked(evt);
+            }
+        });
         inverseRun_jScrollPane.setViewportView(inverseList);
 
         printScreen.setModel(new javax.swing.DefaultListModel());
@@ -292,6 +297,16 @@ public class MainPage extends javax.swing.JFrame {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+            } else if (defaultListModel.get(index) instanceof RegExConfig) {
+                RegExConfig config = (RegExConfig) defaultListModel.get(index);
+                RegExExecutor regExExecutor = new RegExExecutor(printListModel);
+
+                try {
+                    sonuc = regExExecutor.execute(config, sonuc);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         }
@@ -407,10 +422,39 @@ public class MainPage extends javax.swing.JFrame {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+            } else if (inverseListModel.get(index) instanceof RegExConfig) {
+                RegExConfig config = (RegExConfig) inverseListModel.get(index);
+                RegExExecutor regExExecutor = new RegExExecutor(printListModel);
+
+                try {
+                    sonuc = regExExecutor.execute(config, sonuc);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         }
     }//GEN-LAST:event_Inverse_ButtonActionPerformed
+
+    private void inverseListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inverseListMouseClicked
+        // TODO add your handling code here:
+
+        if (evt.getClickCount() == 2) {
+
+            // Double-click detected
+            int index = inverseList.locationToIndex(evt.getPoint());
+
+            if (inverseList.getModel() instanceof RegEx) {
+                DefaultListModel defaultListModel = (DefaultListModel) inverseList.getModel();
+                UIConfig config = (UIConfig) defaultListModel.get(index);
+                config.showConfigDialog(this);
+                inverseList.repaint();
+            }
+
+        }
+
+    }//GEN-LAST:event_inverseListMouseClicked
 
     /**
      * @param args the command line arguments
