@@ -21,7 +21,7 @@ public class RegExExecutor {
 
         defaultListModel.addElement("REGEX Seaching...");
 
-        byte[] rs = ex.pattern(data, config.getSearch());
+        byte[] rs = ex.pattern(data, config);
         defaultListModel.addElement("RegEx: " + Base64.getMimeEncoder().encodeToString(rs));
 
         return rs;

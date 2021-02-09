@@ -91,7 +91,7 @@ public class RegExConfigDialog extends javax.swing.JDialog {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
-        rec.setSearch(jTextField2.getText());
+        rec.setSearch(jTextField1.getText());
         rec.setReplaceWord(jTextField2.getText());
         rec.updateInverse();
         setVisible(false);
