@@ -1,13 +1,12 @@
 package tr.net.terzioglu.pfsak;
 
-import java.io.File;
 import javax.swing.DefaultListModel;
-import javax.xml.bind.annotation.XmlElement;
 import tr.net.terzioglu.pfsak.module.CompressConfig;
 import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
 import tr.net.terzioglu.pfsak.module.FileConfig;
+import tr.net.terzioglu.pfsak.module.RegExConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
 
 public class Options extends javax.swing.JDialog {
@@ -37,6 +36,8 @@ public class Options extends javax.swing.JDialog {
         encrypt_button = new javax.swing.JRadioButton();
         ok_button = new javax.swing.JButton();
         cancel_button = new javax.swing.JButton();
+        regex_button = new javax.swing.JRadioButton();
+        url_button = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Options");
@@ -72,6 +73,12 @@ public class Options extends javax.swing.JDialog {
             }
         });
 
+        options_button.add(regex_button);
+        regex_button.setText("RegEx");
+
+        options_button.add(url_button);
+        url_button.setText("URL");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,7 +88,7 @@ public class Options extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ok_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(cancel_button))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,7 +96,9 @@ public class Options extends javax.swing.JDialog {
                             .addComponent(file_button)
                             .addComponent(database_button)
                             .addComponent(compress_button)
-                            .addComponent(encode_button))
+                            .addComponent(encode_button)
+                            .addComponent(regex_button)
+                            .addComponent(url_button))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -106,14 +115,18 @@ public class Options extends javax.swing.JDialog {
                 .addComponent(encode_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(encrypt_button)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(regex_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(url_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ok_button)
                     .addComponent(cancel_button))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(196, 215));
+        setSize(new java.awt.Dimension(195, 265));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -134,7 +147,10 @@ public class Options extends javax.swing.JDialog {
         } else if (encrypt_button.isSelected()) {
             s = new EncryptConfig();
 
-        }
+        } else if (regex_button.isSelected()) {
+            s = new RegExConfig();
+        }// FOR URL RADIO BUTTON WILL WRITTEN IN FUTURE 
+        
         model.addElement(s);
         imodel.add(0, s.inverse());
         setVisible(false);
@@ -158,6 +174,8 @@ public class Options extends javax.swing.JDialog {
     private javax.swing.JRadioButton file_button;
     private javax.swing.JButton ok_button;
     private javax.swing.ButtonGroup options_button;
+    private javax.swing.JRadioButton regex_button;
+    private javax.swing.JRadioButton url_button;
     // End of variables declaration//GEN-END:variables
 
 }
