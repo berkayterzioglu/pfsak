@@ -30,9 +30,9 @@ public class FileExecutor {
 
             case WRITE:
                 defaultListModel.addElement("FILE Writing...");
-                rs = fp.write(config.getFileName(), data);
-                defaultListModel.addElement(Base64.getMimeEncoder().encodeToString(rs));
-                return rs;
+                fp.write(config.getFileName(), data);
+                defaultListModel.addElement(Base64.getMimeEncoder().encodeToString(data));
+                return data;
         }
 
         return null;
