@@ -408,8 +408,7 @@ public class MainPage extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             }
-// file oku 
-// AES + ANAHTARLA DEŞİFRE ET
+
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
             DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
             String bu = null;
