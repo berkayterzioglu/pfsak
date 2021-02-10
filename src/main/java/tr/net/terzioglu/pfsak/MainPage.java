@@ -3,9 +3,13 @@ package tr.net.terzioglu.pfsak;
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import tr.net.terzioglu.pfsak.module.CompressConfig;
 import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
@@ -28,6 +32,7 @@ public class MainPage extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         pulse = new javax.swing.JButton();
         minus = new javax.swing.JButton();
+        ProfileComboBox = new javax.swing.JComboBox<>();
         run_jScrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
         inverseRun_jScrollPane = new javax.swing.JScrollPane();
@@ -39,9 +44,9 @@ public class MainPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
@@ -51,6 +56,7 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         pulse.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -76,6 +82,13 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(minus);
+
+        ProfileComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ProfileComboBoxİtemStateChanged(evt);
+            }
+        });
+        jToolBar1.add(ProfileComboBox);
 
         list.setModel(new javax.swing.DefaultListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,6 +136,14 @@ public class MainPage extends javax.swing.JFrame {
 
         fileMenu.setText("File");
 
+        jMenuItem1.setText("New profile");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        fileMenu.add(jMenuItem1);
+
         saveMenuItem.setText("Save");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,9 +161,6 @@ public class MainPage extends javax.swing.JFrame {
         fileMenu.add(exitMenuItem);
 
         jMenuBar1.add(fileMenu);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -323,6 +341,9 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_runPipelineActionPerformed
 
+    private HashMap<String, Object[][]> profiller = new HashMap<>();
+    private String currentProfil;
+
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
 
         try {
@@ -340,11 +361,18 @@ public class MainPage extends javax.swing.JFrame {
             }
             XStream xstream = new XStream();
 
-            String result = xstream.toXML(configs);
+            profiller.put(currentProfil, configs);
+            String result = xstream.toXML(profiller);
+            PBDKF2 pbdkf2 = new PBDKF2();
+
+            Encryption ee = new All_Encryption();
+            byte[] encripted = ee.encrypt(result.getBytes("UTF-8"), "AES", key);
+
             FileProcessor fileProcessor = new FileProcessor();
-            fileProcessor.write(System.getProperty("user.home") + "/pfsak.configs", result.getBytes("UTF-8"));
-            System.out.println(result);
+            fileProcessor.write(System.getProperty("user.home") + "/pfsak.configs", encripted);
         } catch (IOException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -355,19 +383,59 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    private byte[] key;
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+
+        LoginDialog dialog = new LoginDialog(this, true);
+        dialog.setVisible(true);
+        key = dialog.rs;
+
         XStream xstream = new XStream();
         File f = new File(System.getProperty("user.home") + "/pfsak.configs");
-        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
-        DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
 
-        Object[][] configs = (Object[][]) xstream.fromXML(f);
-        for (int index = 0; index < configs[0].length; index++) {
-            defaultListModel.addElement(configs[0][index]);
-        }
-        for (int index = 0; index < configs[1].length; index++) {
-            inverListModel.addElement(configs[1][index]);
+        if (f.exists()) {
+            byte[] decripted = null;
+            FileProcessor fp = new FileProcessor();
+            try {
+                byte[] result = fp.read(f.getAbsolutePath());
+                Encryption ee = new All_Encryption();
+                decripted = ee.decrypt(result, "AES", key);
+
+            } catch (IOException ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+// file oku 
+// AES + ANAHTARLA DEŞİFRE ET
+            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
+            String bu = null;
+            try {
+                bu = new String(decripted, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            profiller = (HashMap<String, Object[][]>) xstream.fromXML(bu);
+
+            DefaultComboBoxModel boxModel = (DefaultComboBoxModel) ProfileComboBox.getModel();
+
+            for (String profiladi : profiller.keySet()) {
+                boxModel.addElement(profiladi);
+
+            }
+            currentProfil = (String) boxModel.getElementAt(0);
+            Object[][] configs = profiller.get(currentProfil);
+            for (int index = 0; index < configs[0].length; index++) {
+                defaultListModel.addElement(configs[0][index]);
+            }
+            for (int index = 0; index < configs[1].length; index++) {
+                inverListModel.addElement(configs[1][index]);
+
+            }
+
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -468,9 +536,51 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_inverseListMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) ProfileComboBox.getModel());
+        newPipeLineDialog.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void ProfileComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProfileComboBoxİtemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
+            currentProfil = (String) evt.getItem();
+            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
+
+            Object[][] configs = new Object[2][defaultListModel.size()];
+
+            for (int index = 0; index < defaultListModel.size(); index++) {
+                configs[0][index] = defaultListModel.get(index);
+            }
+            for (int index = 0; index < invereList.size(); index++) {
+                configs[1][index] = invereList.get(index);
+            }
+
+            profiller.put(currentProfil, configs);
+
+        } else if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            currentProfil = (String) evt.getItem();
+            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
+            Object[][] configs = profiller.get(currentProfil);
+            defaultListModel.clear();
+            invereList.clear();
+            if (configs != null) {
+
+                for (int index = 0; index < configs[0].length; index++) {
+                    defaultListModel.addElement(configs[0][index]);
+                }
+                for (int index = 0; index < configs[1].length; index++) {
+                    invereList.addElement(configs[1][index]);
+                }
+            }
+        }
+
+    }//GEN-LAST:event_ProfileComboBoxİtemStateChanged
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -506,13 +616,14 @@ public class MainPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Inverse_Button;
+    private javax.swing.JComboBox<String> ProfileComboBox;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JList<String> inverseList;
     private javax.swing.JScrollPane inverseRun_jScrollPane;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList<String> list;
     private javax.swing.JButton minus;
