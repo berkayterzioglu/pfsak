@@ -1,6 +1,7 @@
 package tr.net.terzioglu.pfsak;
 
 import com.thoughtworks.xstream.XStream;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -24,7 +25,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private HashMap<String, Object[][]> profiller = new HashMap<>();
     private String currentProfil;
-    private byte[] key;
+    private byte[] currentKey;
 
     public MainPage() {
         initComponents();
@@ -34,20 +35,20 @@ public class MainPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToolBar = new javax.swing.JToolBar();
-        pulse = new javax.swing.JButton();
-        minus = new javax.swing.JButton();
+        toolBar = new javax.swing.JToolBar();
+        plusButton = new javax.swing.JButton();
+        minusButton = new javax.swing.JButton();
         profileComboBox = new javax.swing.JComboBox<>();
-        run_jScrollPane = new javax.swing.JScrollPane();
+        runScrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
-        inverseRun_jScrollPane = new javax.swing.JScrollPane();
+        inverseRunScrollPane = new javax.swing.JScrollPane();
         inverseList = new javax.swing.JList<>();
-        printScreen_jScrollPane = new javax.swing.JScrollPane();
+        printScreenScrollPane = new javax.swing.JScrollPane();
         printScreen = new javax.swing.JList<>();
-        runPipeline = new javax.swing.JButton();
-        inverse_Button = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        runPipeLineButton = new javax.swing.JButton();
+        inverseButton = new javax.swing.JButton();
+        printLabel = new javax.swing.JLabel();
+        menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         saveMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -65,32 +66,32 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        jToolBar.setFloatable(false);
-        jToolBar.setRollover(true);
+        toolBar.setFloatable(false);
+        toolBar.setRollover(true);
 
-        pulse.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        pulse.setText("+");
-        pulse.setFocusable(false);
-        pulse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pulse.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        pulse.addActionListener(new java.awt.event.ActionListener() {
+        plusButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        plusButton.setText("+");
+        plusButton.setFocusable(false);
+        plusButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        plusButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        plusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pulseActionPerformed(evt);
+                plusButtonActionPerformed(evt);
             }
         });
-        jToolBar.add(pulse);
+        toolBar.add(plusButton);
 
-        minus.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        minus.setText("-");
-        minus.setFocusable(false);
-        minus.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        minus.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        minus.addActionListener(new java.awt.event.ActionListener() {
+        minusButton.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        minusButton.setText("-");
+        minusButton.setFocusable(false);
+        minusButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        minusButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        minusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                minusActionPerformed(evt);
+                minusButtonActionPerformed(evt);
             }
         });
-        jToolBar.add(minus);
+        toolBar.add(minusButton);
 
         profileComboBox.setPrototypeDisplayValue("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
         profileComboBox.addItemListener(new java.awt.event.ItemListener() {
@@ -98,7 +99,7 @@ public class MainPage extends javax.swing.JFrame {
                 profileComboBoxItemStateChanged(evt);
             }
         });
-        jToolBar.add(profileComboBox);
+        toolBar.add(profileComboBox);
 
         list.setModel(new javax.swing.DefaultListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -106,7 +107,7 @@ public class MainPage extends javax.swing.JFrame {
                 listMouseClicked(evt);
             }
         });
-        run_jScrollPane.setViewportView(list);
+        runScrollPane.setViewportView(list);
 
         inverseList.setModel(new javax.swing.DefaultListModel());
         inverseList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -114,35 +115,35 @@ public class MainPage extends javax.swing.JFrame {
                 inverseListMouseClicked(evt);
             }
         });
-        inverseRun_jScrollPane.setViewportView(inverseList);
+        inverseRunScrollPane.setViewportView(inverseList);
 
         printScreen.setModel(new javax.swing.DefaultListModel());
-        printScreen_jScrollPane.setViewportView(printScreen);
+        printScreenScrollPane.setViewportView(printScreen);
 
-        runPipeline.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        runPipeline.setText("Run >> ");
-        runPipeline.setActionCommand("");
-        runPipeline.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        runPipeline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        runPipeline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        runPipeline.addActionListener(new java.awt.event.ActionListener() {
+        runPipeLineButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        runPipeLineButton.setText("Run >> ");
+        runPipeLineButton.setActionCommand("");
+        runPipeLineButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        runPipeLineButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        runPipeLineButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        runPipeLineButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                runPipelineActionPerformed(evt);
+                runPipeLineButtonActionPerformed(evt);
             }
         });
 
-        inverse_Button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        inverse_Button.setText("Inverse Run<<");
-        inverse_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        inverse_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        inverse_Button.addActionListener(new java.awt.event.ActionListener() {
+        inverseButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        inverseButton.setText("Inverse Run<<");
+        inverseButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        inverseButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        inverseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inverse_ButtonActionPerformed(evt);
+                inverseButtonActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Prints -->");
+        printLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        printLabel.setText("Prints -->");
 
         fileMenu.setText("File");
 
@@ -164,7 +165,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         fileMenu.add(exitMenuItem);
 
-        jMenuBar1.add(fileMenu);
+        menuBar.add(fileMenu);
 
         passwordMenu.setText("Password");
 
@@ -176,7 +177,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         passwordMenu.add(changePasswordMenuItem);
 
-        jMenuBar1.add(passwordMenu);
+        menuBar.add(passwordMenu);
 
         profileMenu.setText("Profile");
 
@@ -197,50 +198,50 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(deleteMenuItem);
 
-        jMenuBar1.add(profileMenu);
+        menuBar.add(profileMenu);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(printScreen_jScrollPane)
+                        .addComponent(printScreenScrollPane)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(printLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(runPipeline)
-                            .addComponent(run_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                            .addComponent(runPipeLineButton)
+                            .addComponent(runScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inverse_Button)
-                            .addComponent(inverseRun_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
+                            .addComponent(inverseButton)
+                            .addComponent(inverseRunScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
                         .addGap(8, 8, 8))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inverse_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(runPipeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(inverseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(runPipeLineButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(inverseRun_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                    .addComponent(run_jScrollPane))
+                    .addComponent(inverseRunScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                    .addComponent(runScrollPane))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(printLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(printScreen_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(printScreenScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -248,7 +249,7 @@ public class MainPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void pulseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulseActionPerformed
+    private void plusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusButtonActionPerformed
 
         Options dialog = new Options(this, true);
         Options inverseDialog = new Options(this, true);
@@ -256,11 +257,11 @@ public class MainPage extends javax.swing.JFrame {
         dialog.setModel((DefaultListModel) list.getModel(), (DefaultListModel) inverseList.getModel());
 
         dialog.setVisible(true);
-        minus.setEnabled(true);
+        minusButton.setEnabled(true);
 
-    }//GEN-LAST:event_pulseActionPerformed
+    }//GEN-LAST:event_plusButtonActionPerformed
 
-    private void minusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusActionPerformed
+    private void minusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusButtonActionPerformed
         int index = list.getSelectedIndex();
         ((DefaultListModel) list.getModel()).remove(index);
         ((DefaultListModel) inverseList.getModel()).remove(inverseList.getModel().getSize() - index - 1);
@@ -268,11 +269,11 @@ public class MainPage extends javax.swing.JFrame {
         int size = list.getModel().getSize();
 
         if (size == 0) {
-            minus.setEnabled(false);
+            minusButton.setEnabled(false);
 
         }
 
-    }//GEN-LAST:event_minusActionPerformed
+    }//GEN-LAST:event_minusButtonActionPerformed
 
     private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
         // TODO add your handling code here:
@@ -287,7 +288,7 @@ public class MainPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listMouseClicked
 
-    private void runPipelineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runPipelineActionPerformed
+    private void runPipeLineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runPipeLineButtonActionPerformed
         // TODO add your handling code here:
 
         DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
@@ -376,7 +377,7 @@ public class MainPage extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_runPipelineActionPerformed
+    }//GEN-LAST:event_runPipeLineButtonActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
 
@@ -400,7 +401,7 @@ public class MainPage extends javax.swing.JFrame {
             PBDKF2 pbdkf2 = new PBDKF2();
 
             Encryption ee = new All_Encryption();
-            byte[] encripted = ee.encrypt(result.getBytes("UTF-8"), "AES", key);
+            byte[] encripted = ee.encrypt(result.getBytes("UTF-8"), "AES", currentKey);
 
             FileProcessor fileProcessor = new FileProcessor();
             fileProcessor.write(System.getProperty("user.home") + "/pfsak.configs", encripted);
@@ -420,72 +421,36 @@ public class MainPage extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
 
-        XStream xstream = new XStream();
         File f = new File(System.getProperty("user.home") + "/pfsak.configs");
-        DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
-
-        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
-        DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
 
         if (f.exists()) {
             LoginDialog dialog = new LoginDialog(this, true);
             dialog.setVisible(true);
-            key = dialog.rs;
+            currentKey = dialog.rs;
 
             byte[] decripted = null;
             FileProcessor fp = new FileProcessor();
             try {
                 byte[] result = fp.read(f.getAbsolutePath());
                 Encryption ee = new All_Encryption();
-                decripted = ee.decrypt(result, "AES", key);
+                decripted = ee.decrypt(result, "AES", currentKey);
             } catch (Exception ex) {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-                //messaj göster okeye basılın kapt sistemi
                 String message = ex.getLocalizedMessage();
-
-//                JOptionPane.showMessageDialog(printScreen, "System is going to close.");
-                JOptionPane.showMessageDialog(this,
-                        "Password may be wrong \n" + message,
-                        "Inane warning",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Password may be wrong \n" + message, "Inane warning", JOptionPane.ERROR_MESSAGE);
                 System.exit(-1);
             }
-
-            String result = null;
-            try {
-                result = new String(decripted, "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            profiller = (HashMap<String, Object[][]>) xstream.fromXML(result);
-
-            for (String profiladi : profiller.keySet()) {
-                boxModel.addElement(profiladi);
-
-            }
-            currentProfil = (String) boxModel.getElementAt(0);
-
-            // We need to clear the listS when loading the data at the first startup because
-            // the combobox method acts as if it was a new data entry when first opened. 
-            // ın short, if we do not make clear, the data is duplicated.
-            defaultListModel.clear();
-            inverListModel.clear();
-            Object[][] configs = profiller.get(currentProfil);
-            for (int index = 0; index < configs[0].length; index++) {
-                defaultListModel.addElement(configs[0][index]);
-            }
-            for (int index = 0; index < configs[1].length; index++) {
-                inverListModel.addElement(configs[1][index]);
-
-            }
+            load(decripted);
 
         } else {
             // If the user logs into the application for the first time.
 
+            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
+            DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
             profiller.put("Default profile", new Object[2][0]);
             for (String profiladi : profiller.keySet()) {
                 boxModel.addElement(profiladi);
-
             }
             currentProfil = (String) boxModel.getElementAt(0);
 
@@ -497,12 +462,12 @@ public class MainPage extends javax.swing.JFrame {
 
             NewPasswordDialog newPasswordDialog = new NewPasswordDialog(this, true);
             newPasswordDialog.setVisible(true);
-            key = newPasswordDialog.rs;
+            currentKey = newPasswordDialog.rs;
             saveMenuItemActionPerformed(null);
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void inverse_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inverse_ButtonActionPerformed
+    private void inverseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inverseButtonActionPerformed
 
         DefaultListModel inverseListModel = (DefaultListModel) inverseList.getModel();
         DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
@@ -577,7 +542,7 @@ public class MainPage extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_inverse_ButtonActionPerformed
+    }//GEN-LAST:event_inverseButtonActionPerformed
 
     private void inverseListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inverseListMouseClicked
         // TODO add your handling code here:
@@ -647,40 +612,104 @@ public class MainPage extends javax.swing.JFrame {
     private void changePasswordMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordMenuItemActionPerformed
         // TODO add your handling code here:
 
-        // profiles may be lost if you didn't save -> Save Cancel
-        File f = new File(System.getProperty("user.home") + "/pfsak.configs");
+        Object[] options = {"Save", "Discard", "Cancel"};
+        int response = JOptionPane.showOptionDialog(this,
+                "Profiles may be lost if you didn't save",
+                "Are you sure ?",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, options, options[2]);
+        if (response == JOptionPane.YES_OPTION) {
+            saveMenuItemActionPerformed(null);
 
-        byte[] result = null;
-        try {
-            FileProcessor fp = new FileProcessor();
-            result = fp.read(f.getAbsolutePath());
-
-            Encryption ee = new All_Encryption();
-            byte[] decripted = ee.decrypt(result, "AES", key);
-
-        } catch (IOException ex) {
-            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        LoginDialog loginDialog = new LoginDialog(this, true);
-        loginDialog.setVisible(true);
-
-        byte[] newkey = loginDialog.rs;
-        if (!Arrays.equals(key, newkey)) {
-            // password geçersiz uyarısı ver
+        } else if ((response == JOptionPane.CANCEL_OPTION)) {
             return;
+
         }
 
-        // Password change dialog 2 kere iste
-        // key = passwordChangeDialog.rs;
-        saveMenuItemActionPerformed(evt);
+        OldPasswordDialog oldPasswordDialog = new OldPasswordDialog(this, true);
+        oldPasswordDialog.setVisible(true);
+        byte[] checkKey = oldPasswordDialog.rs;
+
+        if (!Arrays.equals(currentKey, checkKey)) {
+            JOptionPane.showMessageDialog(this,
+                    "Password is invalid",
+                    "Inane warning",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            byte[] rs = null;
+            byte[] decripted = null;
+            try {
+                File f = new File(System.getProperty("user.home") + "/pfsak.configs");
+                FileProcessor fp = new FileProcessor();
+                rs = fp.read(f.getAbsolutePath());
+
+                Encryption ee = new All_Encryption();
+                decripted = ee.decrypt(rs, "AES", currentKey);
+
+            } catch (IOException ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            load(decripted);
+
+            NewPasswordDialog newPasswordDialog = new NewPasswordDialog(this, true);
+            newPasswordDialog.setVisible(true);
+            byte[] newKey = newPasswordDialog.rs;
+            currentKey = newKey;
+            saveMenuItemActionPerformed(null);
+        }
+
+
     }//GEN-LAST:event_changePasswordMenuItemActionPerformed
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteMenuItemActionPerformed
+
+    private void load(byte[] decripted) {
+        XStream xstream = new XStream();
+        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+        DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
+        DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
+        String result = null;
+        try {
+            result = new String(decripted, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        profiller = (HashMap<String, Object[][]>) xstream.fromXML(result);
+        for (ItemListener il : profileComboBox.getItemListeners()) {
+            profileComboBox.removeItemListener(il);
+        }
+
+        boxModel.removeAllElements();
+        for (String profiladi : profiller.keySet()) {
+            boxModel.addElement(profiladi);
+        }
+        currentProfil = (String) boxModel.getElementAt(0);
+
+        // We need to clear the listS when loading the data at the first startup because
+        // the combobox method acts as if it was a new data entry when first opened.
+        // ın short, if we do not make clear, the data is duplicated.
+        defaultListModel.clear();
+        inverListModel.clear();
+        Object[][] configs = profiller.get(currentProfil);
+        for (int index = 0; index < configs[0].length; index++) {
+            defaultListModel.addElement(configs[0][index]);
+        }
+        for (int index = 0; index < configs[1].length; index++) {
+            inverListModel.addElement(configs[1][index]);
+        }
+
+        profileComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                profileComboBoxItemStateChanged(evt);
+            }
+        });
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -720,24 +749,24 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JButton inverseButton;
     private javax.swing.JList<String> inverseList;
-    private javax.swing.JScrollPane inverseRun_jScrollPane;
-    private javax.swing.JButton inverse_Button;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JToolBar jToolBar;
+    private javax.swing.JScrollPane inverseRunScrollPane;
     private javax.swing.JList<String> list;
-    private javax.swing.JButton minus;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JButton minusButton;
     private javax.swing.JMenuItem newProfileMenuItem;
     private javax.swing.JMenu passwordMenu;
+    private javax.swing.JButton plusButton;
+    private javax.swing.JLabel printLabel;
     private javax.swing.JList<String> printScreen;
-    private javax.swing.JScrollPane printScreen_jScrollPane;
+    private javax.swing.JScrollPane printScreenScrollPane;
     private javax.swing.JComboBox<String> profileComboBox;
     private javax.swing.JMenu profileMenu;
-    private javax.swing.JButton pulse;
-    private javax.swing.JButton runPipeline;
-    private javax.swing.JScrollPane run_jScrollPane;
+    private javax.swing.JButton runPipeLineButton;
+    private javax.swing.JScrollPane runScrollPane;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 
 }
