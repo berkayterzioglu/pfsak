@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
 import tr.net.terzioglu.pfsak.module.CompressConfig;
 import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
@@ -20,6 +19,10 @@ import tr.net.terzioglu.pfsak.module.UIConfig;
 import tr.net.terzioglu.pfsak.module.URLConfig;
 
 public class MainPage extends javax.swing.JFrame {
+
+    private HashMap<String, Object[][]> profiller = new HashMap<>();
+    private String currentProfil;
+    private byte[] key;
 
     public MainPage() {
         initComponents();
@@ -341,9 +344,6 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_runPipelineActionPerformed
 
-    private HashMap<String, Object[][]> profiller = new HashMap<>();
-    private String currentProfil;
-
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
 
         try {
@@ -351,7 +351,7 @@ public class MainPage extends javax.swing.JFrame {
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
             DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
 
-            Object[][] configs = new Object[2][defaultListModel.size()];
+            Object[][] configs = new Object[2][defaultListModel.size()]; // neden böyle
 
             for (int index = 0; index < defaultListModel.size(); index++) {
                 configs[0][index] = defaultListModel.get(index);
@@ -382,8 +382,6 @@ public class MainPage extends javax.swing.JFrame {
         System.exit(0);
 
     }//GEN-LAST:event_exitMenuItemActionPerformed
-
-    private byte[] key;
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
@@ -426,6 +424,12 @@ public class MainPage extends javax.swing.JFrame {
 
             }
             currentProfil = (String) boxModel.getElementAt(0);
+
+            // We need to clear the listS when loading the data at the first startup because
+            // the combobox method acts as if it was a new data entry when first opened. 
+            // ın short, if we do not make clear, the data is duplicated.
+            defaultListModel.clear();
+            inverListModel.clear();
             Object[][] configs = profiller.get(currentProfil);
             for (int index = 0; index < configs[0].length; index++) {
                 defaultListModel.addElement(configs[0][index]);
