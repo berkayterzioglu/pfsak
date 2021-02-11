@@ -49,8 +49,6 @@ public class URLProcessor {
         connection.setInstanceFollowRedirects(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", config.getContentType());
-//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
         connection.getOutputStream().write(data);
         return copyStream(connection);
 

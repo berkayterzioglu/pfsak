@@ -4,6 +4,15 @@ import javax.swing.JFrame;
 
 public class FileConfig implements UIConfig {
 
+    private FileConfig inverse = null;
+
+    private String fileName = null;
+    private Type fileType = Type.READ;
+
+    public enum Type {
+        READ, WRITE
+    }
+
     @Override
     public void showConfigDialog(JFrame frame) {
         FileConfigDialog fcd = new FileConfigDialog(null, true);
@@ -12,8 +21,6 @@ public class FileConfig implements UIConfig {
         fcd.setLocationRelativeTo(frame);
         fcd.setVisible(true);
     }
-
-    private FileConfig inverse = null;
 
     @Override
     public Object inverse() {
@@ -44,13 +51,6 @@ public class FileConfig implements UIConfig {
             inverse.fileType = Type.READ;
         }
     }
-
-    public enum Type {
-        READ, WRITE
-    }
-
-    private String fileName = null;
-    private Type fileType = Type.READ;
 
     public String getFileName() {
         return fileName;

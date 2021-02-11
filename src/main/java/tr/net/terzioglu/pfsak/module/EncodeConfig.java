@@ -4,6 +4,15 @@ import javax.swing.JFrame;
 
 public class EncodeConfig implements UIConfig {
 
+    private EncodeConfig inverse = null;
+
+    private boolean encode = true; // false = deEncode
+    private Type encodeType = Type.BASE64;
+
+    public enum Type {
+        BASE64, HEXBIN, UU
+    }
+
     @Override
     public void showConfigDialog(JFrame frame) {
         EncodeConfigDialog ecd = new EncodeConfigDialog(null, true);
@@ -12,8 +21,6 @@ public class EncodeConfig implements UIConfig {
         ecd.setLocationRelativeTo(frame);
         ecd.setVisible(true);
     }
-
-    private EncodeConfig inverse = null;
 
     @Override
     public Object inverse() {
@@ -35,13 +42,6 @@ public class EncodeConfig implements UIConfig {
         inverse.encode = !encode;
 
     }
-
-    public enum Type {
-        BASE64, HEXBIN, UU
-    }
-
-    private Type encodeType = Type.BASE64;
-    private boolean encode = true; // false = deEncode
 
     public Type getEncodeType() {
         return encodeType;

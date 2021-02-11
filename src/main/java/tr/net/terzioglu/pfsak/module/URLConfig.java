@@ -4,14 +4,15 @@ import javax.swing.JFrame;
 
 public class URLConfig implements UIConfig {
 
-    public enum Type {
-        GET, POST, PUT
-    }
+    private URLConfig inverse = null;
+
     private String urlAddress = null;
     private String contentType = null;
     private Type fileType = Type.GET;
 
-    private URLConfig inverse = null;
+    public enum Type {
+        GET, POST, PUT
+    }
 
     @Override
     public void showConfigDialog(JFrame frame) {
@@ -77,7 +78,7 @@ public class URLConfig implements UIConfig {
 
     @Override
     public String toString() {
-        return "URLConfig{" + "urlAddress=" + urlAddress + ", contentType=" + contentType + ", fileType=" + fileType + ", inverse=" + inverse + '}';
+        return "URLConfig{" + "urlAddress=" + urlAddress + ", contentType=" + contentType + ", fileType=" + fileType + '}';
     }
 
 }

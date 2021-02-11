@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 
 public class DatabaseConfig implements UIConfig {
 
+    private DatabaseConfig inverse = null;
+
     private String url = null;
     private String driverName = null;
     private String user = null;
@@ -25,8 +27,6 @@ public class DatabaseConfig implements UIConfig {
         dcd.setLocationRelativeTo(frame);
         dcd.setVisible(true);
     }
-
-    private DatabaseConfig inverse = null;
 
     @Override
     public Object inverse() {

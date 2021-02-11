@@ -4,6 +4,16 @@ import javax.swing.JFrame;
 
 public class CompressConfig implements UIConfig {
 
+    private CompressConfig inverse = null;
+
+    private String fileName = null;
+    private boolean compress = true; // false = decompress
+    private Type compressionType = Type.XZ;
+
+    public enum Type {
+        XZ, GZIP, ZIP
+    };
+
     @Override
     public void showConfigDialog(JFrame frame) {
         CompressConfigDialog ccd = new CompressConfigDialog(frame, true);
@@ -13,8 +23,6 @@ public class CompressConfig implements UIConfig {
         ccd.setVisible(true);
 
     }
-
-    private CompressConfig inverse = null;
 
     @Override
     public Object inverse() {
@@ -34,13 +42,6 @@ public class CompressConfig implements UIConfig {
         inverse.fileName = fileName;
         inverse.compressionType = compressionType;
     }
-
-    public enum Type {
-        XZ, GZIP, ZIP
-    };
-    private String fileName = null;
-    private Type compressionType = Type.XZ;
-    private boolean compress = true; // false = decompress
 
     public Type getCompressionType() {
         return compressionType;

@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak;
 
 import java.util.Base64;
 
-public class Base64_Encode implements Encode {
+public class Base64Encode implements Encode {
 
     @Override
     public byte[] encode(byte[] data) {

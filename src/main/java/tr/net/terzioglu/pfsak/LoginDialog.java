@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 public class LoginDialog extends javax.swing.JDialog {
 
+    protected byte[] rs;
+
     public LoginDialog() {
     }
 
@@ -59,11 +61,11 @@ public class LoginDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(passwordField)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(okButton))
-                .addGap(33, 33, 33))
+                .addGap(27, 27, 27))
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -77,17 +79,16 @@ public class LoginDialog extends javax.swing.JDialog {
         System.exit(0);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    protected byte[] rs;
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         // TODO add your handling code here:
         PBDKF2 pbdkf2 = new PBDKF2();
 
         try {
             rs = pbdkf2.hashPassword(new String(passwordField.getPassword()));
-
         } catch (Exception ex) {
             Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         setVisible(false);
         dispose();
     }//GEN-LAST:event_okButtonActionPerformed

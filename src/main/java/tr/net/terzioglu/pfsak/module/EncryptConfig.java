@@ -4,6 +4,16 @@ import javax.swing.JFrame;
 
 public class EncryptConfig implements UIConfig {
 
+    private EncryptConfig inverse = null;
+
+    private String keyValue = null;
+    private boolean encrypt = true; // false = deEncrypt
+    private Type encryptionType = Type.AES;
+
+    public enum Type {
+        AES, DES, TRIPLE_DES
+    }
+
     @Override
     public void showConfigDialog(JFrame frame) {
         EncryptConfigDialog ecd = new EncryptConfigDialog(null, true);
@@ -12,7 +22,6 @@ public class EncryptConfig implements UIConfig {
         ecd.setLocationRelativeTo(frame);
         ecd.setVisible(true);
     }
-    private EncryptConfig inverse = null;
 
     @Override
     public Object inverse() {
@@ -33,16 +42,8 @@ public class EncryptConfig implements UIConfig {
         inverse.encrypt = !encrypt;
         inverse.encryptionType = encryptionType;
         inverse.keyValue = keyValue;
-        
-    }
 
-    public enum Type {
-        AES, DES, TRIPLE_DES
     }
-
-    private String keyValue = null;
-    private Type encryptionType = Type.AES;
-    private boolean encrypt = true; // false = deEncrypt
 
     public String getKeyValue() {
         return keyValue;

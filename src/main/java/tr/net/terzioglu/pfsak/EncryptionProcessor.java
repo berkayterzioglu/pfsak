@@ -4,7 +4,7 @@ import java.security.*;
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 
-public class All_Encryption implements Encryption {
+public class EncryptionProcessor implements Encryption {
 
     @Override
     public byte[] encrypt(byte[] data, String algo, byte[] keySpec) throws Exception {

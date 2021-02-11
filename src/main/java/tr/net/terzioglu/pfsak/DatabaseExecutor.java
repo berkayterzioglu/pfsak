@@ -61,7 +61,7 @@ public class DatabaseExecutor {
             e.printStackTrace();
 
         } finally {
-            
+
             if (statement != null) {
                 statement.close();
 
@@ -89,14 +89,14 @@ public class DatabaseExecutor {
             e.printStackTrace();
 
         } finally {
-            
+
             if (rs != null) {
                 rs.close();
-                
+
             }
             if (statement != null) {
                 statement.close();
-                
+
             }
         }
         return null;

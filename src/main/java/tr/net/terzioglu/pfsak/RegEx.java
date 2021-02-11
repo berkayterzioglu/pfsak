@@ -13,7 +13,6 @@ public class RegEx {
         Matcher matcher = pat.matcher(aStr);
         aStr = matcher.replaceAll(config.getReplaceWord());
 
-
         return aStr.getBytes("UTF-8");
     }
 }

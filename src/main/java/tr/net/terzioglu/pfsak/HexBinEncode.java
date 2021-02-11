@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak;
 
 import org.apache.commons.codec.binary.Hex;
 
-public class HexBin_Encode implements Encode {
+public class HexBinEncode implements Encode {
 
     @Override
     public byte[] decode(byte[] data) throws Exception {

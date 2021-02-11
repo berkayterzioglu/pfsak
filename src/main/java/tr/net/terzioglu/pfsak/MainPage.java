@@ -40,11 +40,11 @@ public class MainPage extends javax.swing.JFrame {
         minusButton = new javax.swing.JButton();
         profileComboBox = new javax.swing.JComboBox<>();
         runScrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList<>();
+        runList = new javax.swing.JList<>();
         inverseRunScrollPane = new javax.swing.JScrollPane();
         inverseList = new javax.swing.JList<>();
         printScreenScrollPane = new javax.swing.JScrollPane();
-        printScreen = new javax.swing.JList<>();
+        printScreenList = new javax.swing.JList<>();
         runPipeLineButton = new javax.swing.JButton();
         inverseButton = new javax.swing.JButton();
         printLabel = new javax.swing.JLabel();
@@ -101,13 +101,13 @@ public class MainPage extends javax.swing.JFrame {
         });
         toolBar.add(profileComboBox);
 
-        list.setModel(new javax.swing.DefaultListModel());
-        list.addMouseListener(new java.awt.event.MouseAdapter() {
+        runList.setModel(new javax.swing.DefaultListModel());
+        runList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listMouseClicked(evt);
+                runListMouseClicked(evt);
             }
         });
-        runScrollPane.setViewportView(list);
+        runScrollPane.setViewportView(runList);
 
         inverseList.setModel(new javax.swing.DefaultListModel());
         inverseList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -117,8 +117,8 @@ public class MainPage extends javax.swing.JFrame {
         });
         inverseRunScrollPane.setViewportView(inverseList);
 
-        printScreen.setModel(new javax.swing.DefaultListModel());
-        printScreenScrollPane.setViewportView(printScreen);
+        printScreenList.setModel(new javax.swing.DefaultListModel());
+        printScreenScrollPane.setViewportView(printScreenList);
 
         runPipeLineButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         runPipeLineButton.setText("Run >> ");
@@ -251,10 +251,10 @@ public class MainPage extends javax.swing.JFrame {
 
     private void plusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusButtonActionPerformed
 
-        Options dialog = new Options(this, true);
-        Options inverseDialog = new Options(this, true);
+        OptionsDialog dialog = new OptionsDialog(this, true);
+        OptionsDialog inverseDialog = new OptionsDialog(this, true);
 
-        dialog.setModel((DefaultListModel) list.getModel(), (DefaultListModel) inverseList.getModel());
+        dialog.setModel((DefaultListModel) runList.getModel(), (DefaultListModel) inverseList.getModel());
 
         dialog.setVisible(true);
         minusButton.setEnabled(true);
@@ -262,11 +262,11 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_plusButtonActionPerformed
 
     private void minusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusButtonActionPerformed
-        int index = list.getSelectedIndex();
-        ((DefaultListModel) list.getModel()).remove(index);
+        int index = runList.getSelectedIndex();
+        ((DefaultListModel) runList.getModel()).remove(index);
         ((DefaultListModel) inverseList.getModel()).remove(inverseList.getModel().getSize() - index - 1);
 
-        int size = list.getModel().getSize();
+        int size = runList.getModel().getSize();
 
         if (size == 0) {
             minusButton.setEnabled(false);
@@ -275,29 +275,29 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_minusButtonActionPerformed
 
-    private void listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listMouseClicked
+    private void runListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runListMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
 
             // Double-click detected
-            int index = list.locationToIndex(evt.getPoint());
-            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            int index = runList.locationToIndex(evt.getPoint());
+            DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
             UIConfig config = (UIConfig) defaultListModel.get(index);
             config.showConfigDialog(this);
             inverseList.repaint();
         }
-    }//GEN-LAST:event_listMouseClicked
+    }//GEN-LAST:event_runListMouseClicked
 
     private void runPipeLineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runPipeLineButtonActionPerformed
         // TODO add your handling code here:
 
-        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
-        DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
+        DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
+        DefaultListModel printListModel = (DefaultListModel) printScreenList.getModel();
         printListModel.clear();
         printListModel.addElement("---------------- R U N ----------------");
         byte[] sonuc = new byte[0];
 
-        int size = list.getModel().getSize();
+        int size = runList.getModel().getSize();
 
         for (int index = 0; index < size; index++) {
 
@@ -383,7 +383,7 @@ public class MainPage extends javax.swing.JFrame {
 
         try {
             // serialization
-            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
             DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
 
             Object[][] configs = new Object[2][defaultListModel.size()];
@@ -400,7 +400,7 @@ public class MainPage extends javax.swing.JFrame {
             String result = xstream.toXML(profiller);
             PBDKF2 pbdkf2 = new PBDKF2();
 
-            Encryption ee = new All_Encryption();
+            Encryption ee = new EncryptionProcessor();
             byte[] encripted = ee.encrypt(result.getBytes("UTF-8"), "AES", currentKey);
 
             FileProcessor fileProcessor = new FileProcessor();
@@ -432,7 +432,7 @@ public class MainPage extends javax.swing.JFrame {
             FileProcessor fp = new FileProcessor();
             try {
                 byte[] result = fp.read(f.getAbsolutePath());
-                Encryption ee = new All_Encryption();
+                Encryption ee = new EncryptionProcessor();
                 decripted = ee.decrypt(result, "AES", currentKey);
             } catch (Exception ex) {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -445,7 +445,7 @@ public class MainPage extends javax.swing.JFrame {
         } else {
             // If the user logs into the application for the first time.
 
-            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
             DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
             DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
             profiller.put("Default profile", new Object[2][0]);
@@ -470,7 +470,7 @@ public class MainPage extends javax.swing.JFrame {
     private void inverseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inverseButtonActionPerformed
 
         DefaultListModel inverseListModel = (DefaultListModel) inverseList.getModel();
-        DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
+        DefaultListModel printListModel = (DefaultListModel) printScreenList.getModel();
         printListModel.clear();
         printListModel.addElement("---------------- I N V E R S E   R U N ----------------");
 
@@ -575,7 +575,7 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
             currentProfil = (String) evt.getItem();
-            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
             DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
 
             Object[][] configs = new Object[2][defaultListModel.size()];
@@ -591,7 +591,7 @@ public class MainPage extends javax.swing.JFrame {
 
         } else if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             currentProfil = (String) evt.getItem();
-            DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+            DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
             DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
             Object[][] configs = profiller.get(currentProfil);
             defaultListModel.clear();
@@ -645,7 +645,7 @@ public class MainPage extends javax.swing.JFrame {
                 FileProcessor fp = new FileProcessor();
                 rs = fp.read(f.getAbsolutePath());
 
-                Encryption ee = new All_Encryption();
+                Encryption ee = new EncryptionProcessor();
                 decripted = ee.decrypt(rs, "AES", currentKey);
 
             } catch (IOException ex) {
@@ -671,7 +671,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void load(byte[] decripted) {
         XStream xstream = new XStream();
-        DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
+        DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
         DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
         DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
         String result = null;
@@ -752,17 +752,17 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton inverseButton;
     private javax.swing.JList<String> inverseList;
     private javax.swing.JScrollPane inverseRunScrollPane;
-    private javax.swing.JList<String> list;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JButton minusButton;
     private javax.swing.JMenuItem newProfileMenuItem;
     private javax.swing.JMenu passwordMenu;
     private javax.swing.JButton plusButton;
     private javax.swing.JLabel printLabel;
-    private javax.swing.JList<String> printScreen;
+    private javax.swing.JList<String> printScreenList;
     private javax.swing.JScrollPane printScreenScrollPane;
     private javax.swing.JComboBox<String> profileComboBox;
     private javax.swing.JMenu profileMenu;
+    private javax.swing.JList<String> runList;
     private javax.swing.JButton runPipeLineButton;
     private javax.swing.JScrollPane runScrollPane;
     private javax.swing.JMenuItem saveMenuItem;

@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 
 public class RegExConfig implements UIConfig {
 
+    private RegExConfig inverse = null;
+
     private String search = null;
     private String replaceWord = null;
 
@@ -15,8 +17,6 @@ public class RegExConfig implements UIConfig {
         recd.setLocationRelativeTo(frame);
         recd.setVisible(true);
     }
-
-    private RegExConfig inverse = null;
 
     @Override
     public Object inverse() {

@@ -21,15 +21,15 @@ public class EncodeExecutor {
 
         switch (config.getEncodeType()) {
             case BASE64:
-                e = new Base64_Encode();
+                e = new Base64Encode();
                 defaultListModel.addElement("ENCODE -- BASE64");
                 break;
             case HEXBIN:
-                e = new HexBin_Encode();
+                e = new HexBinEncode();
                 defaultListModel.addElement("ENCODE -- HEXBIN");
                 break;
             case UU:
-                e = new UU_Encode();
+                e = new UUEncode();
                 defaultListModel.addElement("ENCODE -- UU");
                 break;
         }

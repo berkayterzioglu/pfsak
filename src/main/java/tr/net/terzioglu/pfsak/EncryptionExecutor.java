@@ -17,7 +17,7 @@ public class EncryptionExecutor {
 
     public byte[] execute(EncryptConfig config, byte[] data) throws Exception {
 
-        Encryption e = new All_Encryption();
+        Encryption e = new EncryptionProcessor();
         String algo = null;
         String keyValue = config.getKeyValue();
 

@@ -92,7 +92,7 @@ public class NewPasswordDialog extends javax.swing.JDialog {
             }
             setVisible(false);
             dispose();
-            
+
         } else {
             JOptionPane.showMessageDialog(this,
                     "Password is not same",
