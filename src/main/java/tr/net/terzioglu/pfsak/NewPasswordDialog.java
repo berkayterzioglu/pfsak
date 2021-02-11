@@ -2,16 +2,17 @@ package tr.net.terzioglu.pfsak;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class NewPasswordDialog extends javax.swing.JDialog {
-
+    
     protected byte[] rs;
-
+    
     public NewPasswordDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -74,18 +75,28 @@ public class NewPasswordDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         PBDKF2 pbdkf2 = new PBDKF2();
-
-        if (jPasswordField1.equals(jPasswordField2)) {
+        String fistPass = new String(jPasswordField1.getPassword());
+        String secondPass = new String(jPasswordField2.getPassword());
+        
+        if (fistPass.equals(secondPass)) {
             try {
                 rs = pbdkf2.hashPassword(new String(jPasswordField1.getPassword()));
             } catch (Exception ex) {
                 Logger.getLogger(NewPasswordDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
+            setVisible(false);
+            
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Password is not same",
+                    "Inane warning",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
