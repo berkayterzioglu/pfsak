@@ -19,15 +19,15 @@ import tr.net.terzioglu.pfsak.module.UIConfig;
 import tr.net.terzioglu.pfsak.module.URLConfig;
 
 public class MainPage extends javax.swing.JFrame {
-
+    
     private HashMap<String, Object[][]> profiller = new HashMap<>();
     private String currentProfil;
     private byte[] key;
-
+    
     public MainPage() {
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -35,7 +35,7 @@ public class MainPage extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         pulse = new javax.swing.JButton();
         minus = new javax.swing.JButton();
-        ProfileComboBox = new javax.swing.JComboBox<>();
+        profileComboBox = new javax.swing.JComboBox<>();
         run_jScrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
         inverseRun_jScrollPane = new javax.swing.JScrollPane();
@@ -43,13 +43,15 @@ public class MainPage extends javax.swing.JFrame {
         printScreen_jScrollPane = new javax.swing.JScrollPane();
         printScreen = new javax.swing.JList<>();
         runPipeline = new javax.swing.JButton();
-        Inverse_Button = new javax.swing.JButton();
+        inverse_Button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        newProfileMenuItem = new javax.swing.JMenuItem();
+        changePasswordMenuItem = new javax.swing.JMenuItem();
         saveMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
@@ -86,12 +88,12 @@ public class MainPage extends javax.swing.JFrame {
         });
         jToolBar1.add(minus);
 
-        ProfileComboBox.addItemListener(new java.awt.event.ItemListener() {
+        profileComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ProfileComboBoxİtemStateChanged(evt);
+                profileComboBoxİtemStateChanged(evt);
             }
         });
-        jToolBar1.add(ProfileComboBox);
+        jToolBar1.add(profileComboBox);
 
         list.setModel(new javax.swing.DefaultListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -124,13 +126,13 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        Inverse_Button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        Inverse_Button.setText("Inverse Run<<");
-        Inverse_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Inverse_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Inverse_Button.addActionListener(new java.awt.event.ActionListener() {
+        inverse_Button.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        inverse_Button.setText("Inverse Run<<");
+        inverse_Button.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        inverse_Button.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        inverse_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Inverse_ButtonActionPerformed(evt);
+                inverse_ButtonActionPerformed(evt);
             }
         });
 
@@ -139,13 +141,21 @@ public class MainPage extends javax.swing.JFrame {
 
         fileMenu.setText("File");
 
-        jMenuItem1.setText("New profile");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        newProfileMenuItem.setText("New profile");
+        newProfileMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                newProfileMenuItemActionPerformed(evt);
             }
         });
-        fileMenu.add(jMenuItem1);
+        fileMenu.add(newProfileMenuItem);
+
+        changePasswordMenuItem.setText("Change Password");
+        changePasswordMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePasswordMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(changePasswordMenuItem);
 
         saveMenuItem.setText("Save");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +174,9 @@ public class MainPage extends javax.swing.JFrame {
         fileMenu.add(exitMenuItem);
 
         jMenuBar1.add(fileMenu);
+
+        jMenu1.setText("Password");
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -187,7 +200,7 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(run_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Inverse_Button)
+                            .addComponent(inverse_Button)
                             .addComponent(inverseRun_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
                         .addGap(8, 8, 8))))
         );
@@ -197,7 +210,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Inverse_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inverse_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(runPipeline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -215,12 +228,12 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pulseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulseActionPerformed
-
+        
         Options dialog = new Options(this, true);
         Options inverseDialog = new Options(this, true);
-
+        
         dialog.setModel((DefaultListModel) list.getModel(), (DefaultListModel) inverseList.getModel());
-
+        
         dialog.setVisible(true);
         minus.setEnabled(true);
 
@@ -230,12 +243,12 @@ public class MainPage extends javax.swing.JFrame {
         int index = list.getSelectedIndex();
         ((DefaultListModel) list.getModel()).remove(index);
         ((DefaultListModel) inverseList.getModel()).remove(inverseList.getModel().getSize() - index - 1);
-
+        
         int size = list.getModel().getSize();
-
+        
         if (size == 0) {
             minus.setEnabled(false);
-
+            
         }
 
     }//GEN-LAST:event_minusActionPerformed
@@ -261,98 +274,98 @@ public class MainPage extends javax.swing.JFrame {
         printListModel.clear();
         printListModel.addElement("---------------- R U N ----------------");
         byte[] sonuc = new byte[0];
-
+        
         int size = list.getModel().getSize();
-
+        
         for (int index = 0; index < size; index++) {
-
+            
             if (defaultListModel.get(index) instanceof DatabaseConfig) {
                 DatabaseConfig config = (DatabaseConfig) defaultListModel.get(index);
                 DatabaseExecutor databaseExecutor = new DatabaseExecutor(printListModel);
                 try {
                     sonuc = databaseExecutor.execute(config, sonuc);
-
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (defaultListModel.get(index) instanceof CompressConfig) {
                 CompressConfig config = (CompressConfig) defaultListModel.get(index);
                 CompressExecutor compressExecutor = new CompressExecutor(printListModel);
-
+                
                 try {
                     sonuc = compressExecutor.execute(config, sonuc);
-
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (defaultListModel.get(index) instanceof EncodeConfig) {
                 EncodeConfig config = (EncodeConfig) defaultListModel.get(index);
                 EncodeExecutor encodeExecutor = new EncodeExecutor(printListModel);
-
+                
                 try {
                     sonuc = encodeExecutor.execute(config, sonuc);
-
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (defaultListModel.get(index) instanceof EncryptConfig) {
                 EncryptConfig config = (EncryptConfig) defaultListModel.get(index);
                 EncryptionExecutor encryptionExecutor = new EncryptionExecutor(printListModel);
-
+                
                 try {
                     sonuc = encryptionExecutor.execute(config, sonuc);
-
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (defaultListModel.get(index) instanceof FileConfig) {
                 FileConfig config = (FileConfig) defaultListModel.get(index);
                 FileExecutor fileExecutor = new FileExecutor(printListModel);
-
+                
                 try {
                     sonuc = fileExecutor.execute(config, sonuc);
-
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (defaultListModel.get(index) instanceof RegExConfig) {
                 RegExConfig config = (RegExConfig) defaultListModel.get(index);
                 RegExExecutor regExExecutor = new RegExExecutor(printListModel);
-
+                
                 try {
                     sonuc = regExExecutor.execute(config, sonuc);
-
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if (defaultListModel.get(index) instanceof URLConfig) {
                 URLConfig config = (URLConfig) defaultListModel.get(index);
                 URLExecutor uRLExecutor = new URLExecutor(printListModel);
-
+                
                 try {
                     sonuc = uRLExecutor.execute(config, sonuc);
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         }
 
     }//GEN-LAST:event_runPipelineActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-
+        
         try {
             // serialization
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
             DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
-
-            Object[][] configs = new Object[2][defaultListModel.size()]; // neden böyle
-
+            
+            Object[][] configs = new Object[2][defaultListModel.size()];
+            
             for (int index = 0; index < defaultListModel.size(); index++) {
                 configs[0][index] = defaultListModel.get(index);
             }
@@ -360,14 +373,14 @@ public class MainPage extends javax.swing.JFrame {
                 configs[1][index] = invereList.get(index);
             }
             XStream xstream = new XStream();
-
+            
             profiller.put(currentProfil, configs);
             String result = xstream.toXML(profiller);
             PBDKF2 pbdkf2 = new PBDKF2();
-
+            
             Encryption ee = new All_Encryption();
             byte[] encripted = ee.encrypt(result.getBytes("UTF-8"), "AES", key);
-
+            
             FileProcessor fileProcessor = new FileProcessor();
             fileProcessor.write(System.getProperty("user.home") + "/pfsak.configs", encripted);
         } catch (IOException ex) {
@@ -389,10 +402,10 @@ public class MainPage extends javax.swing.JFrame {
         LoginDialog dialog = new LoginDialog(this, true);
         dialog.setVisible(true);
         key = dialog.rs;
-
+        
         XStream xstream = new XStream();
         File f = new File(System.getProperty("user.home") + "/pfsak.configs");
-
+        
         if (f.exists()) {
             byte[] decripted = null;
             FileProcessor fp = new FileProcessor();
@@ -400,28 +413,28 @@ public class MainPage extends javax.swing.JFrame {
                 byte[] result = fp.read(f.getAbsolutePath());
                 Encryption ee = new All_Encryption();
                 decripted = ee.decrypt(result, "AES", key);
-
+                
             } catch (IOException ex) {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
             DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
-            String bu = null;
+            String result = null;
             try {
-                bu = new String(decripted, "UTF-8");
+                result = new String(decripted, "UTF-8");
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             }
-            profiller = (HashMap<String, Object[][]>) xstream.fromXML(bu);
-
-            DefaultComboBoxModel boxModel = (DefaultComboBoxModel) ProfileComboBox.getModel();
-
+            profiller = (HashMap<String, Object[][]>) xstream.fromXML(result);
+            
+            DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
+            
             for (String profiladi : profiller.keySet()) {
                 boxModel.addElement(profiladi);
-
+                
             }
             currentProfil = (String) boxModel.getElementAt(0);
 
@@ -436,49 +449,49 @@ public class MainPage extends javax.swing.JFrame {
             }
             for (int index = 0; index < configs[1].length; index++) {
                 inverListModel.addElement(configs[1][index]);
-
+                
             }
-
+            
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void Inverse_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Inverse_ButtonActionPerformed
-
+    private void inverse_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inverse_ButtonActionPerformed
+        
         DefaultListModel inverseListModel = (DefaultListModel) inverseList.getModel();
         DefaultListModel printListModel = (DefaultListModel) printScreen.getModel();
         printListModel.clear();
         printListModel.addElement("---------------- I N V E R S E   R U N ----------------");
-
+        
         byte[] sonuc = new byte[0];
-
+        
         int size = inverseList.getModel().getSize();
-
+        
         for (int index = 0; index < size; index++) {
-
+            
             if (inverseListModel.get(index) instanceof DatabaseConfig) {
                 DatabaseConfig config = (DatabaseConfig) inverseListModel.get(index);
                 DatabaseExecutor databaseExecutor = new DatabaseExecutor(printListModel);
-
+                
                 try {
                     sonuc = databaseExecutor.execute(config, sonuc);
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (inverseListModel.get(index) instanceof CompressConfig) {
                 CompressConfig config = (CompressConfig) inverseListModel.get(index);
                 CompressExecutor compressExecutor = new CompressExecutor(printListModel);
-
+                
                 try {
                     sonuc = compressExecutor.execute(config, sonuc);
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (inverseListModel.get(index) instanceof EncodeConfig) {
                 EncodeConfig config = (EncodeConfig) inverseListModel.get(index);
                 EncodeExecutor encodeExecutor = new EncodeExecutor(printListModel);
-
+                
                 try {
                     sonuc = encodeExecutor.execute(config, sonuc);
                 } catch (Exception ex) {
@@ -487,37 +500,37 @@ public class MainPage extends javax.swing.JFrame {
             } else if (inverseListModel.get(index) instanceof EncryptConfig) {
                 EncryptConfig config = (EncryptConfig) inverseListModel.get(index);
                 EncryptionExecutor encryptionExecutor = new EncryptionExecutor(printListModel);
-
+                
                 try {
                     sonuc = encryptionExecutor.execute(config, sonuc);
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (inverseListModel.get(index) instanceof FileConfig) {
                 FileConfig config = (FileConfig) inverseListModel.get(index);
                 FileExecutor fileExecutor = new FileExecutor(printListModel);
-
+                
                 try {
                     sonuc = fileExecutor.execute(config, sonuc);
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else if (inverseListModel.get(index) instanceof RegExConfig) {
                 RegExConfig config = (RegExConfig) inverseListModel.get(index);
                 RegExExecutor regExExecutor = new RegExExecutor(printListModel);
-
+                
                 try {
                     sonuc = regExExecutor.execute(config, sonuc);
-
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         }
-    }//GEN-LAST:event_Inverse_ButtonActionPerformed
+    }//GEN-LAST:event_inverse_ButtonActionPerformed
 
     private void inverseListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inverseListMouseClicked
         // TODO add your handling code here:
@@ -526,44 +539,44 @@ public class MainPage extends javax.swing.JFrame {
 
             // Double-click detected
             int index = inverseList.locationToIndex(evt.getPoint());
-
+            
             DefaultListModel defaultListModel = (DefaultListModel) inverseList.getModel();
             UIConfig config = (UIConfig) defaultListModel.get(index);
-
+            
             if (config instanceof RegExConfig || config instanceof URLConfig) {
                 config.showConfigDialog(this);
                 inverseList.repaint();
             }
-
+            
         }
 
     }//GEN-LAST:event_inverseListMouseClicked
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void newProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProfileMenuItemActionPerformed
         // TODO add your handling code here:
-        NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) ProfileComboBox.getModel());
+        NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) profileComboBox.getModel());
         newPipeLineDialog.setVisible(true);
 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_newProfileMenuItemActionPerformed
 
-    private void ProfileComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProfileComboBoxİtemStateChanged
+    private void profileComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_profileComboBoxİtemStateChanged
         // TODO add your handling code here:
         if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
             currentProfil = (String) evt.getItem();
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
             DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
-
+            
             Object[][] configs = new Object[2][defaultListModel.size()];
-
+            
             for (int index = 0; index < defaultListModel.size(); index++) {
                 configs[0][index] = defaultListModel.get(index);
             }
             for (int index = 0; index < invereList.size(); index++) {
                 configs[1][index] = invereList.get(index);
             }
-
+            
             profiller.put(currentProfil, configs);
-
+            
         } else if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             currentProfil = (String) evt.getItem();
             DefaultListModel defaultListModel = (DefaultListModel) list.getModel();
@@ -572,7 +585,7 @@ public class MainPage extends javax.swing.JFrame {
             defaultListModel.clear();
             invereList.clear();
             if (configs != null) {
-
+                
                 for (int index = 0; index < configs[0].length; index++) {
                     defaultListModel.addElement(configs[0][index]);
                 }
@@ -582,8 +595,34 @@ public class MainPage extends javax.swing.JFrame {
             }
         }
 
-    }//GEN-LAST:event_ProfileComboBoxİtemStateChanged
+    }//GEN-LAST:event_profileComboBoxİtemStateChanged
 
+    private void changePasswordMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordMenuItemActionPerformed
+        // TODO add your handling code here:
+
+        File f = new File(System.getProperty("user.home") + "/pfsak.configs");
+        
+        byte[] result = null;
+        try {
+            FileProcessor fp = new FileProcessor();
+            result = fp.read(f.getAbsolutePath());
+            
+            Encryption ee = new All_Encryption();
+            byte[] decripted = ee.decrypt(result, "AES", key);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        LoginDialog loginDialog = new LoginDialog(this, true);
+        loginDialog.setVisible(true);
+        
+        key = loginDialog.rs;
+        saveMenuItemActionPerformed(evt);
+    }//GEN-LAST:event_changePasswordMenuItemActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -618,20 +657,22 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Inverse_Button;
-    private javax.swing.JComboBox<String> ProfileComboBox;
+    private javax.swing.JMenuItem changePasswordMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JList<String> inverseList;
     private javax.swing.JScrollPane inverseRun_jScrollPane;
+    private javax.swing.JButton inverse_Button;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList<String> list;
     private javax.swing.JButton minus;
+    private javax.swing.JMenuItem newProfileMenuItem;
     private javax.swing.JList<String> printScreen;
     private javax.swing.JScrollPane printScreen_jScrollPane;
+    private javax.swing.JComboBox<String> profileComboBox;
     private javax.swing.JButton pulse;
     private javax.swing.JButton runPipeline;
     private javax.swing.JScrollPane run_jScrollPane;
