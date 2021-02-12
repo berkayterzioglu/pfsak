@@ -1,8 +1,11 @@
 package tr.net.terzioglu.pfsak;
 
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 
 public class NewPasswordDialog extends javax.swing.JDialog {
 
@@ -21,39 +24,27 @@ public class NewPasswordDialog extends javax.swing.JDialog {
         confirmLabel = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
+        passwordField.getDocument().addDocumentListener(passwordListener);
         confirmPasswordField = new javax.swing.JPasswordField();
+        confirmPasswordField.getDocument().addDocumentListener(confirmListener);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("New password");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         passwordLabel.setText("Type new password:");
 
         confirmLabel.setText("Confirm password:");
 
         okButton.setText("Ok");
+        okButton.setEnabled(false);
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
-        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                passwordFieldKeyTyped(evt);
-            }
-        });
-
-        confirmPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                confirmPasswordFieldKeyTyped(evt);
-            }
-        });
+        confirmPasswordField.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,22 +109,45 @@ public class NewPasswordDialog extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_okButtonActionPerformed
+  
+    private DocumentListener passwordListener = new DocumentListener() {
+        public void changedUpdate(DocumentEvent e) {
+            enableConfirm();
+        }
 
-    private void confirmPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmPasswordFieldKeyTyped
-        // TODO add your handling code here:
-        okButton.setEnabled(true);
-    }//GEN-LAST:event_confirmPasswordFieldKeyTyped
+        public void removeUpdate(DocumentEvent e) {
+            enableConfirm();
+        }
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        confirmPasswordField.setEnabled(false);
-        okButton.setEnabled(false);
-    }//GEN-LAST:event_formWindowOpened
+        public void insertUpdate(DocumentEvent e) {
+            enableConfirm();
+        }
 
-    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
-        // TODO add your handling code here:
-        confirmPasswordField.setEnabled(true);
-    }//GEN-LAST:event_passwordFieldKeyTyped
+        public void enableConfirm() {
+            confirmPasswordField.setEnabled(passwordField.getPassword().length >= 2);
+            okButton.setEnabled(Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword()));
+
+        }
+    };
+
+    private DocumentListener confirmListener = new DocumentListener() {
+        public void changedUpdate(DocumentEvent e) {
+            enableConfirm();
+        }
+
+        public void removeUpdate(DocumentEvent e) {
+            enableConfirm();
+        }
+
+        public void insertUpdate(DocumentEvent e) {
+            enableConfirm();
+        }
+
+        public void enableConfirm() {
+            okButton.setEnabled(Arrays.equals(passwordField.getPassword(), confirmPasswordField.getPassword()));
+
+        }
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel confirmLabel;
