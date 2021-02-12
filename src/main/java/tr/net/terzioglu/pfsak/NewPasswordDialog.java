@@ -26,6 +26,11 @@ public class NewPasswordDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("New password");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         passwordLabel.setText("Type new password:");
 
@@ -35,6 +40,18 @@ public class NewPasswordDialog extends javax.swing.JDialog {
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
+            }
+        });
+
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyTyped(evt);
+            }
+        });
+
+        confirmPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                confirmPasswordFieldKeyTyped(evt);
             }
         });
 
@@ -101,6 +118,22 @@ public class NewPasswordDialog extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_okButtonActionPerformed
+
+    private void confirmPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmPasswordFieldKeyTyped
+        // TODO add your handling code here:
+        okButton.setEnabled(true);
+    }//GEN-LAST:event_confirmPasswordFieldKeyTyped
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        confirmPasswordField.setEnabled(false);
+        okButton.setEnabled(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
+        // TODO add your handling code here:
+        confirmPasswordField.setEnabled(true);
+    }//GEN-LAST:event_passwordFieldKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel confirmLabel;
