@@ -59,6 +59,7 @@ public class MainPage extends javax.swing.JFrame {
         profileMenu = new javax.swing.JMenu();
         newProfileMenuItem = new javax.swing.JMenuItem();
         deleteProfileMenuItem = new javax.swing.JMenuItem();
+        CopyMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
@@ -133,6 +134,7 @@ public class MainPage extends javax.swing.JFrame {
         toolBar.add(profileComboBox);
 
         runList.setModel(new javax.swing.DefaultListModel());
+        runList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         runList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 runListMouseClicked(evt);
@@ -141,6 +143,7 @@ public class MainPage extends javax.swing.JFrame {
         runScrollPane.setViewportView(runList);
 
         inverseList.setModel(new javax.swing.DefaultListModel());
+        inverseList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         inverseList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 inverseListMouseClicked(evt);
@@ -228,6 +231,14 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         profileMenu.add(deleteProfileMenuItem);
+
+        CopyMenuItem.setText("Copy");
+        CopyMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyMenuItemActionPerformed(evt);
+            }
+        });
+        profileMenu.add(CopyMenuItem);
 
         menuBar.add(profileMenu);
 
@@ -715,7 +726,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void deleteProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProfileMenuItemActionPerformed
         // TODO add your handling code here:
-        if (profiller.size()<2){
+        if (profiller.size() < 2) {
             return;
         }
         String toDelete = currentProfil;
@@ -779,6 +790,13 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         exitMenuItemActionPerformed(null);
     }//GEN-LAST:event_formWindowClosing
+
+    private void CopyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyMenuItemActionPerformed
+        // TODO add your handling code here:
+        CopyPasteDialog copyPasteDialog = new CopyPasteDialog(this, true, profiller);
+        copyPasteDialog.setVisible(true);
+        
+    }//GEN-LAST:event_CopyMenuItemActionPerformed
 
     private void load(byte[] decripted) {
         XStream xstream = new XStream();
@@ -856,6 +874,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CopyMenuItem;
     private javax.swing.JMenuItem changePasswordMenuItem;
     private javax.swing.JMenuItem deleteProfileMenuItem;
     private javax.swing.JButton downArrowButton;
