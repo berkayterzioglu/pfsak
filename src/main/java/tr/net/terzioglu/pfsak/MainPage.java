@@ -442,7 +442,24 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+
+        Object[] options = {"Save", "Discard"};
+        int response = JOptionPane.showOptionDialog(this,
+                "Do you want to save your file?",
+                "Save ?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+        if (response == JOptionPane.YES_OPTION) {
+            saveMenuItemActionPerformed(null);
+
+        } else if ((response == JOptionPane.CANCEL_OPTION)) {
+            return;
+        }
         System.exit(0);
+
 
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
@@ -697,6 +714,8 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         int index = profileComboBox.getSelectedIndex();
         profileComboBox.removeItemAt(index);
+
+
     }//GEN-LAST:event_deleteMenuItemActionPerformed
 
     private void upArrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upArrowButtonActionPerformed
