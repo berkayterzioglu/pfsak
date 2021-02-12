@@ -39,6 +39,8 @@ public class MainPage extends javax.swing.JFrame {
         plusButton = new javax.swing.JButton();
         minusButton = new javax.swing.JButton();
         profileComboBox = new javax.swing.JComboBox<>();
+        upArrowButton = new javax.swing.JButton();
+        downArrowButton = new javax.swing.JButton();
         runScrollPane = new javax.swing.JScrollPane();
         runList = new javax.swing.JList<>();
         inverseRunScrollPane = new javax.swing.JScrollPane();
@@ -100,6 +102,20 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         toolBar.add(profileComboBox);
+
+        upArrowButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        upArrowButton.setText("↑");
+        upArrowButton.setFocusable(false);
+        upArrowButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        upArrowButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(upArrowButton);
+
+        downArrowButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        downArrowButton.setText("↓");
+        downArrowButton.setFocusable(false);
+        downArrowButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        downArrowButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(downArrowButton);
 
         runList.setModel(new javax.swing.DefaultListModel());
         runList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -667,6 +683,8 @@ public class MainPage extends javax.swing.JFrame {
 
     private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
         // TODO add your handling code here:
+        int index = profileComboBox.getSelectedIndex();
+        profileComboBox.removeItemAt(index);
     }//GEN-LAST:event_deleteMenuItemActionPerformed
 
     private void load(byte[] decripted) {
@@ -747,6 +765,7 @@ public class MainPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem changePasswordMenuItem;
     private javax.swing.JMenuItem deleteMenuItem;
+    private javax.swing.JButton downArrowButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JButton inverseButton;
@@ -767,6 +786,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane runScrollPane;
     private javax.swing.JMenuItem saveMenuItem;
     private javax.swing.JToolBar toolBar;
+    private javax.swing.JButton upArrowButton;
     // End of variables declaration//GEN-END:variables
 
 }
