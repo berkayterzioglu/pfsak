@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class EncodeConfig implements UIConfig, Cloneable {
+public class EncodeConfig extends ConfigBase implements UIConfig, Cloneable {
 
     private EncodeConfig inverse = null;
 
@@ -44,7 +44,7 @@ public class EncodeConfig implements UIConfig, Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         EncodeConfig clone = new EncodeConfig();
         clone.encode = encode;
         clone.encodeType = encodeType;

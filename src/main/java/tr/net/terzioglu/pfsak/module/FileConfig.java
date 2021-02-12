@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class FileConfig implements UIConfig, Cloneable {
+public class FileConfig extends ConfigBase implements UIConfig, Cloneable {
 
     private FileConfig inverse = null;
 
@@ -53,7 +53,7 @@ public class FileConfig implements UIConfig, Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         FileConfig clone = new FileConfig();
         clone.fileName = fileName;
         clone.fileType = fileType;

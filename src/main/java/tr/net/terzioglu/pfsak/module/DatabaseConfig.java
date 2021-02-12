@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class DatabaseConfig implements UIConfig, Cloneable {
+public class DatabaseConfig extends ConfigBase implements UIConfig, Cloneable {
 
     private DatabaseConfig inverse = null;
 
@@ -71,7 +71,7 @@ public class DatabaseConfig implements UIConfig, Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         DatabaseConfig clone = new DatabaseConfig();
         clone.column = column;
         clone.databaseType = databaseType;
@@ -84,7 +84,7 @@ public class DatabaseConfig implements UIConfig, Cloneable {
 
         clone.inverse = inverse != null ? (DatabaseConfig) inverse.clone() : null;
 
-        return clone();
+        return clone;
 
     }
 

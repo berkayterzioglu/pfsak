@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class EncryptConfig implements UIConfig, Cloneable {
+public class EncryptConfig extends ConfigBase implements UIConfig, Cloneable {
 
     private EncryptConfig inverse = null;
 
@@ -46,7 +46,7 @@ public class EncryptConfig implements UIConfig, Cloneable {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         EncryptConfig clone = new EncryptConfig();
         clone.encrypt = encrypt;
         clone.encryptionType = encryptionType;

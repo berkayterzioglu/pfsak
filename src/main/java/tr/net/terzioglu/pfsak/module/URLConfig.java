@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class URLConfig implements UIConfig {
+public class URLConfig extends ConfigBase implements UIConfig {
 
     private URLConfig inverse = null;
 
@@ -45,14 +45,14 @@ public class URLConfig implements UIConfig {
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         URLConfig clone = new URLConfig();
         clone.contentType = contentType;
         clone.fileType = fileType;
         clone.urlAddress = urlAddress;
         clone.inverse = inverse != null ? (URLConfig) inverse.clone() : null;
 
-        return clone();
+        return clone;
     }
 
     public URLConfig getInverse() {

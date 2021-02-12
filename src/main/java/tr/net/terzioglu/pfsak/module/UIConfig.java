@@ -9,4 +9,5 @@ public interface UIConfig {
     Object inverse();
 
     void updateInverse();
+    
 }
