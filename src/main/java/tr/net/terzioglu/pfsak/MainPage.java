@@ -58,11 +58,14 @@ public class MainPage extends javax.swing.JFrame {
         changePasswordMenuItem = new javax.swing.JMenuItem();
         profileMenu = new javax.swing.JMenu();
         newProfileMenuItem = new javax.swing.JMenuItem();
-        deleteMenuItem = new javax.swing.JMenuItem();
+        deleteProfileMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -218,13 +221,13 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(newProfileMenuItem);
 
-        deleteMenuItem.setText("Delete...");
-        deleteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        deleteProfileMenuItem.setText("Delete...");
+        deleteProfileMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteMenuItemActionPerformed(evt);
+                deleteProfileMenuItemActionPerformed(evt);
             }
         });
-        profileMenu.add(deleteMenuItem);
+        profileMenu.add(deleteProfileMenuItem);
 
         menuBar.add(profileMenu);
 
@@ -710,13 +713,22 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_changePasswordMenuItemActionPerformed
 
-    private void deleteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteMenuItemActionPerformed
+    private void deleteProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProfileMenuItemActionPerformed
         // TODO add your handling code here:
+        if (profiller.size()<2){
+            return;
+        }
+        String toDelete = currentProfil;
         int index = profileComboBox.getSelectedIndex();
+        DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
+        DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
+
+        defaultListModel.clear();
+        inverListModel.clear();
         profileComboBox.removeItemAt(index);
 
-
-    }//GEN-LAST:event_deleteMenuItemActionPerformed
+        profiller.remove(toDelete);
+    }//GEN-LAST:event_deleteProfileMenuItemActionPerformed
 
     private void upArrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upArrowButtonActionPerformed
         // TODO add your handling code here:
@@ -762,6 +774,11 @@ public class MainPage extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_downArrowButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        exitMenuItemActionPerformed(null);
+    }//GEN-LAST:event_formWindowClosing
 
     private void load(byte[] decripted) {
         XStream xstream = new XStream();
@@ -840,7 +857,7 @@ public class MainPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem changePasswordMenuItem;
-    private javax.swing.JMenuItem deleteMenuItem;
+    private javax.swing.JMenuItem deleteProfileMenuItem;
     private javax.swing.JButton downArrowButton;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
