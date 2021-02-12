@@ -38,9 +38,9 @@ public class MainPage extends javax.swing.JFrame {
         toolBar = new javax.swing.JToolBar();
         plusButton = new javax.swing.JButton();
         minusButton = new javax.swing.JButton();
-        profileComboBox = new javax.swing.JComboBox<>();
         upArrowButton = new javax.swing.JButton();
         downArrowButton = new javax.swing.JButton();
+        profileComboBox = new javax.swing.JComboBox<>();
         runScrollPane = new javax.swing.JScrollPane();
         runList = new javax.swing.JList<>();
         inverseRunScrollPane = new javax.swing.JScrollPane();
@@ -95,6 +95,32 @@ public class MainPage extends javax.swing.JFrame {
         });
         toolBar.add(minusButton);
 
+        upArrowButton.setBackground(new java.awt.Color(153, 153, 153));
+        upArrowButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        upArrowButton.setText("↑");
+        upArrowButton.setFocusable(false);
+        upArrowButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        upArrowButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        upArrowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upArrowButtonActionPerformed(evt);
+            }
+        });
+        toolBar.add(upArrowButton);
+
+        downArrowButton.setBackground(new java.awt.Color(153, 153, 153));
+        downArrowButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        downArrowButton.setText("↓");
+        downArrowButton.setFocusable(false);
+        downArrowButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        downArrowButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        downArrowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downArrowButtonActionPerformed(evt);
+            }
+        });
+        toolBar.add(downArrowButton);
+
         profileComboBox.setPrototypeDisplayValue("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
         profileComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -102,20 +128,6 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
         toolBar.add(profileComboBox);
-
-        upArrowButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        upArrowButton.setText("↑");
-        upArrowButton.setFocusable(false);
-        upArrowButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        upArrowButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(upArrowButton);
-
-        downArrowButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        downArrowButton.setText("↓");
-        downArrowButton.setFocusable(false);
-        downArrowButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        downArrowButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(downArrowButton);
 
         runList.setModel(new javax.swing.DefaultListModel());
         runList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -686,6 +698,51 @@ public class MainPage extends javax.swing.JFrame {
         int index = profileComboBox.getSelectedIndex();
         profileComboBox.removeItemAt(index);
     }//GEN-LAST:event_deleteMenuItemActionPerformed
+
+    private void upArrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upArrowButtonActionPerformed
+        // TODO add your handling code here:
+        int index = runList.getSelectedIndex();
+        DefaultListModel model = (DefaultListModel) runList.getModel();
+        Object selectedItem = model.get(index);
+
+        int indexInverse = inverseList.getModel().getSize() - index - 1;
+        DefaultListModel modelInverse = (DefaultListModel) inverseList.getModel();
+        Object inverseSelectedItem = modelInverse.get(indexInverse);
+
+        if (index > 0) {
+            model.remove(index);
+            model.add(index - 1, selectedItem);
+            runList.setSelectedIndex(index - 1);
+
+            modelInverse.remove(indexInverse);
+            modelInverse.add(indexInverse + 1, inverseSelectedItem);
+            inverseList.setSelectedIndex(indexInverse + 1);
+
+        }
+
+    }//GEN-LAST:event_upArrowButtonActionPerformed
+
+    private void downArrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downArrowButtonActionPerformed
+        // TODO add your handling code here:
+        int index = runList.getSelectedIndex();
+        DefaultListModel model = (DefaultListModel) runList.getModel();
+        Object selectedItem = model.get(index);
+
+        int indexInverse = inverseList.getModel().getSize() - index - 1;
+        DefaultListModel modelInverse = (DefaultListModel) inverseList.getModel();
+        Object inverseSelectedItem = modelInverse.get(indexInverse);
+
+        if (index < model.getSize() - 1) {
+            model.remove(index);
+            model.add(index + 1, selectedItem);
+            runList.setSelectedIndex(index + 1);
+
+            modelInverse.remove(indexInverse);
+            modelInverse.add(indexInverse - 1, inverseSelectedItem);
+            inverseList.setSelectedIndex(indexInverse - 1);
+
+        }
+    }//GEN-LAST:event_downArrowButtonActionPerformed
 
     private void load(byte[] decripted) {
         XStream xstream = new XStream();
