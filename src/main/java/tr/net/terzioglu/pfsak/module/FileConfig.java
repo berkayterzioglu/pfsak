@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class FileConfig implements UIConfig {
+public class FileConfig implements UIConfig, Cloneable {
 
     private FileConfig inverse = null;
 
@@ -50,6 +50,20 @@ public class FileConfig implements UIConfig {
         } else if (fileType == Type.WRITE) {
             inverse.fileType = Type.READ;
         }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        FileConfig clone = new FileConfig();
+        clone.fileName = fileName;
+        clone.fileType = fileType;
+        clone.inverse = inverse != null ? (FileConfig) inverse.clone() : null;
+
+        return clone;
+    }
+
+    public FileConfig getInverse() {
+        return inverse;
     }
 
     public String getFileName() {

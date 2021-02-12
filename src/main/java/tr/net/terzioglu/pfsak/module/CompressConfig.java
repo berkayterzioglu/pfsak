@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class CompressConfig implements UIConfig {
+public class CompressConfig implements UIConfig, Cloneable {
 
     private CompressConfig inverse = null;
 
@@ -41,6 +41,29 @@ public class CompressConfig implements UIConfig {
         inverse.compress = !compress;
         inverse.fileName = fileName;
         inverse.compressionType = compressionType;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        CompressConfig clone = new CompressConfig();
+        clone.compress = compress;
+        clone.compressionType = compressionType;
+        clone.fileName = fileName;
+        clone.inverse = inverse != null ? (CompressConfig) inverse.clone() : null;
+
+        return clone();
+    }
+
+    public CompressConfig getInverse() {
+        return inverse;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Type getCompressionType() {

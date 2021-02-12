@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class RegExConfig implements UIConfig {
+public class RegExConfig implements UIConfig, Cloneable {
 
     private RegExConfig inverse = null;
 
@@ -33,6 +33,20 @@ public class RegExConfig implements UIConfig {
     public void updateInverse() {
         inverse.search = search;
         inverse.replaceWord = replaceWord;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        RegExConfig clone = new RegExConfig();
+        clone.replaceWord = replaceWord;
+        clone.search = search;
+        clone.inverse = inverse != null ? (RegExConfig) inverse.clone() : null;
+
+        return clone;
+    }
+
+    public RegExConfig getInverse() {
+        return inverse;
     }
 
     public String getSearch() {

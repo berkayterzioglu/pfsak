@@ -2,7 +2,7 @@ package tr.net.terzioglu.pfsak.module;
 
 import javax.swing.JFrame;
 
-public class DatabaseConfig implements UIConfig {
+public class DatabaseConfig implements UIConfig, Cloneable {
 
     private DatabaseConfig inverse = null;
 
@@ -68,6 +68,24 @@ public class DatabaseConfig implements UIConfig {
         } else if (databaseType == Type.UPDATE) {
             inverse.databaseType = Type.SELECT;
         }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        DatabaseConfig clone = new DatabaseConfig();
+        clone.column = column;
+        clone.databaseType = databaseType;
+        clone.driverName = driverName;
+        clone.password = password;
+        clone.table = table;
+        clone.url = url;
+        clone.user = user;
+        clone.where = where;
+
+        clone.inverse = inverse != null ? (DatabaseConfig) inverse.clone() : null;
+
+        return clone();
+
     }
 
     public String getUrl() {
@@ -136,10 +154,6 @@ public class DatabaseConfig implements UIConfig {
 
     public DatabaseConfig getInverse() {
         return inverse;
-    }
-
-    public void setInverse(DatabaseConfig inverse) {
-        this.inverse = inverse;
     }
 
     @Override

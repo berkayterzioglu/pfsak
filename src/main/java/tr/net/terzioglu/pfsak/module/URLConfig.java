@@ -44,6 +44,21 @@ public class URLConfig implements UIConfig {
 
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        URLConfig clone = new URLConfig();
+        clone.contentType = contentType;
+        clone.fileType = fileType;
+        clone.urlAddress = urlAddress;
+        clone.inverse = inverse != null ? (URLConfig) inverse.clone() : null;
+
+        return clone();
+    }
+
+    public URLConfig getInverse() {
+        return inverse;
+    }
+
     public String getUrlAddress() {
         return urlAddress;
     }
@@ -66,14 +81,6 @@ public class URLConfig implements UIConfig {
 
     public void setFileType(Type fileType) {
         this.fileType = fileType;
-    }
-
-    public URLConfig getInverse() {
-        return inverse;
-    }
-
-    public void setInverse(URLConfig inverse) {
-        this.inverse = inverse;
     }
 
     @Override
