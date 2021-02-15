@@ -38,6 +38,8 @@ public class ConstantConfig extends ConfigBase implements UIConfig, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         ConstantConfig clone = new ConstantConfig();
         clone.data = data;
+        
+        clone.inverse = inverse != null ? (ConstantConfig) inverse.clone() : null;
 
         return clone;
     }
