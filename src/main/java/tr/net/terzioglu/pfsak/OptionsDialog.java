@@ -2,6 +2,7 @@ package tr.net.terzioglu.pfsak;
 
 import javax.swing.DefaultListModel;
 import tr.net.terzioglu.pfsak.module.CompressConfig;
+import tr.net.terzioglu.pfsak.module.ConstantConfig;
 import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
@@ -38,6 +39,7 @@ public class OptionsDialog extends javax.swing.JDialog {
         cancelButton = new javax.swing.JButton();
         regExButton = new javax.swing.JRadioButton();
         urlButton = new javax.swing.JRadioButton();
+        constantButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Options");
@@ -79,6 +81,9 @@ public class OptionsDialog extends javax.swing.JDialog {
         optionsButton.add(urlButton);
         urlButton.setText("URL");
 
+        optionsButton.add(constantButton);
+        constantButton.setText("Constant data");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,7 +103,8 @@ public class OptionsDialog extends javax.swing.JDialog {
                             .addComponent(compressButton)
                             .addComponent(encodeButton)
                             .addComponent(regExButton)
-                            .addComponent(urlButton))
+                            .addComponent(urlButton)
+                            .addComponent(constantButton))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -106,6 +112,8 @@ public class OptionsDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(constantButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(databaseButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fileButton)
@@ -119,14 +127,14 @@ public class OptionsDialog extends javax.swing.JDialog {
                 .addComponent(regExButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(urlButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
                     .addComponent(cancelButton))
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(195, 265));
+        setSize(new java.awt.Dimension(195, 281));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -152,6 +160,9 @@ public class OptionsDialog extends javax.swing.JDialog {
 
         } else if (urlButton.isSelected()) {
             s = new URLConfig();
+
+        } else if (constantButton.isSelected()) {
+            s = new ConstantConfig();
         }
         model.addElement(s);
         imodel.add(0, s.inverse());
@@ -170,6 +181,7 @@ public class OptionsDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JRadioButton compressButton;
+    private javax.swing.JRadioButton constantButton;
     private javax.swing.JRadioButton databaseButton;
     private javax.swing.JRadioButton encodeButton;
     private javax.swing.JRadioButton encryptButton;

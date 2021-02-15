@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import tr.net.terzioglu.pfsak.module.CompressConfig;
+import tr.net.terzioglu.pfsak.module.ConstantConfig;
 import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
@@ -59,7 +60,7 @@ public class MainPage extends javax.swing.JFrame {
         profileMenu = new javax.swing.JMenu();
         newProfileMenuItem = new javax.swing.JMenuItem();
         deleteProfileMenuItem = new javax.swing.JMenuItem();
-        CopyMenuItem = new javax.swing.JMenuItem();
+        copyMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
@@ -232,13 +233,13 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(deleteProfileMenuItem);
 
-        CopyMenuItem.setText("Copy");
-        CopyMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        copyMenuItem.setText("Copy");
+        copyMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CopyMenuItemActionPerformed(evt);
+                copyMenuItemActionPerformed(evt);
             }
         });
-        profileMenu.add(CopyMenuItem);
+        profileMenu.add(copyMenuItem);
 
         menuBar.add(profileMenu);
 
@@ -415,8 +416,16 @@ public class MainPage extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            } else if (defaultListModel.get(index) instanceof ConstantConfig) {
+                ConstantConfig config = (ConstantConfig) defaultListModel.get(index);
+                ConstantExecutor constantExecutor = new ConstantExecutor(printListModel);
 
+                try {
+                    sonuc = constantExecutor.execute(config, sonuc);
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
     }//GEN-LAST:event_runPipeLineButtonActionPerformed
@@ -598,6 +607,16 @@ public class MainPage extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else if (inverseListModel.get(index) instanceof ConstantConfig) {
+                ConstantConfig config = (ConstantConfig) inverseListModel.get(index);
+                ConstantExecutor constantExecutor = new ConstantExecutor(printListModel);
+
+                try {
+                    sonuc = constantExecutor.execute(config, null);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         }
@@ -630,23 +649,6 @@ public class MainPage extends javax.swing.JFrame {
         updateList();
 
     }//GEN-LAST:event_newProfileMenuItemActionPerformed
-    public void updateList() {
-        profiller.get(currentProfil);
-        DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
-        DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
-        Object[][] configs = new Object[2][defaultListModel.size()];
-        defaultListModel.clear();
-        invereList.clear();
-        for (int index = 0; index < profiller.get(currentProfil)[0].length; index++) {
-            defaultListModel.addElement((profiller.get(currentProfil)[0][index]));
-        }
-        for (int index = 0; index < profiller.get(currentProfil)[1].length; index++) {
-            invereList.addElement((profiller.get(currentProfil)[1][index]));
-        }
-        runList.setModel(defaultListModel);
-        inverseList.setModel(invereList);
-
-    }
 
     private void profileComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_profileComboBoxItemStateChanged
         // TODO add your handling code here:
@@ -807,12 +809,12 @@ public class MainPage extends javax.swing.JFrame {
         exitMenuItemActionPerformed(null);
     }//GEN-LAST:event_formWindowClosing
 
-    private void CopyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyMenuItemActionPerformed
+    private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
         // TODO add your handling code here:
         CopyPasteDialog copyPasteDialog = new CopyPasteDialog(this, true, profiller);
         copyPasteDialog.setVisible(true);
 
-    }//GEN-LAST:event_CopyMenuItemActionPerformed
+    }//GEN-LAST:event_copyMenuItemActionPerformed
 
     private void load(byte[] decripted) {
         XStream xstream = new XStream();
@@ -856,6 +858,24 @@ public class MainPage extends javax.swing.JFrame {
         });
     }
 
+    public void updateList() {
+        profiller.get(currentProfil);
+        DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
+        DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
+        Object[][] configs = new Object[2][defaultListModel.size()];
+        defaultListModel.clear();
+        invereList.clear();
+        for (int index = 0; index < profiller.get(currentProfil)[0].length; index++) {
+            defaultListModel.addElement((profiller.get(currentProfil)[0][index]));
+        }
+        for (int index = 0; index < profiller.get(currentProfil)[1].length; index++) {
+            invereList.addElement((profiller.get(currentProfil)[1][index]));
+        }
+        runList.setModel(defaultListModel);
+        inverseList.setModel(invereList);
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -890,8 +910,8 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem CopyMenuItem;
     private javax.swing.JMenuItem changePasswordMenuItem;
+    private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem deleteProfileMenuItem;
     private javax.swing.JButton downArrowButton;
     private javax.swing.JMenuItem exitMenuItem;
