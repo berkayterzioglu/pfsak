@@ -21,6 +21,7 @@ import tr.net.terzioglu.pfsak.module.FileConfig;
 import tr.net.terzioglu.pfsak.module.RegExConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
 import tr.net.terzioglu.pfsak.module.URLConfig;
+import tr.net.terzioglu.pfsak.module.XMLConfig;
 
 public class MainPage extends javax.swing.JFrame {
 
@@ -425,6 +426,15 @@ public class MainPage extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else if (defaultListModel.get(index) instanceof XMLConfig) {
+                XMLConfig config = (XMLConfig) defaultListModel.get(index);
+                XMLExecutor xmlExecutor = new XMLExecutor(printListModel);
+
+                try {
+                    sonuc = xmlExecutor.execute(config, sonuc);
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
@@ -613,6 +623,16 @@ public class MainPage extends javax.swing.JFrame {
 
                 try {
                     sonuc = constantExecutor.execute(config, null);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (inverseListModel.get(index) instanceof XMLConfig) {
+                XMLConfig config = (XMLConfig) inverseListModel.get(index);
+                XMLExecutor xmlExecutor = new XMLExecutor(printListModel);
+
+                try {
+                    sonuc = xmlExecutor.execute(config, null);
 
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);

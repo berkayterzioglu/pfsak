@@ -1,18 +1,11 @@
-package tr.net.terzioglu.pfsak;
+package tr.net.terzioglu.pfsak.module;
 
-import java.awt.Frame;
-import java.util.HashMap;
-import javax.swing.DefaultComboBoxModel;
+public class XMLConfigDialog extends javax.swing.JDialog {
 
-public class NewPipeLineDialog extends javax.swing.JDialog {
+    XMLConfig xmlc;
 
-    DefaultComboBoxModel combo;
-    private HashMap<String, Object[][]> profiller;
-
-    public NewPipeLineDialog(Frame frame, boolean bln, DefaultComboBoxModel combo, HashMap<String, Object[][]> profiller) {
-        super(frame, bln);
-        this.combo = combo;
-        this.profiller = profiller;
+    public XMLConfigDialog(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -20,12 +13,15 @@ public class NewPipeLineDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        newNameTextField = new javax.swing.JTextField();
+        xmlTextField = new javax.swing.JTextField();
+        xmlLabel = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("New Pipe Line");
+        setTitle("XML");
+
+        xmlLabel.setText("XPath:");
 
         okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -47,29 +43,32 @@ public class NewPipeLineDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(newNameTextField)
+                .addComponent(xmlLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(xmlTextField)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGap(71, 71, 71)
+                .addComponent(okButton)
+                .addGap(93, 93, 93)
+                .addComponent(cancelButton)
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(newNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(xmlLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(xmlTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
                     .addComponent(cancelButton))
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -79,22 +78,24 @@ public class NewPipeLineDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        // TODO add your handling code here:
-        if (newNameTextField != null) {
-            combo.addElement(newNameTextField.getText());
-            combo.setSelectedItem(newNameTextField.getText());
-            Object[][] configs = new Object[2][0]; // memory oluşturmam lazım
-            profiller.put(newNameTextField.getText(), configs);
-            setVisible(false);
-            dispose();
-        }
-
+        xmlc.setXMLdata(xmlTextField.getText());
+        xmlc.updateInverse();
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_okButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField newNameTextField;
     private javax.swing.JButton okButton;
+    private javax.swing.JLabel xmlLabel;
+    private javax.swing.JTextField xmlTextField;
     // End of variables declaration//GEN-END:variables
+
+    public void setXMLConfig(XMLConfig aThis) {
+        xmlc = aThis;
+        if (xmlc.getXMLdata() != null) {
+            xmlTextField.setText(xmlc.getXMLdata());
+        }
+    }
 }
