@@ -144,6 +144,7 @@ public class CopyPasteDialog extends javax.swing.JDialog {
         }
 
         profiller.put(selectedPaste, newConfigs);
+        ((MainPage)getParent()).updateList();
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void copyComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_copyComboBoxİtemStateChanged

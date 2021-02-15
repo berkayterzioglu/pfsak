@@ -625,15 +625,32 @@ public class MainPage extends javax.swing.JFrame {
 
     private void newProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProfileMenuItemActionPerformed
         // TODO add your handling code here:
-        NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) profileComboBox.getModel());
+        NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) profileComboBox.getModel(), profiller);
         newPipeLineDialog.setVisible(true);
+        updateList();
 
     }//GEN-LAST:event_newProfileMenuItemActionPerformed
+    public void updateList() {
+        profiller.get(currentProfil);
+        DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
+        DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
+        Object[][] configs = new Object[2][defaultListModel.size()];
+        defaultListModel.clear();
+        invereList.clear();
+        for (int index = 0; index < profiller.get(currentProfil)[0].length; index++) {
+            defaultListModel.addElement((profiller.get(currentProfil)[0][index]));
+        }
+        for (int index = 0; index < profiller.get(currentProfil)[1].length; index++) {
+            invereList.addElement((profiller.get(currentProfil)[1][index]));
+        }
+        runList.setModel(defaultListModel);
+        inverseList.setModel(invereList);
+
+    }
 
     private void profileComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_profileComboBoxItemStateChanged
         // TODO add your handling code here:
-        if (evt.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
-            currentProfil = (String) evt.getItem();
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
             DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
 
@@ -648,11 +665,10 @@ public class MainPage extends javax.swing.JFrame {
 
             profiller.put(currentProfil, configs);
 
-        } else if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             currentProfil = (String) evt.getItem();
-            DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
-            DefaultListModel invereList = (DefaultListModel) inverseList.getModel();
-            Object[][] configs = profiller.get(currentProfil);
+            defaultListModel = (DefaultListModel) runList.getModel();
+            invereList = (DefaultListModel) inverseList.getModel();
+            configs = profiller.get(currentProfil);
             defaultListModel.clear();
             invereList.clear();
             if (configs != null) {
@@ -795,7 +811,7 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         CopyPasteDialog copyPasteDialog = new CopyPasteDialog(this, true, profiller);
         copyPasteDialog.setVisible(true);
-        
+
     }//GEN-LAST:event_CopyMenuItemActionPerformed
 
     private void load(byte[] decripted) {
