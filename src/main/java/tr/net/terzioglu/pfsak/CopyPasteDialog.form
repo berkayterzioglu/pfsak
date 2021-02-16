@@ -27,27 +27,27 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="copyScrollPane" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="copyComboBox" min="-2" pref="155" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="copyLabel" pref="155" max="32767" attributes="0"/>
+                      <Component id="copyLabel" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="pasteLabel" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="pasteComboBox" min="-2" pref="155" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pasteComboBox" min="-2" pref="161" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-              <Component id="okButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+              <Component id="okButton" min="-2" pref="84" max="-2" attributes="0"/>
+              <EmptySpace pref="124" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,18 +60,18 @@
                       <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                       <Component id="copyLabel" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="copyComboBox" min="-2" max="-2" attributes="0"/>
+                  <Component id="copyComboBox" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="copyScrollPane" min="-2" pref="213" max="-2" attributes="0"/>
+              <Component id="copyScrollPane" pref="227" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="pasteComboBox" max="32767" attributes="0"/>
-                  <Component id="pasteLabel" max="32767" attributes="0"/>
+                  <Component id="pasteLabel" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="okButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

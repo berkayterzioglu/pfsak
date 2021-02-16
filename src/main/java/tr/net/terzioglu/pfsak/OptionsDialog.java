@@ -47,7 +47,6 @@ public class OptionsDialog extends javax.swing.JDialog {
         setTitle("Options");
 
         optionsButton.add(databaseButton);
-        databaseButton.setSelected(true);
         databaseButton.setText("Database");
 
         optionsButton.add(fileButton);
@@ -62,7 +61,8 @@ public class OptionsDialog extends javax.swing.JDialog {
         optionsButton.add(encryptButton);
         encryptButton.setText("Encrypt");
 
-        okButton.setText("OK");
+        okButton.setText("Ok");
+        okButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -84,6 +84,7 @@ public class OptionsDialog extends javax.swing.JDialog {
         urlButton.setText("URL");
 
         optionsButton.add(constantButton);
+        constantButton.setSelected(true);
         constantButton.setText("Constant data");
 
         optionsButton.add(xmlButton);
@@ -96,23 +97,20 @@ public class OptionsDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(encryptButton)
+                    .addComponent(fileButton)
+                    .addComponent(databaseButton)
+                    .addComponent(compressButton)
+                    .addComponent(encodeButton)
+                    .addComponent(regExButton)
+                    .addComponent(urlButton)
+                    .addComponent(constantButton)
+                    .addComponent(xmlButton)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(okButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                        .addComponent(cancelButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(encryptButton)
-                            .addComponent(fileButton)
-                            .addComponent(databaseButton)
-                            .addComponent(compressButton)
-                            .addComponent(encodeButton)
-                            .addComponent(regExButton)
-                            .addComponent(urlButton)
-                            .addComponent(constantButton)
-                            .addComponent(xmlButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,14 +133,14 @@ public class OptionsDialog extends javax.swing.JDialog {
                 .addComponent(urlButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(xmlButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
                     .addComponent(cancelButton))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(195, 328));
+        setSize(new java.awt.Dimension(196, 319));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
