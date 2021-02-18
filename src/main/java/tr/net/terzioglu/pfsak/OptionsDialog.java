@@ -7,6 +7,7 @@ import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
 import tr.net.terzioglu.pfsak.module.FileConfig;
+import tr.net.terzioglu.pfsak.module.JSONConfig;
 import tr.net.terzioglu.pfsak.module.RegExConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
 import tr.net.terzioglu.pfsak.module.URLConfig;
@@ -42,6 +43,7 @@ public class OptionsDialog extends javax.swing.JDialog {
         urlButton = new javax.swing.JRadioButton();
         constantButton = new javax.swing.JRadioButton();
         xmlButton = new javax.swing.JRadioButton();
+        jsoButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Options");
@@ -90,6 +92,9 @@ public class OptionsDialog extends javax.swing.JDialog {
         optionsButton.add(xmlButton);
         xmlButton.setText("XML extractor");
 
+        optionsButton.add(jsoButton);
+        jsoButton.setText("JSON extractor");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,7 +114,8 @@ public class OptionsDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jsoButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,14 +139,16 @@ public class OptionsDialog extends javax.swing.JDialog {
                 .addComponent(urlButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(xmlButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jsoButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
                     .addComponent(cancelButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
-        setSize(new java.awt.Dimension(196, 319));
+        setSize(new java.awt.Dimension(196, 344));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -172,6 +180,9 @@ public class OptionsDialog extends javax.swing.JDialog {
 
         } else if (xmlButton.isSelected()) {
             s = new XMLConfig();
+
+        } else if (jsoButton.isSelected()) {
+            s = new JSONConfig();
         }
         model.addElement(s);
         imodel.add(0, s.inverse());
@@ -195,6 +206,7 @@ public class OptionsDialog extends javax.swing.JDialog {
     private javax.swing.JRadioButton encodeButton;
     private javax.swing.JRadioButton encryptButton;
     private javax.swing.JRadioButton fileButton;
+    private javax.swing.JRadioButton jsoButton;
     private javax.swing.JButton okButton;
     private javax.swing.ButtonGroup optionsButton;
     private javax.swing.JRadioButton regExButton;
