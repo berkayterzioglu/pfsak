@@ -18,6 +18,7 @@ import tr.net.terzioglu.pfsak.module.DatabaseConfig;
 import tr.net.terzioglu.pfsak.module.EncodeConfig;
 import tr.net.terzioglu.pfsak.module.EncryptConfig;
 import tr.net.terzioglu.pfsak.module.FileConfig;
+import tr.net.terzioglu.pfsak.module.JSONConfig;
 import tr.net.terzioglu.pfsak.module.RegExConfig;
 import tr.net.terzioglu.pfsak.module.UIConfig;
 import tr.net.terzioglu.pfsak.module.URLConfig;
@@ -62,6 +63,7 @@ public class MainPage extends javax.swing.JFrame {
         newProfileMenuItem = new javax.swing.JMenuItem();
         deleteProfileMenuItem = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
+        RenameMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
@@ -226,7 +228,8 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(newProfileMenuItem);
 
-        deleteProfileMenuItem.setText("Delete...");
+        deleteProfileMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        deleteProfileMenuItem.setText("Delete");
         deleteProfileMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteProfileMenuItemActionPerformed(evt);
@@ -234,13 +237,17 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(deleteProfileMenuItem);
 
-        copyMenuItem.setText("Copy");
+        copyMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        copyMenuItem.setText("Copy...");
         copyMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 copyMenuItemActionPerformed(evt);
             }
         });
         profileMenu.add(copyMenuItem);
+
+        RenameMenuItem.setText("Rename...");
+        profileMenu.add(RenameMenuItem);
 
         menuBar.add(profileMenu);
 
@@ -435,6 +442,15 @@ public class MainPage extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else if (defaultListModel.get(index) instanceof JSONConfig) {
+                JSONConfig config = (JSONConfig) defaultListModel.get(index);
+                JSONExecutor jSONExecutor = new JSONExecutor(printListModel);
+
+                try {
+                    sonuc = jSONExecutor.execute(config, sonuc);
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
@@ -522,7 +538,9 @@ public class MainPage extends javax.swing.JFrame {
 
         } else {
             // If the user logs into the application for the first time.
-
+            for (ItemListener il : profileComboBox.getItemListeners()) {
+                profileComboBox.removeItemListener(il);
+            }
             DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
             DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
             DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
@@ -541,6 +559,11 @@ public class MainPage extends javax.swing.JFrame {
             NewPasswordDialog newPasswordDialog = new NewPasswordDialog(this, true);
             newPasswordDialog.setVisible(true);
             currentKey = newPasswordDialog.rs;
+            profileComboBox.addItemListener(new java.awt.event.ItemListener() {
+                public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                    profileComboBoxItemStateChanged(evt);
+                }
+            });
             saveMenuItemActionPerformed(null);
         }
     }//GEN-LAST:event_formWindowOpened
@@ -633,6 +656,16 @@ public class MainPage extends javax.swing.JFrame {
 
                 try {
                     sonuc = xmlExecutor.execute(config, null);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (inverseListModel.get(index) instanceof JSONConfig) {
+                JSONConfig config = (JSONConfig) inverseListModel.get(index);
+                JSONExecutor jSONExecutor = new JSONExecutor(printListModel);
+
+                try {
+                    sonuc = jSONExecutor.execute(config, null);
 
                 } catch (Exception ex) {
                     Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -930,6 +963,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem RenameMenuItem;
     private javax.swing.JMenuItem changePasswordMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem deleteProfileMenuItem;
