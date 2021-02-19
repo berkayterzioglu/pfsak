@@ -19,6 +19,7 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <classpathPrefix>dependency</classpathPrefix>
                             <addClasspath>true</addClasspath>
                             <mainClass>tr.net.terzioglu.pfsak.MainPage</mainClass>
                         </manifest>
