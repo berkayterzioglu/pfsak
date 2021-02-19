@@ -247,6 +247,11 @@ public class MainPage extends javax.swing.JFrame {
         profileMenu.add(copyMenuItem);
 
         RenameMenuItem.setText("Rename...");
+        RenameMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RenameMenuItemActionPerformed(evt);
+            }
+        });
         profileMenu.add(RenameMenuItem);
 
         menuBar.add(profileMenu);
@@ -458,6 +463,8 @@ public class MainPage extends javax.swing.JFrame {
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
 
+        DefaultListModel printListModel = (DefaultListModel) printScreenList.getModel();
+
         try {
             // serialization
             DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
@@ -482,6 +489,7 @@ public class MainPage extends javax.swing.JFrame {
 
             FileProcessor fileProcessor = new FileProcessor();
             fileProcessor.write(System.getProperty("user.home") + "/pfsak.configs", encripted);
+            printListModel.addElement("****** S A V E D ******");
         } catch (IOException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -868,6 +876,28 @@ public class MainPage extends javax.swing.JFrame {
         copyPasteDialog.setVisible(true);
 
     }//GEN-LAST:event_copyMenuItemActionPerformed
+
+    private void RenameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenameMenuItemActionPerformed
+        // TODO add your handling code here:
+        RenameProfile profile = new RenameProfile(this, true, profiller, currentProfil);
+        profile.setVisible(true);
+        DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
+
+        for (ItemListener il : profileComboBox.getItemListeners()) {
+            profileComboBox.removeItemListener(il);
+        }
+
+        boxModel.removeAllElements();
+        for (String profiladi : profiller.keySet()) {
+            boxModel.addElement(profiladi);
+        }
+        currentProfil = (String) boxModel.getElementAt(0);
+        profileComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                profileComboBoxItemStateChanged(evt);
+            }
+        });
+    }//GEN-LAST:event_RenameMenuItemActionPerformed
 
     private void load(byte[] decripted) {
         XStream xstream = new XStream();
