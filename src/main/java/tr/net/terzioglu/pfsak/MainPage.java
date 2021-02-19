@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -26,7 +28,7 @@ import tr.net.terzioglu.pfsak.module.XMLConfig;
 
 public class MainPage extends javax.swing.JFrame {
 
-    private HashMap<String, Object[][]> profiller = new HashMap<>();
+    private Map<String, Object[][]> profiller = new TreeMap<>();
     private String currentProfil;
     private byte[] currentKey;
 
@@ -882,7 +884,8 @@ public class MainPage extends javax.swing.JFrame {
         RenameProfile profile = new RenameProfile(this, true, profiller, currentProfil);
         profile.setVisible(true);
         DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
-
+        DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
+        DefaultListModel inverListModel = (DefaultListModel) inverseList.getModel();
         for (ItemListener il : profileComboBox.getItemListeners()) {
             profileComboBox.removeItemListener(il);
         }
@@ -892,6 +895,16 @@ public class MainPage extends javax.swing.JFrame {
             boxModel.addElement(profiladi);
         }
         currentProfil = (String) boxModel.getElementAt(0);
+        defaultListModel.clear();
+        inverListModel.clear();
+        Object[][] configs = profiller.get(currentProfil);
+        for (int index = 0; index < configs[0].length; index++) {
+            defaultListModel.addElement(configs[0][index]);
+        }
+        for (int index = 0; index < configs[1].length; index++) {
+            inverListModel.addElement(configs[1][index]);
+        }
+
         profileComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 profileComboBoxItemStateChanged(evt);
@@ -910,7 +923,7 @@ public class MainPage extends javax.swing.JFrame {
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        profiller = (HashMap<String, Object[][]>) xstream.fromXML(result);
+        profiller = (Map<String, Object[][]>) xstream.fromXML(result);
         for (ItemListener il : profileComboBox.getItemListeners()) {
             profileComboBox.removeItemListener(il);
         }

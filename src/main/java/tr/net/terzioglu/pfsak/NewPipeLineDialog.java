@@ -2,14 +2,15 @@ package tr.net.terzioglu.pfsak;
 
 import java.awt.Frame;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
 
 public class NewPipeLineDialog extends javax.swing.JDialog {
 
     DefaultComboBoxModel combo;
-    private HashMap<String, Object[][]> profiller;
+    private Map<String, Object[][]> profiller;
 
-    public NewPipeLineDialog(Frame frame, boolean bln, DefaultComboBoxModel combo, HashMap<String, Object[][]> profiller) {
+    public NewPipeLineDialog(Frame frame, boolean bln, DefaultComboBoxModel combo, Map<String, Object[][]> profiller) {
         super(frame, bln);
         this.combo = combo;
         this.profiller = profiller;

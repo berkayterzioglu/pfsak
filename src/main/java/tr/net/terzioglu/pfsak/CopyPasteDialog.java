@@ -1,6 +1,7 @@
 package tr.net.terzioglu.pfsak;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -13,9 +14,9 @@ public class CopyPasteDialog extends javax.swing.JDialog {
     DefaultComboBoxModel pasteCombo;
     DefaultListModel list;
 
-    private HashMap<String, Object[][]> profiller;
+    private Map<String, Object[][]> profiller;
 
-    public CopyPasteDialog(java.awt.Frame parent, boolean modal, HashMap<String, Object[][]> profiller) {
+    public CopyPasteDialog(java.awt.Frame parent, boolean modal, Map<String, Object[][]> profiller) {
         super(parent, modal);
         this.profiller = profiller;
         initComponents();
@@ -144,7 +145,7 @@ public class CopyPasteDialog extends javax.swing.JDialog {
         }
 
         profiller.put(selectedPaste, newConfigs);
-        ((MainPage)getParent()).updateList();
+        ((MainPage) getParent()).updateList();
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void copyComboBoxİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_copyComboBoxİtemStateChanged

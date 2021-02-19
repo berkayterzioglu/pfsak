@@ -1,15 +1,13 @@
 package tr.net.terzioglu.pfsak;
 
-import java.util.HashMap;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
+import java.util.Map;
 
 public class RenameProfile extends javax.swing.JDialog {
 
-    private HashMap<String, Object[][]> profiller;
+    private Map<String, Object[][]> profiller;
     private String currentProfil;
 
-    public RenameProfile(java.awt.Frame parent, boolean modal, HashMap<String, Object[][]> profiller, String currentProfil) {
+    public RenameProfile(java.awt.Frame parent, boolean modal, Map<String, Object[][]> profiller, String currentProfil) {
         super(parent, modal);
         this.currentProfil = currentProfil;
         this.profiller = profiller;
@@ -88,7 +86,7 @@ public class RenameProfile extends javax.swing.JDialog {
             Object[][] configs = profiller.get(currentProfil);
             profiller.put(renameTextField.getText(), configs);
             profiller.remove(currentProfil);
-            
+
             setVisible(false);
             dispose();
         }
