@@ -12,9 +12,7 @@ public class URLProcessor {
     public byte[] getURL(byte[] data, URLConfig config) throws Exception {
 
         URL url = new URL(config.getUrlAddress());
-
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
         return copyStream(connection);
 
     }
@@ -25,15 +23,12 @@ public class URLProcessor {
         int dataLength = data.length;
 
         URL url = new URL(config.getUrlAddress());
-
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setDoOutput(true);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", config.getContentType());
-//        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
         connection.getOutputStream().write(data);
         return copyStream(connection);
 
