@@ -150,13 +150,6 @@ public class URLConfigDialog extends javax.swing.JDialog {
             contentTypeTextField.setEnabled(true);
 
         }
-        if (typeComboBox.getSelectedIndex() == 1) {
-            variableTextField.setEnabled(true);
-
-        } else {
-            variableTextField.setEnabled(false);
-
-        }
     }//GEN-LAST:event_typeComboBoxActionPerformed
 
 

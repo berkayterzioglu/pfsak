@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import tr.net.terzioglu.pfsak.module.URLConfig;
 
 public class URLProcessor {
@@ -27,9 +28,13 @@ public class URLProcessor {
         connection.setInstanceFollowRedirects(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", config.getContentType());
-        connection.getOutputStream().write(config.getVariable().getBytes("UTF-8"));
-        connection.getOutputStream().write("=".getBytes());
-        connection.getOutputStream().write(data);
+
+        if (config.getVariable() != null && !config.getVariable().isEmpty()) {
+            connection.getOutputStream().write(config.getVariable().getBytes("UTF-8"));
+            connection.getOutputStream().write("=".getBytes());
+        }
+
+        connection.getOutputStream().write(URLEncoder.encode(new String(data), "ISO-8859-1").getBytes());
         return copyStream(connection);
 
     }
@@ -42,9 +47,14 @@ public class URLProcessor {
 
         connection.setDoOutput(true);
         connection.setInstanceFollowRedirects(true);
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod("PUT");
         connection.setRequestProperty("Content-Type", config.getContentType());
-        connection.getOutputStream().write(data);
+
+        if (config.getVariable() != null && !config.getVariable().isEmpty()) {
+            connection.getOutputStream().write(config.getVariable().getBytes("UTF-8"));
+            connection.getOutputStream().write("=".getBytes());
+        }
+        connection.getOutputStream().write(URLEncoder.encode(new String(data), "ISO-8859-1").getBytes());
         return copyStream(connection);
 
     }
