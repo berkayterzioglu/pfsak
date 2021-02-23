@@ -18,8 +18,6 @@ public class URLProcessor {
     }
 
     public byte[] postURL(byte[] data, URLConfig config) throws Exception {
-
-        data = config.getUrlAddress().getBytes("UTF-8");
         int dataLength = data.length;
 
         URL url = new URL(config.getUrlAddress());
@@ -29,6 +27,8 @@ public class URLProcessor {
         connection.setInstanceFollowRedirects(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", config.getContentType());
+        connection.getOutputStream().write(config.getVariable().getBytes("UTF-8"));
+        connection.getOutputStream().write("=".getBytes());
         connection.getOutputStream().write(data);
         return copyStream(connection);
 
