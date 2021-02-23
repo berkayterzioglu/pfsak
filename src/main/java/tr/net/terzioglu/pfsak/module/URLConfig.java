@@ -7,6 +7,7 @@ public class URLConfig extends ConfigBase implements UIConfig {
     private URLConfig inverse = null;
 
     private String urlAddress = null;
+    private String variable = null;
     private String contentType = null;
     private Type fileType = Type.GET;
 
@@ -29,6 +30,7 @@ public class URLConfig extends ConfigBase implements UIConfig {
             inverse = new URLConfig();
 
             inverse.urlAddress = urlAddress;
+            inverse.variable = variable;
             inverse.fileType = Type.GET;
             inverse.contentType = contentType;
 
@@ -39,6 +41,7 @@ public class URLConfig extends ConfigBase implements UIConfig {
     @Override
     public void updateInverse() {
         inverse.urlAddress = urlAddress;
+        inverse.variable = variable;
         inverse.fileType = Type.GET;
         inverse.contentType = contentType;
 
@@ -50,6 +53,7 @@ public class URLConfig extends ConfigBase implements UIConfig {
         clone.contentType = contentType;
         clone.fileType = fileType;
         clone.urlAddress = urlAddress;
+        clone.variable = variable;
         clone.inverse = inverse != null ? (URLConfig) inverse.clone() : null;
 
         return clone;
@@ -83,9 +87,17 @@ public class URLConfig extends ConfigBase implements UIConfig {
         this.fileType = fileType;
     }
 
+    public String getVariable() {
+        return variable;
+    }
+
+    public void setVariable(String variable) {
+        this.variable = variable;
+    }
+
     @Override
     public String toString() {
-        return "URLConfig{" + "urlAddress=" + urlAddress + ", contentType=" + contentType + ", fileType=" + fileType + '}';
+        return "URLConfig{" + "urlAddress=" + urlAddress + ", variable=" + variable + ", contentType=" + contentType + ", fileType=" + fileType + '}';
     }
 
 }

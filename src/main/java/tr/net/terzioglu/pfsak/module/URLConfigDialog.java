@@ -19,6 +19,8 @@ public class URLConfigDialog extends javax.swing.JDialog {
         contentTypeLabel = new javax.swing.JLabel();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        variableTextField = new javax.swing.JTextField();
+        variableLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("URL");
@@ -29,6 +31,11 @@ public class URLConfigDialog extends javax.swing.JDialog {
         typeLabel.setText("Type:");
 
         typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Get", "Post", "Put" }));
+        typeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeComboBoxActionPerformed(evt);
+            }
+        });
 
         contentTypeLabel.setText("Content-Type");
 
@@ -46,6 +53,8 @@ public class URLConfigDialog extends javax.swing.JDialog {
             }
         });
 
+        variableLabel.setText("Variable:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,7 +71,10 @@ public class URLConfigDialog extends javax.swing.JDialog {
                             .addComponent(contentTypeTextField)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(variableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(variableTextField))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(urlAddressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -85,7 +97,9 @@ public class URLConfigDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(variableTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(variableLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(contentTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -94,7 +108,7 @@ public class URLConfigDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
                     .addComponent(cancelButton))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -114,7 +128,7 @@ public class URLConfigDialog extends javax.swing.JDialog {
                 uc.setFileType(URLConfig.Type.PUT);
                 break;
         }
-
+        uc.setVariable(variableTextField.getText());
         uc.setUrlAddress(urlAddressTextField.getText());
         uc.setContentType(contentTypeTextField.getText());
         uc.updateInverse();
@@ -128,6 +142,23 @@ public class URLConfigDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void typeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeComboBoxActionPerformed
+        if (typeComboBox.getSelectedIndex() == 0) {
+            contentTypeTextField.setEnabled(false);
+
+        } else {
+            contentTypeTextField.setEnabled(true);
+
+        }
+        if (typeComboBox.getSelectedIndex() == 1) {
+            variableTextField.setEnabled(true);
+
+        } else {
+            variableTextField.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_typeComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
@@ -138,6 +169,8 @@ public class URLConfigDialog extends javax.swing.JDialog {
     private javax.swing.JLabel typeLabel;
     private javax.swing.JLabel urlAddressLabel;
     private javax.swing.JTextField urlAddressTextField;
+    private javax.swing.JLabel variableLabel;
+    private javax.swing.JTextField variableTextField;
     // End of variables declaration//GEN-END:variables
 
     URLConfig uc;
@@ -146,7 +179,9 @@ public class URLConfigDialog extends javax.swing.JDialog {
         uc = aThis;
 
         typeComboBox.setSelectedIndex(uc.getFileType().ordinal());
-
+        if (uc.getVariable() != null) {
+            variableTextField.setText(uc.getVariable());
+        }
         if (uc.getUrlAddress() != null) {
             urlAddressTextField.setText(uc.getUrlAddress());
         }

@@ -38,7 +38,10 @@
                           <Component id="contentTypeTextField" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="typeComboBox" min="-2" pref="109" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="variableLabel" min="-2" pref="78" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="variableTextField" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -71,6 +74,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="typeLabel" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="typeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="variableTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="variableLabel" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -82,7 +87,7 @@
                   <Component id="okButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,6 +115,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="typeComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -136,6 +144,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="variableTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="variableLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Variable:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
