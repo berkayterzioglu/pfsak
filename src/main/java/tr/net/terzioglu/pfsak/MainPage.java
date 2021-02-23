@@ -230,7 +230,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(newProfileMenuItem);
 
-        deleteProfileMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        deleteProfileMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         deleteProfileMenuItem.setText("Delete");
         deleteProfileMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +248,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(copyMenuItem);
 
+        RenameMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         RenameMenuItem.setText("Rename...");
         RenameMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -709,6 +710,8 @@ public class MainPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) profileComboBox.getModel(), profiller);
         newPipeLineDialog.setVisible(true);
+        DefaultListModel printListModel = (DefaultListModel) printScreenList.getModel();
+        printListModel.addElement("****** N E W   P R O F I L E   C R E A T E D ******");
         updateList();
 
     }//GEN-LAST:event_newProfileMenuItemActionPerformed
@@ -807,9 +810,14 @@ public class MainPage extends javax.swing.JFrame {
 
     private void deleteProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProfileMenuItemActionPerformed
         // TODO add your handling code here:
+        DefaultListModel printListModel = (DefaultListModel) printScreenList.getModel();
+        DefaultComboBoxModel boxModel = (DefaultComboBoxModel) profileComboBox.getModel();
+
         if (profiller.size() < 2) {
+            printListModel.addElement("****** I T   C A N ' T   B E   L E S S    T H A N   1   F I L E ******");
             return;
         }
+        printListModel.addElement("****** D E L E T E D ******");
         String toDelete = currentProfil;
         int index = profileComboBox.getSelectedIndex();
         DefaultListModel defaultListModel = (DefaultListModel) runList.getModel();
@@ -820,6 +828,8 @@ public class MainPage extends javax.swing.JFrame {
         profileComboBox.removeItemAt(index);
 
         profiller.remove(toDelete);
+        profileComboBox.setSelectedIndex(0);
+
     }//GEN-LAST:event_deleteProfileMenuItemActionPerformed
 
     private void upArrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upArrowButtonActionPerformed

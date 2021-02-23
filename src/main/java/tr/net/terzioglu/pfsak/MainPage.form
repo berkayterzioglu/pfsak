@@ -67,7 +67,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="deleteProfileMenuItem">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="DELETE"/>
+                  <KeyStroke key="Ctrl+D"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
@@ -88,6 +88,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="RenameMenuItem">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F2"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Rename..."/>
               </Properties>
               <Events>
