@@ -117,7 +117,7 @@ public class RegExConfigDialog extends javax.swing.JDialog {
             searchExpressionTextField.setText(rec.getSearch());
         }
         if (rec.getReplaceWord() != null) {
-            searchExpressionTextField.setText(rec.getReplaceWord());
+            replaceExpressionTextField.setText(rec.getReplaceWord());
         }
     }
 }
