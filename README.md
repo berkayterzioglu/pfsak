@@ -53,22 +53,27 @@ You have to double click on the processor on which you want to act from the list
 ### Compress Processor
 ![pfsak-compress-zip.png](assets/pfsak-compress-zip.png)
 ![pfsak-compress.png](assets/pfsak-compress.png)
+
 The compress processor can perform 3 different compress operations. These are XZ, GZip and Zip as seen in the picture. You do not need to give name while performing XZ and Gzip operations. However, you must nominate the file while performing the Zip process.
 
 ### Constant Processor
 ![pfsak-constant.png](assets/pfsak-constant.png)
+
 In the constant processor section, it allows you to directly write the data you want to process without having to read any files.
 
 ### Database Processor
 ![pfsak-database.png](assets/pfsak-database.png)
+
 At the database processor section, it allows you to “Select” and “Update” from whichever type you want. You are required to enter the extension you are using into the JDBC Driver section. In the picture you can see the example of PostgreSQL! The url section should be the url of your own database. After filling the sections about which column of which table, which kind of information you want to drag, your process is done. 
 
 ### Encode Processor
 ![pfsak-encode.png](assets/pfsak-encode.png)
+
 There are 3 encoding processes in the Encode processor part, these are "BASE64", "Hex to Bin" and "Uuencode". It will be enough to select the operation you want to do and click the Encode or Decode buttons.
 
 ### Encryption Processor
 ![pfsak-encryption.png](assets/pfsak-encryption.png)
+
 Encryption Processor section allows you to encrypt or decrypt your data. You have to enter the key you want to encrypt yourself.
 You must enter the correct length key:
 |  Encryption TYPE   | BYTE LENGTH | EXAMPLE KEY  |
@@ -79,21 +84,26 @@ You must enter the correct length key:
 
 ### File Processor
 ![pfsak-file.png](assets/pfsak-file.png)
+
 You can perform reading and writing operations in File Processor section. Make sure that you have written the correct target file or you can directly select the file by clicking the "…" section on the right.
 
 ### JSon Extractor Processor 
 ![pfsak-json.png](assets/pfsak-json.png)
+
 JSon Extractor Processor allows you to eliminate information from your data about Json. You can see the example in the picture. If you have a Json data exists  authors and their books, you can get "All authors" with the sample command in the picture.
 
 ### RegEx Processor (Regular Expression Processor)
 ![pfsak-regex.png](assets/pfsak-regex.png)
+
 RegEx Processor searches for the words you specified in your file and replaces them with the word you want.,
 
 ### URL Processor
-![pfsak-url-get.png](pfsak-url-get.png)
+![pfsak-url-get.png](assets/pfsak-url-get.png)
 ![pfsak-url-post.png](assets/pfsak-url-post.png)
+
 You can “Get”, “Post” and “Put” your data in URL Processor. Unlike other Types, you do not need to fill your "Content-Type" part in Get type.
 
 ### XML extractor Processor
 ![pfsak-xml.png](assets/pfsak-xml.png)
+
 The XML extractor Processor allows you to extract (eliminate) the necessary information from the XML file extension. Be sure you've entered the correct Xpath.
