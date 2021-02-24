@@ -18,7 +18,7 @@ After successfully passing the above stage, you will see the profile named "Defa
 
 ![pfsak_pic2.png](assets/pfsak_pic2.png)
 
-!!! Note: The element you add will be the inverse. e.g. For “CompressConfig” element, if "Compress" is marked in the list on the left, "Decompress" will be marked in the list on the right. 
+**The element you add will be the inverse. e.g. For “CompressConfig” element, if "Compress" is marked in the list on the left, "Decompress" will be marked in the list on the right.**
 
 **The system does not take inverse processing for RegEx, XML, JSON and URL.**
 
