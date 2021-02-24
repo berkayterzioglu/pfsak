@@ -12,22 +12,22 @@ PFSAK is a project that includes many necessary tools that an engineer can use a
 ## Initial execution
 If you are opening the application for the first time, you will be faced with the "Create password" window. If you wish, set a password, and save it somewhere to remember Pay attention to the upper-case and lower-case special characters in the password you have specified. If you forget the password, you will need to remove the "pfsak.configs" file from the computer. This means that the information you have saved in the program will be lost.
 
-![pfsak_pic1.png](assets/pfsak_pic1.png)
+![pfsak_pic1.png](assets/pfsak-pic1.png)
 
 After successfully passing the above stage, you will see the profile named "Default Profile" determined by us. You can add what you want to do by pressing the "+" button. You can see all the operations you can do from the picture on the right. These expressions will be added to the list at the top left as you add. When you list in the upper left part, you will see the opposite of this order in the list at the top right.  
 
-![pfsak_pic2.png](assets/pfsak_pic2.png)
+![pfsak_pic2.png](assets/pfsak-pic2.png)
 
 The processors you add will be the inverse. e.g. For “CompressConfig” processor, if "Compress" is marked in the list on the left, "Decompress" will be marked in the list on the right.
 
 **The system does not automatically generate inverse processing for RegEx, XML, JSON and URL.**
 
-![pfsak_pic3.png](assets/pfsak_pic3.png)
+![pfsak_pic3.png](assets/pfsak-pic3.png)
 
 ## Copy processors between profiles
 You can copy your data between profiles in the system. By click to Profiles -> Copy… section, the window which is at the right side will open. This window is where you place the copy process. The section that is indicated by red arrow points out the profile you want to copy, and the section that is indicated by blue arrow points out where you copy. That panel shows the information of profile that is selected by red. This is enough for copying a profile. If you want to copy more than an processor in profile, you can select processors holding down CTRL key without any space between them.
 
-![pfsak_pic4.png](assets/pfsak_pic4.png)
+![pfsak_pic4.png](assets/pfsak-pic4.png)
 
 ## Change current password
 If you want to change the current password. The path you have to follow is that: Password -> Change… Here, you must first verify your old password. As soon as this process is completed successfully, the screen where you can change your password will appear. In order for the password change to take place, the passwords you wrote in both TextFields must match each other, otherwise you cannot click the "Ok" button.
