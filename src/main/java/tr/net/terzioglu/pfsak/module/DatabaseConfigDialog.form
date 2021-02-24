@@ -50,8 +50,8 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="passwordTextField" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tableTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="tableTextField" max="32767" attributes="0"/>
+                          <Component id="passwordField" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -103,7 +103,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="passwordLabel" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="passwordTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="passwordField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -167,8 +167,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="userTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="passwordTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="tableTextField">
       <Events>
@@ -235,6 +233,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Type:"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="passwordField">
     </Component>
   </SubComponents>
 </Form>

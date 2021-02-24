@@ -20,7 +20,6 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
         columnLabel = new javax.swing.JLabel();
         whereLabel = new javax.swing.JLabel();
         userTextField = new javax.swing.JTextField();
-        passwordTextField = new javax.swing.JTextField();
         tableTextField = new javax.swing.JTextField();
         columnTextField = new javax.swing.JTextField();
         whereTextField = new javax.swing.JTextField();
@@ -32,6 +31,7 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
         jdbcDriverTextField = new javax.swing.JTextField();
         typeComboBox = new javax.swing.JComboBox<>();
         typeLabel = new javax.swing.JLabel();
+        passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Database");
@@ -104,8 +104,8 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
                             .addComponent(tableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordTextField)
-                            .addComponent(tableTextField)))
+                            .addComponent(tableTextField)
+                            .addComponent(passwordField)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(columnLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
@@ -144,7 +144,7 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,7 +198,7 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
         dc.setWhere(whereTextField.getText());
         dc.setColumn(columnTextField.getText());
         dc.setTable(tableTextField.getText());
-        dc.setPassword(passwordTextField.getText());
+        dc.setPassword(passwordField.getPassword().toString());
         dc.setUser(userTextField.getText());
         dc.setUrl(urlTextArea.getText());
         dc.setDriverName(jdbcDriverTextField.getText());
@@ -215,8 +215,8 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jdbcDriverLabel;
     private javax.swing.JTextField jdbcDriverTextField;
     private javax.swing.JButton okButton;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JTextField passwordTextField;
     private javax.swing.JLabel tableLabel;
     private javax.swing.JTextField tableTextField;
     private javax.swing.JComboBox<String> typeComboBox;
@@ -245,7 +245,7 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
             tableTextField.setText(dc.getTable());
         }
         if (dc.getPassword() != null) {
-            passwordTextField.setText(dc.getPassword());
+            passwordField.setText(dc.getPassword());
         }
         if (dc.getUser() != null) {
             userTextField.setText(dc.getUser());
