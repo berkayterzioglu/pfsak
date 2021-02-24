@@ -76,7 +76,7 @@ In the constant processor section, it allows you to directly write the data you 
 ### Database Processor
 ![pfsak-database.png](assets/pfsak-database.png)
 
-At the database processor section, it allows you to “Select” and “Update” from whichever type you want. You are required to enter the extension you are using into the JDBC Driver section. In the picture you can see the example of PostgreSQL! The url section should be the url of your own database. After filling the sections about which column of which table, which kind of information you want to drag, your process is done. 
+At the database processor section, it allows you to “Select” and “Update” from whichever type you want. You are required to enter the extension you are using into the JDBC Driver section. In the picture you can see the example of PostgreSQL! The url section should be the url of your own database. When you fill out the parts that indicate what type of data that needs to be retrieved from which table's column the process is over.
 
 ### Encode Processor
 ![pfsak-encode.png](assets/pfsak-encode.png)
