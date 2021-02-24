@@ -18,14 +18,14 @@ After successfully passing the above stage, you will see the profile named "Defa
 
 ![pfsak_pic2.png](assets/pfsak_pic2.png)
 
-**The element you add will be the inverse. e.g. For “CompressConfig” element, if "Compress" is marked in the list on the left, "Decompress" will be marked in the list on the right.**
+The processors you add will be the inverse. e.g. For “CompressConfig” processor, if "Compress" is marked in the list on the left, "Decompress" will be marked in the list on the right.
 
-**The system does not take inverse processing for RegEx, XML, JSON and URL.**
+**The system does not automatically generate inverse processing for RegEx, XML, JSON and URL.**
 
 ![pfsak_pic3.png](assets/pfsak_pic3.png)
 
 ## Copy processors between profiles
-You can copy your data between profiles in the system. By click to Profiles -> Copy… section, the window which is at the right side will open. This window is where you place the copy process. The section that is indicated by red arrow points out the profile you want to copy, and the section that is indicated by blue arrow points out where you copy. That panel shows the information of profile that is selected by red. This is enough for copying a profile. If you want to copy more than an element in profile, you can select elements holding down CTRL key without any space between them.
+You can copy your data between profiles in the system. By click to Profiles -> Copy… section, the window which is at the right side will open. This window is where you place the copy process. The section that is indicated by red arrow points out the profile you want to copy, and the section that is indicated by blue arrow points out where you copy. That panel shows the information of profile that is selected by red. This is enough for copying a profile. If you want to copy more than an processor in profile, you can select processors holding down CTRL key without any space between them.
 
 ![pfsak_pic4.png](assets/pfsak_pic4.png)
 
@@ -40,10 +40,10 @@ When you click the "Run >>" button after making all the necessary additions, the
 |:-------:| -----:|
 | Create new profile  | **CTRL + N**      |
 | Delete profile   | **CTRL + D**    |
-| If you want to copy the elements from the profile to another profile     | **CTRL + C**   |
+| If you want to copy the processors from the profile to another profile     | **CTRL + C**   |
 | Rename profile    | **F2**  |
 | Save    | **CTRL + S**  |
 | Exit    | **ALT + F4**  |
-| Add a new element to profile    | **+**  |
-| Delete existing element in profile    | **-**  |
+| Add a new processor to profile    | **+**  |
+| Delete existing processor in profile    | **-**  |
  
