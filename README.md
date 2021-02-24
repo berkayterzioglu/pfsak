@@ -7,6 +7,18 @@ PFSAK is a project that includes many necessary tools that an engineer can use a
   - [Change current password](#Change-current-password)
   - [Run profile](#Run-profile)
   - [Keyboard shortcuts](#Keyboard-shortcuts)
+  - [Processors](#Processors)
+  - [Compress Processor](#Compress-Processor)
+  - [Constant Processor](#Constant-Processor)
+  - [Database Processor](#Database-Processor)
+  - [Encode Processor](#Encode-Processor)
+  - [Encryption Processor](#Encryption-Processor)
+  - [File Processor](#File-Processor)
+  - [JSon Extractor Processor](#Json-Extractor-Processor)
+  - [RegEx Processor (Regular Expression Processor)](#RegEx-Processor-(Regular-Expression-Processor))
+  - [URL Processor](#URL-Processor)
+  - [XML extractor Processor](#XML-extractor-Processor)
+
 
 
 ## Initial execution
