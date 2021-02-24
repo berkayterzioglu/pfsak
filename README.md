@@ -3,10 +3,10 @@ PFSAK is a project that includes many necessary tools that an engineer can use a
 
 ## How to use PFSAK app?
   - [Initial execution](#Initial-execution)
+  - [Copy processors between profiles](#Copy-processors-between-profiles)
   - [Change current password](#Change-current-password)
-  - [How to use Copy Event? ](#How-to-use-Copy-Event? )
-  - [How to change current password?](#How-to-change-current-password?)
-  - [How do I run the program?](#How-do-I-run-the-program?)
+  - [Run profile](#Run-profile)
+  - [Keyboard shortcuts](#Keyboard-shortcuts)
 
 
 ## Initial execution
@@ -23,7 +23,7 @@ After successfully passing the above stage, you will see the profile named "Defa
 
 ![pfsak_pic3.png](assets/pfsak_pic3.png)
 
-## How to use Copy Event? 
+## Copy processors between profiles
 You can copy your data between profiles in the system. By click to Profiles -> Copy… section, the window which is at the right side will open. This window is where you place the copy process. The section that is indicated by red arrow points out the profile you want to copy, and the section that is indicated by blue arrow points out where you copy. That panel shows the information of profile that is selected by red. This is enough for copying a profile. If you want to copy more than an element in profile, you can select elements holding down CTRL key without any space between them.
 
 ![pfsak_pic4.png](assets/pfsak_pic4.png)
@@ -31,10 +31,10 @@ You can copy your data between profiles in the system. By click to Profiles -> C
 ## Change current password
 If you want to change the current password. The path you have to follow is that: Password -> Change… Here, you must first verify your old password. As soon as this process is completed successfully, the screen where you can change your password will appear. In order for the password change to take place, the passwords you wrote in both TextFields must match each other, otherwise you cannot click the "Ok" button.
 
-## How do I run the program?
+## Run profile
 When you click the "Run >>" button after making all the necessary additions, the application will run, and it will give you the necessary outputs. The "Inverse <<" button represents the opposite of the operations performed under the "Run >>" button. You can check whether the program is running or not from the "Print -->" section below. If there is no printout in this part, the system has not worked properly and will not give output to you.
 
-## How to use the window?
+## Keyboard shortcuts
 |  Action   |  Shortcut  |
 |:-------:| -----:|
 | Create new profile  | **CTRL + N**      |
