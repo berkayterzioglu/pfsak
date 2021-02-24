@@ -169,9 +169,6 @@
     <Component class="javax.swing.JTextField" name="userTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="tableTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tableTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="columnTextField">
     </Component>

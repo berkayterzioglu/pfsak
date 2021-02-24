@@ -48,12 +48,6 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
 
         whereLabel.setText("Where:");
 
-        tableTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tableTextFieldActionPerformed(evt);
-            }
-        });
-
         okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,10 +164,6 @@ public class DatabaseConfigDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tableTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tableTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tableTextFieldActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
