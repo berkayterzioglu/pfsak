@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -65,7 +64,7 @@ public class MainPage extends javax.swing.JFrame {
         newProfileMenuItem = new javax.swing.JMenuItem();
         deleteProfileMenuItem = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
-        RenameMenuItem = new javax.swing.JMenuItem();
+        renameMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Page");
@@ -248,14 +247,14 @@ public class MainPage extends javax.swing.JFrame {
         });
         profileMenu.add(copyMenuItem);
 
-        RenameMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        RenameMenuItem.setText("Rename...");
-        RenameMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        renameMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        renameMenuItem.setText("Rename...");
+        renameMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RenameMenuItemActionPerformed(evt);
+                renameMenuItemActionPerformed(evt);
             }
         });
-        profileMenu.add(RenameMenuItem);
+        profileMenu.add(renameMenuItem);
 
         menuBar.add(profileMenu);
 
@@ -708,10 +707,10 @@ public class MainPage extends javax.swing.JFrame {
 
     private void newProfileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProfileMenuItemActionPerformed
         // TODO add your handling code here:
-        NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) profileComboBox.getModel(), profiller);
-        newPipeLineDialog.setVisible(true);
         DefaultListModel printListModel = (DefaultListModel) printScreenList.getModel();
-        printListModel.addElement("****** N E W   P R O F I L E   C R E A T E D ******");
+
+        NewPipeLineDialog newPipeLineDialog = new NewPipeLineDialog(this, true, (DefaultComboBoxModel) profileComboBox.getModel(), profiller, printListModel);
+        newPipeLineDialog.setVisible(true);
         updateList();
 
     }//GEN-LAST:event_newProfileMenuItemActionPerformed
@@ -889,7 +888,7 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_copyMenuItemActionPerformed
 
-    private void RenameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RenameMenuItemActionPerformed
+    private void renameMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renameMenuItemActionPerformed
         // TODO add your handling code here:
         RenameProfile profile = new RenameProfile(this, true, profiller, currentProfil);
         profile.setVisible(true);
@@ -920,7 +919,7 @@ public class MainPage extends javax.swing.JFrame {
                 profileComboBoxItemStateChanged(evt);
             }
         });
-    }//GEN-LAST:event_RenameMenuItemActionPerformed
+    }//GEN-LAST:event_renameMenuItemActionPerformed
 
     private void load(byte[] decripted) {
         XStream xstream = new XStream();
@@ -1016,7 +1015,6 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem RenameMenuItem;
     private javax.swing.JMenuItem changePasswordMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem deleteProfileMenuItem;
@@ -1036,6 +1034,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane printScreenScrollPane;
     private javax.swing.JComboBox<String> profileComboBox;
     private javax.swing.JMenu profileMenu;
+    private javax.swing.JMenuItem renameMenuItem;
     private javax.swing.JList<String> runList;
     private javax.swing.JButton runPipeLineButton;
     private javax.swing.JScrollPane runScrollPane;

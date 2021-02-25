@@ -1,19 +1,21 @@
 package tr.net.terzioglu.pfsak;
 
 import java.awt.Frame;
-import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 public class NewPipeLineDialog extends javax.swing.JDialog {
 
     DefaultComboBoxModel combo;
+    DefaultListModel printListModel;
     private Map<String, Object[][]> profiller;
 
-    public NewPipeLineDialog(Frame frame, boolean bln, DefaultComboBoxModel combo, Map<String, Object[][]> profiller) {
+    public NewPipeLineDialog(Frame frame, boolean bln, DefaultComboBoxModel combo, Map<String, Object[][]> profiller, DefaultListModel printListModel) {
         super(frame, bln);
         this.combo = combo;
         this.profiller = profiller;
+        this.printListModel = printListModel;
         initComponents();
     }
 
@@ -84,8 +86,9 @@ public class NewPipeLineDialog extends javax.swing.JDialog {
         if (newNameTextField != null) {
             combo.addElement(newNameTextField.getText());
             combo.setSelectedItem(newNameTextField.getText());
-            Object[][] configs = new Object[2][0]; // memory oluşturmam lazım
+            Object[][] configs = new Object[2][0]; 
             profiller.put(newNameTextField.getText(), configs);
+            printListModel.addElement("****** N E W   P R O F I L E   C R E A T E D ******");
             setVisible(false);
             dispose();
         }
