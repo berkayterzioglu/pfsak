@@ -8,16 +8,17 @@ PFSAK is a project that includes many necessary tools that an engineer can use a
   - [Run profile](#Run-profile)
   - [Keyboard shortcuts](#Keyboard-shortcuts)
   - [Processors](#Processors)
-    * [Compress Processor](#Compress-Processor)
     * [Constant Processor](#Constant-Processor)
     * [Database Processor](#Database-Processor)
+    * [File Processor](#File-Processor)
+    * [Compress Processor](#Compress-Processor)
     * [Encode Processor](#Encode-Processor)
     * [Encryption Processor](#Encryption-Processor)
-    * [File Processor](#File-Processor)
-    * [JSon Extractor Processor](#Json-Extractor-Processor)
     * [RegEx Processor (Regular Expression Processor)](#RegEx-Processor-(Regular-Expression-Processor))
     * [URL Processor](#URL-Processor)
     * [XML extractor Processor](#XML-extractor-Processor)
+    * [JSon Extractor Processor](#Json-Extractor-Processor)
+
 
 
 
@@ -62,12 +63,6 @@ When you click the "Run >>" button after making all the necessary additions, the
 ## Processors
 You have to double click on the processor on which you want to act from the listing on the left or right.
 
-### Compress Processor
-![pfsak-compress-zip.png](assets/pfsak-compress-zip.png)
-![pfsak-compress.png](assets/pfsak-compress.png)
-
-The compress processor can perform 3 different compress operations. These are XZ, GZip and Zip as seen in the picture. You do not need to give name while performing XZ and Gzip operations. However, you must nominate the file while performing the Zip process.
-
 ### Constant Processor
 ![pfsak-constant.png](assets/pfsak-constant.png)
 
@@ -77,6 +72,17 @@ In the constant processor section, it allows you to directly write the data you 
 ![pfsak-database.png](assets/pfsak-database.png)
 
 At the database processor section, it allows you to “Select” and “Update” from whichever type you want. You are required to enter the extension you are using into the JDBC Driver section. In the picture you can see the example of PostgreSQL! The url section should be the url of your own database. When you fill out the parts that indicate what type of data that needs to be retrieved from which table's column the process is over.
+
+### File Processor
+![pfsak-file.png](assets/pfsak-file.png)
+
+You can perform reading and writing operations in File Processor section. Make sure that you have written the correct target file or you can directly select the file by clicking the "…" section on the right.
+
+### Compress Processor
+![pfsak-compress-zip.png](assets/pfsak-compress-zip.png)
+![pfsak-compress.png](assets/pfsak-compress.png)
+
+The compress processor can perform 3 different compress operations. These are XZ, GZip and Zip as seen in the picture. You do not need to give name while performing XZ and Gzip operations. However, you must nominate the file while performing the Zip process.
 
 ### Encode Processor
 ![pfsak-encode.png](assets/pfsak-encode.png)
@@ -94,16 +100,6 @@ You must enter the correct length key:
 | DES key value | 8 byte | aoeG4Rz00R8= | 
 | 3DES key value | 24 byte | 0qRNUAK7jgGdbxVWa8PjY55N6jDZKAjG | 
 
-### File Processor
-![pfsak-file.png](assets/pfsak-file.png)
-
-You can perform reading and writing operations in File Processor section. Make sure that you have written the correct target file or you can directly select the file by clicking the "…" section on the right.
-
-### JSon Extractor Processor 
-![pfsak-json.png](assets/pfsak-json.png)
-
-JSon Extractor Processor allows you to eliminate information from your data about Json. You can see the example in the picture. If you have a Json data exists  authors and their books, you can get "All authors" with the sample command in the picture.
-
 ### RegEx Processor (Regular Expression Processor)
 ![pfsak-regex.png](assets/pfsak-regex.png)
 
@@ -119,3 +115,10 @@ You can “Get”, “Post” and “Put” your data in URL Processor. Unlike o
 ![pfsak-xml.png](assets/pfsak-xml.png)
 
 The XML extractor Processor allows you to extract (eliminate) the necessary information from the XML file extension. Be sure you've entered the correct Xpath.
+
+### JSon Extractor Processor 
+![pfsak-json.png](assets/pfsak-json.png)
+
+JSon Extractor Processor allows you to eliminate information from your data about Json. You can see the example in the picture. If you have a Json data exists  authors and their books, you can get "All authors" with the sample command in the picture.
+
+
