@@ -1,5 +1,5 @@
 # PFSAK (Programmers File Swiss Army Knife)
-PFSAK is a project that includes many necessary tools that an engineer can use and provides the simplest use.
+PFSAK is a project that includes many necessary tools for a software engineer can use and provides the simplest use.
 
 ## How to use PFSAK app?
   - [Initial execution](#Initial-execution)
